@@ -1,10 +1,13 @@
 #pragma once
 
 #include <vector>
+#include <memory>
+#include "component_type.hpp"
 #include "component.hpp"
 
 struct Entity {
-	std::vector<Component> components;
+	std::vector<std::unique_ptr<Component>> components;
 
-	Component GetComponent // TODO: How do we make this GetComponent<T>?
+	void AddComponent(std::unique_ptr<Component> &component);
+	Component* GetComponent(ComponentType type);
 };

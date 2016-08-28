@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <memory>
 
 #include "app.hpp"
 #include "screen.hpp"
@@ -16,18 +17,23 @@ void App::Init() {
 	window = SDL_CreateWindow("Hello", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 320, 568, 0);
 	renderer = SDL_CreateRenderer(window, -1, 0);
 
-	Screen mainScreen;
+	std::unique_ptr<Screen> mainScreen = std::make_unique<Screen>();
 
-	DrawSystem drawSystem;
-	mainScreen.AddSystem(drawSystem);
+	std::unique_ptr<System> drawSystem = std::make_unique<DrawSystem>();
+	drawSystem->type = 1;
 
-	Entity testEntity;
-	SpriteComponent spriteComponent(12, 12, 30, 30);
-	testEntity.components.push_back(spriteComponent);
+	mainScreen->AddSystem(drawSystem);
 
-	mainScreen.AddEntity(testEntity);
+	for (int i = 0; i < 5; ++i) {
+		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
+		std::unique_ptr<Component> spriteComponent = std::make_unique<SpriteComponent>(0, (i * 32) + i, 32, 32);
+		spriteComponent->type = 1;
 
-	screens.push_back(mainScreen);
+		entity->AddComponent(spriteComponent);
+		mainScreen->AddEntity(entity);
+	}
+
+	screens.push_back(std::move(mainScreen));
 }
 
 void App::Start() {
@@ -52,7 +58,7 @@ void App::Start() {
 
 void App::Update() {
 	for(auto &screen : screens) {
-		screen.Update();
+		screen->Update();
 	}
 }
 
@@ -60,7 +66,7 @@ void App::Render() {
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(renderer);
 	for (auto &screen : screens) {
-		screen.Render(renderer);
+		screen->Render(renderer);
 	}
 	SDL_RenderPresent(renderer);
 }

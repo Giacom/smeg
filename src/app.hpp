@@ -9,7 +9,7 @@ struct App {
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 
-	std::vector<Screen> screens;
+	std::vector<std::unique_ptr<Screen>> screens;
 
 	~App();
 	void Init();
