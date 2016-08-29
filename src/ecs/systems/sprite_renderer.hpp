@@ -5,7 +5,7 @@
 #include "../entity.hpp"
 #include "../system.hpp"
 
-struct DrawSystem: public System {
+struct SpriteRenderer: public System {
 	void Process(Entity &entity);
 	void Render(SDL_Renderer *renderer, Entity &entity);
 };

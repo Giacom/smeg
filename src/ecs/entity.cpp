@@ -9,7 +9,7 @@ void Entity::AddComponent(std::unique_ptr<Component> &component) {
 	components.push_back(std::move(component));
 }
 
-Component* Entity::GetComponent(ComponentType type) {
+Component* Entity::GetBaseComponent(ComponentType type) {
 	for(auto &component : components) {
 		if (component->type == type) {
 			return component.get();
