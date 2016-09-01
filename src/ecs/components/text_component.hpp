@@ -3,11 +3,8 @@
 #include <SDL/SDL_ttf.h>
 #include <string>
 #include "../component.hpp"
-#include "../component_type.hpp"
 
 struct TextComponent: public Component {
-
-	static ComponentType type;
 
 	int x;
 	int y;

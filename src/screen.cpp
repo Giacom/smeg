@@ -1,4 +1,6 @@
 #include <memory>
+#include <typeindex>
+#include <iostream>
 
 #include "screen.hpp"
 #include "ecs/system.hpp"
@@ -14,24 +16,20 @@ void Screen::AddEntity(std::unique_ptr<Entity> &entity) {
 }
 
 void Screen::Update() {
-	for (auto &entity : entities) {
-		for (auto &component : entity->components) {
-			for (auto &system : systems) {
-				if (component->type == system->type) {
-					system->Process(*entity);
-				}
+	for (auto &system : systems) {
+		for (auto &entity : entities) {
+			if (entity->components.count(system->type)) {
+				system->Process(*entity);
 			}
 		}
 	}
 }
 
 void Screen::Render(SDL_Renderer *renderer) {
-	for (auto &entity : entities) {
-		for (auto &component : entity->components) {
-			for (auto &system : systems) {
-				if (component->type == system->type) {
-					system->Render(renderer, *entity);
-				}
+	for (auto &system : systems) {
+		for (auto &entity : entities) {
+			if (entity->components.count(system->type)) {
+				system->Render(renderer, *entity);
 			}
 		}
 	}

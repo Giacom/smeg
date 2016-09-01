@@ -1,8 +1,12 @@
 #include <SDL2/SDL.h>
+#include <typeinfo>
+#include <typeindex>
 
 #include "system.hpp"
 #include "entity.hpp"
-#include "component_type.hpp"
+
+System::System() : type(std::type_index(typeid(void))) {
+}
 
 void System::Process(Entity &entity) {
 

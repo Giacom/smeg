@@ -1,19 +1,16 @@
 
+#include <memory>
+#include <typeinfo>
+#include <typeindex>
+#include <iostream>
+
 #include "entity.hpp"
 #include "component.hpp"
-#include "component_type.hpp"
+#include "components/sprite_component.hpp"
+#include "components/text_component.hpp"
 
-#include <memory>
 
 void Entity::AddComponent(std::unique_ptr<Component> &component) {
-	components.push_back(std::move(component));
-}
-
-Component* Entity::GetBaseComponent(ComponentType type) {
-	for(auto &component : components) {
-		if (component->type == type) {
-			return component.get();
-		}
-	}
-	return nullptr;
-}
+	auto type = std::type_index(typeid(*component));
+	components[type] = std::move(component);
+ }

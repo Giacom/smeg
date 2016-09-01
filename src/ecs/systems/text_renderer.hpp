@@ -6,6 +6,7 @@
 #include "../system.hpp"
 
 struct TextRenderer: public System {
+	TextRenderer();
 	void Process(Entity &entity);
 	void Render(SDL_Renderer *renderer, Entity &entity);
 };

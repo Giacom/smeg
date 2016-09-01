@@ -12,7 +12,7 @@ CXX = clang++
 ifeq ($(OS),Windows_NT)
 	CXX = g++ # Should be GCC compatible
 endif
-CXXFLAGS = -g -Wall -Werror -std=c++14
+CXXFLAGS = -g -Wall -Wno-potentially-evaluated-expression -Werror -std=c++14
 
 .PHONY: default all clean run
 

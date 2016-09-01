@@ -1,10 +1,15 @@
 #include <SDL2/SDL.h>
 #include <memory>
+#include <iostream>
 
 #include "sprite_renderer.hpp"
 #include "../system.hpp"
 #include "../entity.hpp"
 #include "../components/sprite_component.hpp"
+
+SpriteRenderer::SpriteRenderer() {
+	type = std::type_index(typeid(SpriteComponent));
+}
 
 void SpriteRenderer::Process(Entity &entity) {
 
@@ -12,8 +17,8 @@ void SpriteRenderer::Process(Entity &entity) {
 
 void SpriteRenderer::Render(SDL_Renderer *renderer, Entity &entity) {
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0x0, 0x0, 0xFF);
-	SpriteComponent *spriteComponent = entity.GetComponent<SpriteComponent>();
 
+	SpriteComponent *spriteComponent = entity.GetComponent<SpriteComponent>();
 	const SDL_Rect rect = SDL_Rect { spriteComponent->x, spriteComponent->y, spriteComponent->w, spriteComponent->h };
 	SDL_RenderFillRect(renderer, &rect);
 }

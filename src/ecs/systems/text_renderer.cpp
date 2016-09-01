@@ -7,6 +7,10 @@
 #include "../entity.hpp"
 #include "../components/text_component.hpp"
 
+TextRenderer::TextRenderer() {
+	type = std::type_index(typeid(TextComponent));
+}
+
 void TextRenderer::Process(Entity &entity) {}
 
 void TextRenderer::Render(SDL_Renderer *renderer, Entity &entity) {

@@ -32,18 +32,16 @@ void App::Init() {
 
 	// Systems
 	std::unique_ptr<System> drawSystem = std::make_unique<SpriteRenderer>();
-	drawSystem->type = 1; // TODO: Replace this with something else, maybe type
 	mainScreen->AddSystem(drawSystem);
 
 	std::unique_ptr<System> textDrawSystem = std::make_unique<TextRenderer>();
-	textDrawSystem->type = 2;
 	mainScreen->AddSystem(textDrawSystem);
 
 
 
 	// Components
 	{
-		auto entity = std::make_unique<Entity>();
+		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
 
 		TTF_Font *font = TTF_OpenFont("res/arial.ttf", 24);
 		if (!font) {
@@ -53,7 +51,6 @@ void App::Init() {
 		}
 
 		std::unique_ptr<Component> textComponent = std::make_unique<TextComponent>(20, 10, std::string("Hello world!"), font);
-		textComponent->type = 2;
 
 		entity->AddComponent(textComponent);
 		mainScreen->AddEntity(entity);
@@ -62,7 +59,6 @@ void App::Init() {
 	for (int i = 0; i < 5; ++i) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
 		std::unique_ptr<Component> spriteComponent = std::make_unique<SpriteComponent>(0, (i * 32) + i, 32, 32);
-		spriteComponent->type = 1; // TODO And this
 
 		entity->AddComponent(spriteComponent);
 		mainScreen->AddEntity(entity);
