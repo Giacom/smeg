@@ -4,12 +4,14 @@
 #include <vector>
 
 #include "screen.hpp"
+#include "service/service_container.hpp"
 
 struct App {
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 
 	std::vector<std::unique_ptr<Screen>> screens;
+	ServiceContainer serviceContainer;
 
 	~App();
 	void Init();

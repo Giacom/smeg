@@ -15,6 +15,6 @@ struct Entity {
 
 	template<typename T>
 	T* GetComponent() {
-			return dynamic_cast<T*>(components[std::type_index(typeid(T))].get());
+		return dynamic_cast<T*>(components[std::type_index(typeid(T))].get());
 	}
 };

@@ -5,9 +5,10 @@
 
 #include "app.hpp"
 #include "screen.hpp"
+#include "service/texture_library.hpp"
 #include "ecs/systems/sprite_renderer.hpp"
 #include "ecs/systems/text_renderer.hpp"
-#include "ecs/components/sprite_component.hpp"
+#include "ecs/components/sprite.hpp"
 #include "ecs/components/text_component.hpp"
 
 App::~App() {
@@ -28,6 +29,10 @@ void App::Init() {
 	window = SDL_CreateWindow("Hello", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 320, 568, 0);
 	renderer = SDL_CreateRenderer(window, -1, 0);
 
+	// Services
+	std::unique_ptr<Service> textureLibrary = std::make_unique<TextureLibrary>();
+	serviceContainer.Provide<TextureLibrary>(textureLibrary);
+
 	std::unique_ptr<Screen> mainScreen = std::make_unique<Screen>();
 
 	// Systems
@@ -36,7 +41,6 @@ void App::Init() {
 
 	std::unique_ptr<System> textDrawSystem = std::make_unique<TextRenderer>();
 	mainScreen->AddSystem(textDrawSystem);
-
 
 
 	// Components
@@ -58,9 +62,9 @@ void App::Init() {
 
 	for (int i = 0; i < 5; ++i) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
-		std::unique_ptr<Component> spriteComponent = std::make_unique<SpriteComponent>(0, (i * 32) + i, 32, 32);
+		std::unique_ptr<Component> sprite = std::make_unique<Sprite>(0, (i * 32) + i, 32, 32);
 
-		entity->AddComponent(spriteComponent);
+		entity->AddComponent(sprite);
 		mainScreen->AddEntity(entity);
 	}
 

@@ -6,7 +6,6 @@
 
 #include "../entity.hpp"
 #include "../system.hpp"
-#include "../components/sprite_component.hpp"
 
 struct SpriteRenderer: public System {
 	SpriteRenderer();
