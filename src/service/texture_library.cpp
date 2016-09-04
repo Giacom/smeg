@@ -1,24 +1,26 @@
+#include <string>
+#include <memory>
 #include <SDL2/SDL.h>
 #include "texture_library.hpp"
 
-TextureId TextureLibrary::Add(SDL_Texture* texture) {
-    auto textureId = uuid++;
-    textureMap[textureId] = texture;
-    return textureId;
+const Texture* TextureLibrary::Load(const std::string& path) {
+    auto existingTexture = textureMap.find(path);
+    if (existingTexture != textureMap.end()) {
+        return Get(path);
+    }
+
+    textureMap[path] = std::make_unique<Texture>(path, renderer);
+    return Get(path);
 }
 
-SDL_Texture* TextureLibrary::Get(TextureId id) {
-    return textureMap.at(id);
+const Texture* TextureLibrary::Get(const std::string& path) {
+    return textureMap.at(path).get();
 }
 
-void TextureLibrary::Remove(TextureId id) {
-    SDL_DestroyTexture(Get(id));
-    textureMap.erase(id);
+void TextureLibrary::Remove(const std::string& path) {
+    textureMap.erase(path);
 }
 
 void TextureLibrary::Clear() {
-    for (auto& keyValue : textureMap) {
-        SDL_DestroyTexture(keyValue.second);
-    }
     textureMap.clear();
 }

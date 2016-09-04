@@ -6,6 +6,7 @@
 #include "../system.hpp"
 #include "../entity.hpp"
 #include "../components/sprite.hpp"
+#include "../../service/texture_library.hpp"
 
 SpriteRenderer::SpriteRenderer() {
 	type = std::type_index(typeid(Sprite));
@@ -20,5 +21,6 @@ void SpriteRenderer::Render(SDL_Renderer *renderer, Entity &entity) {
 
 	Sprite *sprite = entity.GetComponent<Sprite>();
 	const SDL_Rect rect = SDL_Rect { sprite->x, sprite->y, sprite->w, sprite->h };
-	SDL_RenderFillRect(renderer, &rect);
+	auto textureLibrary = serviceContainer->Get<TextureLibrary>();
+	SDL_RenderCopy(renderer, textureLibrary->Load(sprite->texturePath)->sdlTexture, NULL, &rect);
 }

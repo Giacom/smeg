@@ -1,11 +1,12 @@
 #pragma once
 
+#include <string>
 #include <SDL2/SDL.h>
-#include "../common.hpp"
 
 struct Texture {
-    TextureId id;
+    SDL_Texture* sdlTexture;
     int w, h;
 
-    Texture(TextureId id);
+    Texture(const std::string& filePath, SDL_Renderer* renderer);
+    ~Texture();
 };

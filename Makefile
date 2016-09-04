@@ -3,7 +3,7 @@
 BIN = bin
 TARGET = $(BIN)/project-m
 
-LIBS = -lSDL2 -lSDL2_ttf
+LIBS = -lSDL2 -lSDL2_ttf -lSDL2_image
 
 MKDIR = mkdir -p $(BIN)
 

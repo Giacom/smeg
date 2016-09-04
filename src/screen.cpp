@@ -8,6 +8,7 @@
 #include "ecs/component.hpp"
 
 void Screen::AddSystem(std::unique_ptr<System> &system) {
+	system->serviceContainer = serviceContainer;
 	systems.push_back(std::move(system));
 }
 

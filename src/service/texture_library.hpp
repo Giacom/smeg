@@ -1,22 +1,24 @@
 #pragma once
 
+#include <string>
 #include <unordered_map>
+#include <memory>
 #include <SDL2/SDL.h>
 
-#include "../common.hpp"
 #include "service.hpp"
 #include "../res/texture.hpp"
 
-typedef std::unordered_map<TextureId, SDL_Texture*> TextureMap;
+typedef std::unordered_map<std::string, std::unique_ptr<Texture>> TextureMap;
 
 struct TextureLibrary : public Service {
     private:
-        TextureId uuid;
         TextureMap textureMap;
+        SDL_Renderer* renderer;
 
     public:
-        TextureId Add(SDL_Texture* texture);
-        SDL_Texture* Get(TextureId id);
-        void Remove(TextureId id);
+        TextureLibrary(SDL_Renderer* renderer) : Service(), renderer(renderer) {}
+        const Texture* Load(const std::string& path);
+        const Texture* Get(const std::string& path);
+        void Remove(const std::string& path);
         void Clear();
 };

@@ -5,9 +5,11 @@
 
 #include <SDL2/SDL.h>
 #include "entity.hpp"
+#include "../service/service_container.hpp"
 
 struct System {
 	std::type_index type;
+	ServiceContainer* serviceContainer;
 
 	System();
 

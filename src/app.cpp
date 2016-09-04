@@ -30,10 +30,11 @@ void App::Init() {
 	renderer = SDL_CreateRenderer(window, -1, 0);
 
 	// Services
-	std::unique_ptr<Service> textureLibrary = std::make_unique<TextureLibrary>();
+	std::unique_ptr<Service> textureLibrary = std::make_unique<TextureLibrary>(renderer);
 	serviceContainer.Provide<TextureLibrary>(textureLibrary);
 
 	std::unique_ptr<Screen> mainScreen = std::make_unique<Screen>();
+	mainScreen->serviceContainer = &serviceContainer;
 
 	// Systems
 	std::unique_ptr<System> drawSystem = std::make_unique<SpriteRenderer>();
@@ -62,7 +63,7 @@ void App::Init() {
 
 	for (int i = 0; i < 5; ++i) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
-		std::unique_ptr<Component> sprite = std::make_unique<Sprite>(0, (i * 32) + i, 32, 32);
+		std::unique_ptr<Component> sprite = std::make_unique<Sprite>(std::string("res/duck.png"), 0, (i * 32) + i, 32, 32);
 
 		entity->AddComponent(sprite);
 		mainScreen->AddEntity(entity);

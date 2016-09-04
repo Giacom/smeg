@@ -22,6 +22,6 @@ struct ServiceContainer {
 
         template<typename T>
         T* Get() {
-		    return dynamic_cast<T*>(services[std::type_index(typeid(T))].get());
+            return static_cast<T*>(services[std::type_index(typeid(T))].get());
         }
 };

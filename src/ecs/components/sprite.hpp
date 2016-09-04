@@ -1,8 +1,11 @@
 #pragma once
 
+#include <string>
 #include "../component.hpp"
 
 struct Sprite: public Component {
+
+	std::string texturePath;
 
 	int x;
 	int y;
@@ -10,5 +13,5 @@ struct Sprite: public Component {
 	int h;
 
 	~Sprite() {}
-	Sprite(int x, int y, int w, int h) : Component(), x(x), y(y), w(w), h(h) {}
+	Sprite(const std::string texturePath, int x, int y, int w, int h);
 };
