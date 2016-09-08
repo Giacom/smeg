@@ -4,7 +4,6 @@
 #include <unordered_map>
 #include <typeinfo>
 #include <typeindex>
-#include <iostream>
 #include <memory>
 #include "component.hpp"
 

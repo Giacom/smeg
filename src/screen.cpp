@@ -1,6 +1,6 @@
 #include <memory>
 #include <typeindex>
-#include <iostream>
+#include <algorithm>
 
 #include "screen.hpp"
 #include "ecs/system.hpp"
@@ -9,11 +9,12 @@
 
 void Screen::AddSystem(std::unique_ptr<System> &system) {
 	system->serviceContainer = serviceContainer;
-	systems.push_back(std::move(system));
+	systems.emplace_back(std::move(system));
+	std::sort(systems.begin(), systems.end(), Screen::SortSystem);
 }
 
 void Screen::AddEntity(std::unique_ptr<Entity> &entity) {
-	entities.push_back(std::move(entity));
+	entities.emplace_back(std::move(entity));
 }
 
 void Screen::Update() {
@@ -35,3 +36,7 @@ void Screen::Render(SDL_Renderer *renderer) {
 		}
 	}
 }
+
+bool Screen::SortSystem(std::unique_ptr<System> &systemLeft, std::unique_ptr<System> &systemRight) {
+	return systemLeft->executionOrder < systemRight->executionOrder;
+} 

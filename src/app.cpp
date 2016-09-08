@@ -83,6 +83,9 @@ void App::Start() {
 				case SDL_QUIT:
 					quit = true;
 					return;
+				case SDL_KEYDOWN:
+					quit = true;
+					return;	
 			}
 		}
 

@@ -8,8 +8,15 @@
 #include "../service/service_container.hpp"
 
 struct System {
+
+	static const int EARLY = -100;
+	static const int NORMAL = 0;
+	static const int LATE = 100;
+
+
 	std::type_index type;
 	ServiceContainer* serviceContainer;
+	int executionOrder = NORMAL;
 
 	System();
 
