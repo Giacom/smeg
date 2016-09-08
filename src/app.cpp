@@ -8,8 +8,9 @@
 #include "service/texture_library.hpp"
 #include "ecs/systems/sprite_renderer.hpp"
 #include "ecs/systems/text_renderer.hpp"
+#include "ecs/components/transform.hpp"
 #include "ecs/components/sprite.hpp"
-#include "ecs/components/text_component.hpp"
+#include "ecs/components/text.hpp"
 
 App::~App() {
 	SDL_DestroyRenderer(renderer);
@@ -55,16 +56,20 @@ void App::Init() {
 			std::cout << "Font found!" << std::endl;
 		}
 
-		std::unique_ptr<Component> textComponent = std::make_unique<TextComponent>(20, 10, std::string("Hello world!"), font);
+		std::unique_ptr<Component> transform = std::make_unique<Transform>(20, 10);
+		std::unique_ptr<Component> text = std::make_unique<Text>(std::string("Hello world!"), font);
 
-		entity->AddComponent(textComponent);
+		entity->AddComponent(transform);
+		entity->AddComponent(text);
 		mainScreen->AddEntity(entity);
 	}
 
 	for (int i = 0; i < 5; ++i) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
-		std::unique_ptr<Component> sprite = std::make_unique<Sprite>(std::string("res/duck.png"), 0, (i * 32) + i, 32, 32);
+		std::unique_ptr<Component> transform = std::make_unique<Transform>(0, (i * 32) + i);
+		std::unique_ptr<Component> sprite = std::make_unique<Sprite>(std::string("res/duck.png"), 32, 32);
 
+		entity->AddComponent(transform);
 		entity->AddComponent(sprite);
 		mainScreen->AddEntity(entity);
 	}

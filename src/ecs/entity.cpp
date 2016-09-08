@@ -2,7 +2,6 @@
 #include <memory>
 #include <typeinfo>
 #include <typeindex>
-#include <iostream>
 
 #include "entity.hpp"
 #include "component.hpp"

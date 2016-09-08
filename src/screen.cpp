@@ -19,9 +19,23 @@ void Screen::AddEntity(std::unique_ptr<Entity> &entity) {
 
 void Screen::Update() {
 	for (auto &system : systems) {
+
+		int requiredComponents = system->types.size();
+
 		for (auto &entity : entities) {
-			if (entity->components.count(system->type)) {
-				system->Process(*entity);
+
+			int matchingComponents = 0;
+
+			for (auto type : system->types) {
+				bool hasMatchingComponent = entity->components.count(type) > 0;
+				if (hasMatchingComponent) {
+					matchingComponents++;
+				}
+
+				if (matchingComponents >= requiredComponents) {
+					system->Process(*entity);
+					break;
+				}
 			}
 		}
 	}
@@ -29,9 +43,23 @@ void Screen::Update() {
 
 void Screen::Render(SDL_Renderer *renderer) {
 	for (auto &system : systems) {
+
+		int requiredComponents = system->types.size();
+
 		for (auto &entity : entities) {
-			if (entity->components.count(system->type)) {
-				system->Render(renderer, *entity);
+
+			int matchingComponents = 0;
+
+			for (auto type : system->types) {
+				bool hasMatchingComponent = entity->components.count(type) > 0;
+				if (hasMatchingComponent) {
+					matchingComponents++;
+				}
+
+				if (matchingComponents >= requiredComponents) {
+					system->Render(renderer, *entity);
+					break;
+				}
 			}
 		}
 	}

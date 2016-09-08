@@ -5,7 +5,7 @@
 #include "system.hpp"
 #include "entity.hpp"
 
-System::System() : type(std::type_index(typeid(void))) {
+System::System() {
 }
 
 void System::Process(Entity &entity) {

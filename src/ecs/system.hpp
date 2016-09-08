@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include <typeinfo>
 #include <typeindex>
 
@@ -13,8 +14,7 @@ struct System {
 	static const int NORMAL = 0;
 	static const int LATE = 100;
 
-
-	std::type_index type;
+	std::vector<std::type_index> types;
 	ServiceContainer* serviceContainer;
 	int executionOrder = NORMAL;
 
