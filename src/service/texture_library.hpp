@@ -17,8 +17,8 @@ struct TextureLibrary : public Service {
 
     public:
         TextureLibrary(SDL_Renderer* renderer) : Service(), renderer(renderer) {}
-        const Texture* Load(const std::string& path);
-        const Texture* Get(const std::string& path);
+        const Texture& Load(const std::string& path);
+        const Texture& Get(const std::string& path);
         void Remove(const std::string& path);
         void Clear();
 };

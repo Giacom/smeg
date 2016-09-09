@@ -13,7 +13,7 @@ struct Entity {
 	void AddComponent(std::unique_ptr<Component> &component);
 
 	template<typename T>
-	T* GetComponent() {
-		return dynamic_cast<T*>(components[std::type_index(typeid(T))].get());
+	T& GetComponent() {
+		return *dynamic_cast<T*>(components.at(std::type_index(typeid(T))).get());
 	}
 };

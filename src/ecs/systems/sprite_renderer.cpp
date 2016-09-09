@@ -15,16 +15,17 @@ SpriteRenderer::SpriteRenderer() {
 }
 
 void SpriteRenderer::Process(Entity &entity) {
-
+	Transform& transform = entity.GetComponent<Transform>();
+	transform.position.x += 0.01f;
 }
 
 void SpriteRenderer::Render(SDL_Renderer *renderer, Entity &entity) {
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0x0, 0x0, 0xFF);
 
-	Transform *transform = entity.GetComponent<Transform>();
-	Sprite *sprite = entity.GetComponent<Sprite>();
+	Transform& transform = entity.GetComponent<Transform>();
+	Sprite& sprite = entity.GetComponent<Sprite>();
 
-	const SDL_Rect rect = SDL_Rect { (int)transform->position.x, (int)transform->position.y, sprite->w, sprite->h };
-	auto textureLibrary = serviceContainer->Get<TextureLibrary>();
-	SDL_RenderCopy(renderer, textureLibrary->Load(sprite->texturePath)->sdlTexture, NULL, &rect);
+	const SDL_Rect rect = SDL_Rect { (int)transform.position.x, (int)transform.position.y, sprite.w, sprite.h };
+	auto& textureLibrary = serviceContainer->Get<TextureLibrary>();
+	SDL_RenderCopy(renderer, textureLibrary.Load(sprite.texturePath).sdlTexture, NULL, &rect);
 }

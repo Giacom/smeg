@@ -11,7 +11,7 @@ struct Screen {
 	std::vector<std::unique_ptr<System>> systems;
 	std::vector<std::unique_ptr<Entity>> entities;
 
-	ServiceContainer *serviceContainer;
+	ServiceContainer* serviceContainer;
 
 	void Update();
 	void Render(SDL_Renderer *renderer);

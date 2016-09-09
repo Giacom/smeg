@@ -16,6 +16,7 @@ Texture::Texture(const std::string& filePath, SDL_Renderer* renderer) {
         std::cout << "ERROR: Unable to convert texture from surface to texture: " << filePath << std::endl;
         return;
     }
+    std::cout << "LOADED TEXTURE: " << filePath << std::endl;
     sdlTexture = texture;
 }
 
