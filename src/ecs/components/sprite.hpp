@@ -9,7 +9,8 @@ struct Sprite: public Component {
 	
 	int w;
 	int h;
+	int layer;
 
 	~Sprite() {}
-	Sprite(const std::string texturePath, int w, int h);
+	Sprite(const std::string texturePath, int w, int h, int layer = 0);
 };

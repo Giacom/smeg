@@ -5,8 +5,10 @@
 #include <typeindex>
 
 #include <SDL2/SDL.h>
+
 #include "entity.hpp"
 #include "../service/service_container.hpp"
+#include "../graphics/batch_renderer.hpp"
 
 struct System {
 
@@ -21,5 +23,5 @@ struct System {
 	System();
 
 	virtual void Process(Entity &entity);
-	virtual void Render(SDL_Renderer *renderer, Entity &entity);
+	virtual void Render(SDL_Renderer *sdlRenderer, BatchRenderer &renderer, Entity &entity);
 };

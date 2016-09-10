@@ -23,13 +23,11 @@ void SpriteRenderer::Process(Entity &entity) {
 	std::cout << time.delta << std::endl;
 }
 
-void SpriteRenderer::Render(SDL_Renderer *renderer, Entity &entity) {
-	SDL_SetRenderDrawColor(renderer, 0xFF, 0x0, 0x0, 0xFF);
-
+void SpriteRenderer::Render(SDL_Renderer *sdlRenderer, BatchRenderer &renderer, Entity &entity) {
 	Transform& transform = entity.GetComponent<Transform>();
 	Sprite& sprite = entity.GetComponent<Sprite>();
 
-	const SDL_Rect rect = SDL_Rect { (int)transform.position.x, (int)transform.position.y, sprite.w, sprite.h };
+	SDL_Rect rect = SDL_Rect { (int)transform.position.x, (int)transform.position.y, sprite.w, sprite.h };
 	auto& textureLibrary = serviceContainer->Get<TextureLibrary>();
-	SDL_RenderCopy(renderer, textureLibrary.Load(sprite.texturePath).sdlTexture, NULL, &rect);
+	renderer.Batch(textureLibrary.Load(sprite.texturePath), {}, rect, sprite.layer);
 }

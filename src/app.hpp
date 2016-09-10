@@ -5,10 +5,12 @@
 
 #include "screen.hpp"
 #include "service/service_container.hpp"
+#include "graphics/batch_renderer.hpp"
 
 struct App {
 	SDL_Window* window;
 	SDL_Renderer* renderer;
+	BatchRenderer batchRenderer;
 
 	std::vector<std::unique_ptr<Screen>> screens;
 	ServiceContainer serviceContainer;

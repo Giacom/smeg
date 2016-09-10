@@ -70,8 +70,8 @@ void App::Init() {
 
 	for (int i = 0; i < 3; ++i) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
-		std::unique_ptr<Component> transform = std::make_unique<Transform>(0, (i * 128) + i);
-		std::unique_ptr<Component> sprite = std::make_unique<Sprite>(std::string("res/duck.png"), 128, 128);
+		std::unique_ptr<Component> transform = std::make_unique<Transform>(0, (i * 64) + i);
+		std::unique_ptr<Component> sprite = std::make_unique<Sprite>(std::string("res/duck.png"), 128, 128, 100 - i);
 
 		entity->AddComponent(transform);
 		entity->AddComponent(sprite);
@@ -120,8 +120,16 @@ void App::Update() {
 void App::Render() {
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(renderer);
+	batchRenderer.Start();
 	for (auto &screen : screens) {
-		screen->Render(renderer);
+		screen->Render(renderer, batchRenderer);
+	}
+	for (auto &batch : batchRenderer.Collect()) {
+		const SDL_Rect &source = batch.source;
+		const SDL_Rect &dest = batch.dest;
+		SDL_RenderCopy(renderer, batch.texture->sdlTexture,
+		(source.w > 0 && source.h > 0 ? &source : NULL),
+		(dest.w > 0 && dest.h > 0 ? &dest : NULL));
 	}
 	SDL_RenderPresent(renderer);
 }

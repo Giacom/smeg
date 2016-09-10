@@ -3,7 +3,7 @@
 #include <SDL2/SDL.h>
 #include "texture_library.hpp"
 
-const Texture& TextureLibrary::Load(const std::string& path) {
+Texture& TextureLibrary::Load(const std::string& path) {
     auto existingTexture = textureMap.find(path);
     if (existingTexture != textureMap.end()) {
         return Get(path);
@@ -13,7 +13,7 @@ const Texture& TextureLibrary::Load(const std::string& path) {
     return Get(path);
 }
 
-const Texture& TextureLibrary::Get(const std::string& path) {
+Texture& TextureLibrary::Get(const std::string& path) {
     return *textureMap.at(path).get();
 }
 
