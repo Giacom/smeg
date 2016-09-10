@@ -16,6 +16,7 @@ struct App {
 	~App();
 	void Init();
 	void Start();
+	bool ProcessEvents();
 	void Update();
 	void Render();
 };

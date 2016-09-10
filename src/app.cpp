@@ -6,6 +6,7 @@
 #include "app.hpp"
 #include "screen.hpp"
 #include "service/texture_library.hpp"
+#include "service/time.hpp"
 #include "ecs/systems/sprite_renderer.hpp"
 #include "ecs/systems/text_renderer.hpp"
 #include "ecs/components/transform.hpp"
@@ -31,6 +32,9 @@ void App::Init() {
 	renderer = SDL_CreateRenderer(window, -1, 0);
 
 	// Services
+	std::unique_ptr<Service> time = std::make_unique<Time>();
+	serviceContainer.Provide<Time>(time);
+
 	std::unique_ptr<Service> textureLibrary = std::make_unique<TextureLibrary>(renderer);
 	serviceContainer.Provide<TextureLibrary>(textureLibrary);
 
@@ -79,25 +83,32 @@ void App::Init() {
 
 void App::Start() {
 	bool quit = false;
-	SDL_Event event;
+	Time& gameTime = serviceContainer.Get<Time>();
 
 	while (!quit) {
 		// Input
-		while (SDL_PollEvent(&event)) {
-			switch (event.type) {
-				case SDL_QUIT:
-					quit = true;
-					return;
-				case SDL_KEYDOWN:
-					quit = true;
-					return;	
-			}
-		}
-
+		gameTime.current = SDL_GetTicks();
+		gameTime.delta = (float)(gameTime.current - gameTime.lastFrame) * 0.001;
+		
+		quit = ProcessEvents();
 		Update();
-
 		Render();
+
+		gameTime.lastFrame = gameTime.current;
 	}
+}
+
+bool App::ProcessEvents() {
+	SDL_Event event;
+	while (SDL_PollEvent(&event)) {
+		switch (event.type) {
+			case SDL_QUIT:
+				return true;
+			case SDL_KEYDOWN:
+				return true;	
+		}
+	}
+	return false;
 }
 
 void App::Update() {

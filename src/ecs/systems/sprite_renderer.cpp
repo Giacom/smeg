@@ -8,6 +8,7 @@
 #include "../components/sprite.hpp"
 #include "../components/transform.hpp"
 #include "../../service/texture_library.hpp"
+#include "../../service/time.hpp"
 
 SpriteRenderer::SpriteRenderer() {
 	types.push_back(std::type_index(typeid(Transform)));
@@ -16,7 +17,10 @@ SpriteRenderer::SpriteRenderer() {
 
 void SpriteRenderer::Process(Entity &entity) {
 	Transform& transform = entity.GetComponent<Transform>();
-	transform.position.x += 0.01f;
+	Time& time = serviceContainer->Get<Time>();
+
+	transform.position.x += 10 * time.delta;
+	std::cout << time.delta << std::endl;
 }
 
 void SpriteRenderer::Render(SDL_Renderer *renderer, Entity &entity) {
