@@ -68,10 +68,10 @@ void App::Init() {
 		mainScreen->AddEntity(entity);
 	}
 
-	for (int i = 0; i < 5; ++i) {
+	for (int i = 0; i < 3; ++i) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
-		std::unique_ptr<Component> transform = std::make_unique<Transform>(0, (i * 32) + i);
-		std::unique_ptr<Component> sprite = std::make_unique<Sprite>(std::string("res/duck.png"), 32, 32);
+		std::unique_ptr<Component> transform = std::make_unique<Transform>(0, (i * 128) + i);
+		std::unique_ptr<Component> sprite = std::make_unique<Sprite>(std::string("res/duck.png"), 128, 128);
 
 		entity->AddComponent(transform);
 		entity->AddComponent(sprite);
@@ -83,18 +83,18 @@ void App::Init() {
 
 void App::Start() {
 	bool quit = false;
-	Time& gameTime = serviceContainer.Get<Time>();
+	Time& time = serviceContainer.Get<Time>();
 
 	while (!quit) {
 		// Input
-		gameTime.current = SDL_GetTicks();
-		gameTime.delta = (float)(gameTime.current - gameTime.lastFrame) * 0.001;
+		time.current = SDL_GetTicks();
+		time.delta = (float)(time.current - time.lastFrame) * Time::MS_TO_SEC;
 		
 		quit = ProcessEvents();
 		Update();
 		Render();
 
-		gameTime.lastFrame = gameTime.current;
+		time.lastFrame = time.current;
 	}
 }
 
