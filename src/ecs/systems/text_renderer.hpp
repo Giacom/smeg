@@ -8,5 +8,5 @@
 struct TextRenderer: public System {
 	TextRenderer();
 	void Process(Entity &entity);
-	void Render(SDL_Renderer *sdlRenderer, BatchRenderer &renderer, Entity &entity);
+	void Render(BatchRenderer &renderer, Entity &entity);
 };

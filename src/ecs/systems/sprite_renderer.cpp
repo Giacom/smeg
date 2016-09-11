@@ -16,18 +16,20 @@ SpriteRenderer::SpriteRenderer() {
 }
 
 void SpriteRenderer::Process(Entity &entity) {
+	/*
 	Transform& transform = entity.GetComponent<Transform>();
 	Time& time = serviceContainer->Get<Time>();
 
 	transform.position.x += 10 * time.delta;
 	std::cout << time.delta << std::endl;
+	*/
 }
 
-void SpriteRenderer::Render(SDL_Renderer *sdlRenderer, BatchRenderer &renderer, Entity &entity) {
+void SpriteRenderer::Render(BatchRenderer &renderer, Entity &entity) {
 	Transform& transform = entity.GetComponent<Transform>();
 	Sprite& sprite = entity.GetComponent<Sprite>();
 
 	SDL_Rect rect = SDL_Rect { (int)transform.position.x, (int)transform.position.y, sprite.w, sprite.h };
 	auto& textureLibrary = serviceContainer->Get<TextureLibrary>();
-	renderer.Batch(textureLibrary.Load(sprite.texturePath), {}, rect, sprite.layer);
+	renderer.Batch(textureLibrary.LoadFile(sprite.texturePath), {}, rect, sprite.layer);
 }

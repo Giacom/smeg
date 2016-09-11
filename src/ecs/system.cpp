@@ -7,6 +7,6 @@ void System::Process(Entity &entity) {
 
 }
 
-void System::Render(SDL_Renderer *sdlRenderer, BatchRenderer &renderer, Entity &entity) {
+void System::Render(BatchRenderer &renderer, Entity &entity) {
 
 }

@@ -7,5 +7,5 @@
 struct SpriteRenderer: public System {
 	SpriteRenderer();
 	void Process(Entity &entity);
-	void Render(SDL_Renderer *sdlRenderer, BatchRenderer &renderer, Entity &entity);
+	void Render(BatchRenderer &renderer, Entity &entity);
 };

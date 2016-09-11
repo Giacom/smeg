@@ -61,7 +61,7 @@ void App::Init() {
 		}
 
 		std::unique_ptr<Component> transform = std::make_unique<Transform>(20, 10);
-		std::unique_ptr<Component> text = std::make_unique<Text>(std::string("Hello world!"), font);
+		std::unique_ptr<Component> text = std::make_unique<Text>(std::string("Hello world!"), font, 100);
 
 		entity->AddComponent(transform);
 		entity->AddComponent(text);
@@ -122,7 +122,7 @@ void App::Render() {
 	SDL_RenderClear(renderer);
 	batchRenderer.Start();
 	for (auto &screen : screens) {
-		screen->Render(renderer, batchRenderer);
+		screen->Render(batchRenderer);
 	}
 	for (auto &batch : batchRenderer.Collect()) {
 		const SDL_Rect &source = batch.source;

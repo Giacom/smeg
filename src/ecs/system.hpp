@@ -23,5 +23,5 @@ struct System {
 	System();
 
 	virtual void Process(Entity &entity);
-	virtual void Render(SDL_Renderer *sdlRenderer, BatchRenderer &renderer, Entity &entity);
+	virtual void Render(BatchRenderer &renderer, Entity &entity);
 };

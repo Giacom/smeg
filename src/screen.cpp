@@ -41,8 +41,8 @@ void Screen::Update() {
 	}
 }
 
-void Screen::Render(SDL_Renderer *sdlRenderer, BatchRenderer& renderer) {
-	for (auto &system : systems) {
+void Screen::Render(BatchRenderer& renderer) {
+	for (auto &system :systems) {
 
 		int requiredComponents = system->types.size();
 
@@ -57,7 +57,7 @@ void Screen::Render(SDL_Renderer *sdlRenderer, BatchRenderer& renderer) {
 				}
 
 				if (matchingComponents >= requiredComponents) {
-					system->Render(sdlRenderer, renderer, *entity);
+					system->Render(renderer, *entity);
 					break;
 				}
 			}

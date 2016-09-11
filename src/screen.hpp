@@ -15,7 +15,7 @@ struct Screen {
 	ServiceContainer* serviceContainer;
 
 	void Update();
-	void Render(SDL_Renderer* sdlRenderer, BatchRenderer &renderer);
+	void Render(BatchRenderer &renderer);
 
 	void AddSystem(std::unique_ptr<System> &system);
 	void AddEntity(std::unique_ptr<Entity> &entity);
