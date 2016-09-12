@@ -2,16 +2,19 @@
 #include <SDL/SDL_ttf.h>
 #include <iostream>
 #include <memory>
+#include <algorithm>
 
 #include "app.hpp"
 #include "screen.hpp"
 #include "service/texture_library.hpp"
 #include "service/time.hpp"
-#include "ecs/systems/sprite_renderer.hpp"
-#include "ecs/systems/text_renderer.hpp"
+#include "ecs/systems/renderers/sprite_renderer.hpp"
+#include "ecs/systems/renderers/text_renderer.hpp"
+#include "ecs/systems/debug/fps_display.hpp"
 #include "ecs/components/transform.hpp"
 #include "ecs/components/sprite.hpp"
 #include "ecs/components/text.hpp"
+#include "ecs/components/debug/fps.hpp"
 
 App::~App() {
 	SDL_DestroyRenderer(renderer);
@@ -29,7 +32,7 @@ void App::Init() {
 	}
 
 	window = SDL_CreateWindow("Hello", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 320, 568, 0);
-	renderer = SDL_CreateRenderer(window, -1, 0);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
 	// Services
 	std::unique_ptr<Service> time = std::make_unique<Time>();
@@ -48,8 +51,11 @@ void App::Init() {
 	std::unique_ptr<System> textDrawSystem = std::make_unique<TextRenderer>();
 	mainScreen->AddSystem(textDrawSystem);
 
+	std::unique_ptr<System> fpsDisplay = std::make_unique<FpsDisplay>();
+	mainScreen->AddSystem(fpsDisplay);
 
 	// Components
+	// FPS Display
 	{
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
 
@@ -61,13 +67,16 @@ void App::Init() {
 		}
 
 		std::unique_ptr<Component> transform = std::make_unique<Transform>(20, 10);
-		std::unique_ptr<Component> text = std::make_unique<Text>(std::string("Hello world!"), font, 100);
+		std::unique_ptr<Component> text = std::make_unique<Text>(std::string(""), font, 100, SDL_Color { 0x0, 0x77, 0x0, 0xFF });
+		std::unique_ptr<Component> fps = std::make_unique<Fps>();
 
 		entity->AddComponent(transform);
 		entity->AddComponent(text);
+		entity->AddComponent(fps);
 		mainScreen->AddEntity(entity);
 	}
 
+	// Ducks
 	for (int i = 0; i < 3; ++i) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
 		std::unique_ptr<Component> transform = std::make_unique<Transform>(0, (i * 64) + i);
@@ -85,16 +94,20 @@ void App::Start() {
 	bool quit = false;
 	Time& time = serviceContainer.Get<Time>();
 
+	auto startTime = SDL_GetTicks();
+
 	while (!quit) {
 		// Input
 		time.current = SDL_GetTicks();
-		time.delta = (float)(time.current - time.lastFrame) * Time::MS_TO_SEC;
+		time.delta = (time.current - time.lastFrame) * Time::MS_TO_SEC;
 		
 		quit = ProcessEvents();
 		Update();
 		Render();
 
 		time.lastFrame = time.current;
+		time.fps = time.ticks / ((double)(SDL_GetTicks() - startTime) / 1000);
+		time.ticks++;
 	}
 }
 
@@ -102,10 +115,8 @@ bool App::ProcessEvents() {
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
-			case SDL_QUIT:
+			case SDL_QUIT | SDL_KEYDOWN:
 				return true;
-			case SDL_KEYDOWN:
-				return true;	
 		}
 	}
 	return false;

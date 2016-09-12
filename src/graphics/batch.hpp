@@ -2,7 +2,7 @@
 
 #include <SDL2/SDL.h>
 
-#include "../res/texture.hpp"
+#include "texture.hpp"
 
 struct Batch {
     Texture *texture;

@@ -1,28 +1,25 @@
 #include <SDL2/SDL.h>
 #include <memory>
-#include <iostream>
 
 #include "sprite_renderer.hpp"
-#include "../system.hpp"
-#include "../entity.hpp"
-#include "../components/sprite.hpp"
-#include "../components/transform.hpp"
-#include "../../service/texture_library.hpp"
-#include "../../service/time.hpp"
+#include "../../system.hpp"
+#include "../../entity.hpp"
+#include "../../components/sprite.hpp"
+#include "../../components/transform.hpp"
+#include "../../../service/texture_library.hpp"
+#include "../../../service/time.hpp"
 
 SpriteRenderer::SpriteRenderer() {
 	types.push_back(std::type_index(typeid(Transform)));
 	types.push_back(std::type_index(typeid(Sprite)));
+	executionOrder = System::LATE;
 }
 
 void SpriteRenderer::Process(Entity &entity) {
-	/*
 	Transform& transform = entity.GetComponent<Transform>();
 	Time& time = serviceContainer->Get<Time>();
 
-	transform.position.x += 10 * time.delta;
-	std::cout << time.delta << std::endl;
-	*/
+	transform.position.x += 5 * time.delta;
 }
 
 void SpriteRenderer::Render(BatchRenderer &renderer, Entity &entity) {

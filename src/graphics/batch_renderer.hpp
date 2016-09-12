@@ -4,7 +4,7 @@
 #include <SDL2/SDL.h>
 
 #include "batch.hpp"
-#include "../res/texture.hpp"
+#include "texture.hpp"
 
 struct BatchRenderer {
     std::vector<Batch> batches;

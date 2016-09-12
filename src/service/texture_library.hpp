@@ -6,7 +6,7 @@
 #include <SDL2/SDL.h>
 
 #include "service.hpp"
-#include "../res/texture.hpp"
+#include "../graphics/texture.hpp"
 
 typedef std::unordered_map<std::string, std::unique_ptr<Texture>> TextureMap;
 

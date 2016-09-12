@@ -5,7 +5,10 @@
 struct Time: public Service {
     static constexpr float MS_TO_SEC = 0.001f;
 
-    unsigned long current;
-    unsigned long lastFrame;
-    float delta;
+    long ticks;
+
+    double current;
+    double lastFrame;
+    double fps;
+    double delta;
 };

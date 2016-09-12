@@ -8,6 +8,7 @@
 #include "component.hpp"
 
 struct Entity {
+	static int autoComponentId;
 	std::unordered_map<std::type_index, std::unique_ptr<Component>> components;
 
 	void AddComponent(std::unique_ptr<Component> &component);
