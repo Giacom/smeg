@@ -7,13 +7,32 @@
 
 struct Text: public Component {
 	
-	std::string text;
-	TTF_Font* font;
-	std::string fontTextureId;
+	public:
+		TTF_Font* font;
 
-	int w, h;
-	int layer;
+		std::string fontTextureId;
+		bool textChanged;
 
-	~Text() {}
-	Text(std::string text, TTF_Font* font, int layer = 0) : Component(), text(text), font(font), layer(layer) {}
+		int w, h;
+		int layer;
+
+	private:
+		std::string text;
+
+	public:
+		~Text() {}
+		Text(std::string text, TTF_Font* font, int layer = 0) : Component(), font(font), textChanged(true), layer(layer), text(text) {}
+
+		void SetText(std::string text) {
+			// If are the same, just return.
+			if (this->text.compare(text) == 0) {
+				return;
+			}
+			this->text = text;
+			textChanged = true;
+		}
+
+		const std::string& GetText() {
+			return text;
+		}
 };

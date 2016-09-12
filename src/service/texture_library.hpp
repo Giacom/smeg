@@ -18,12 +18,12 @@ struct TextureLibrary : public Service {
         TextureMap textureMap;
         SDL_Renderer* renderer;
 
-
     public:
         TextureLibrary(SDL_Renderer* renderer) : Service(), renderer(renderer) {}
-        Texture& LoadFile(const std::string& path);
-        Texture& Get(const std::string& path);
-        void Cache(const std::string& key, SDL_Surface *image);
-        void Remove(const std::string& path);
+        Texture& LoadFile(const std::string &path);
+        Texture& Get(const std::string &key);
+        bool HasKey(const std::string &key);
+        void Cache(const std::string &key, SDL_Surface *image);
+        void Remove(const std::string &key);
         void Clear();
 };
