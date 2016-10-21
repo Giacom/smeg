@@ -32,7 +32,7 @@ void App::Init() {
 	}
 
 	window = SDL_CreateWindow("Hello", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 320, 568, 0);
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 	// Services
 	std::unique_ptr<Service> time = std::make_unique<Time>();
@@ -95,19 +95,37 @@ void App::Start() {
 	Time& time = serviceContainer.Get<Time>();
 
 	auto startTime = SDL_GetTicks();
+	time.lastFrame = startTime;
+
+	auto interval = 1000 / time.targetFrameRate;
+	auto calculatedFps = 0;
+	auto lastSecond = startTime;
 
 	while (!quit) {
 		// Input
+		time.ticks++;
 		time.current = SDL_GetTicks();
-		time.delta = (time.current - time.lastFrame) * Time::MS_TO_SEC;
+
+		auto dt = time.current - time.lastFrame;
+		time.delta = (double)dt * Time::MS_TO_SEC;
+
+		if (dt < interval) {
+			SDL_Delay(interval - dt);
+			continue;
+		}
 		
+		time.lastFrame = time.current;
+		calculatedFps += 1;
+
+		if (time.current - lastSecond > 1000) {
+			time.fps = calculatedFps;
+			lastSecond = time.current;
+			calculatedFps = 0;
+		}
+
 		quit = ProcessEvents();
 		Update();
 		Render();
-
-		time.lastFrame = time.current;
-		time.fps = time.ticks / ((double)(SDL_GetTicks() - startTime) / 1000);
-		time.ticks++;
 	}
 }
 
@@ -115,7 +133,8 @@ bool App::ProcessEvents() {
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
-			case SDL_QUIT | SDL_KEYDOWN:
+			case SDL_KEYDOWN:
+			case SDL_QUIT:
 				return true;
 		}
 	}

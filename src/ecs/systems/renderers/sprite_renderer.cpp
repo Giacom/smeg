@@ -19,7 +19,10 @@ void SpriteRenderer::Process(Entity &entity) {
 	Transform& transform = entity.GetComponent<Transform>();
 	Time& time = serviceContainer->Get<Time>();
 
-	transform.position.x += 5 * time.delta;
+	transform.position.x += (100.0f * time.delta);
+	if (transform.position.x > 500) {
+		transform.position.x = -100;
+	}
 }
 
 void SpriteRenderer::Render(BatchRenderer &renderer, Entity &entity) {

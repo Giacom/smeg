@@ -1,5 +1,7 @@
 #include "fps_display.hpp"
 
+#include <sstream>
+
 #include "../../../service/time.hpp"
 #include "../../components/debug/fps.hpp"
 #include "../../components/text.hpp"
@@ -13,6 +15,8 @@ FpsDisplay::FpsDisplay() {
 void FpsDisplay::Process(Entity &entity) {
     Time &time = serviceContainer->Get<Time>();
     Text &text = entity.GetComponent<Text>();
-    text.SetText(std::to_string((int)time.fps));
-    text.SetColour({0x0, (Uint8)(time.ticks % 0xFF), 0x0, 0xFF});
+    std::stringstream label;
+    label << "FPS: " << time.fps << " - Delta: " << time.delta;
+
+    text.SetText(label.str());
 }
