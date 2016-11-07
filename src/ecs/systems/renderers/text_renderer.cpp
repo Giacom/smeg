@@ -44,5 +44,5 @@ void TextRenderer::Render(BatchRenderer &renderer, Entity &entity) {
 	}
 
 	SDL_Rect renderQuad = { (int)transform.position.x, (int)transform.position.y, text.w, text.h};
-	renderer.Batch(textureLibrary.Get(text.fontTextureId), {}, renderQuad, text.layer);
+	renderer.BatchTexture(textureLibrary.Get(text.fontTextureId), {}, renderQuad, text.layer);
 }

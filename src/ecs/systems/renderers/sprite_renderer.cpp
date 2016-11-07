@@ -31,5 +31,5 @@ void SpriteRenderer::Render(BatchRenderer &renderer, Entity &entity) {
 
 	SDL_Rect rect = SDL_Rect { (int)transform.position.x, (int)transform.position.y, sprite.w, sprite.h };
 	auto& textureLibrary = serviceContainer->Get<TextureLibrary>();
-	renderer.Batch(textureLibrary.LoadFile(sprite.texturePath), {}, rect, sprite.layer);
+	renderer.BatchTexture(textureLibrary.LoadFile(sprite.texturePath), {}, rect, sprite.layer);
 }

@@ -5,7 +5,7 @@ void BatchRenderer::Start() {
     batches.clear();
 }
 
-void BatchRenderer::Batch(Texture &texture, SDL_Rect source, SDL_Rect dest, int layer) {
+void BatchRenderer::BatchTexture(Texture &texture, SDL_Rect source, SDL_Rect dest, int layer) {
     batches.emplace_back(&texture, source, dest, layer);
 }
 

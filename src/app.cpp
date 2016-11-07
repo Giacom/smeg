@@ -23,7 +23,7 @@ App::~App() {
 
 void App::Init() {
 	std::cout << "Initialising..." << std::endl;
-	if (SDL_Init(SDL_INIT_VIDEO) == -1) {
+	if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
 		std::cout << "Error initialising SDL: " << SDL_GetError() << std::endl;
 	}
 

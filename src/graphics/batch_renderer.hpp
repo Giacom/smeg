@@ -10,6 +10,6 @@ struct BatchRenderer {
     std::vector<Batch> batches;
 
     void Start();
-    void Batch(Texture &texture, SDL_Rect source, SDL_Rect dest, int layer);
+    void BatchTexture(Texture &texture, SDL_Rect source, SDL_Rect dest, int layer);
     std::vector<struct Batch>& Collect();
 };
