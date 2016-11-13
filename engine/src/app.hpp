@@ -21,6 +21,7 @@ namespace smeg {
 			~App();
 			void Init();
 			void Start();
+			Screen* CreateScreen();
 
 		private:
 			bool ProcessEvents();
