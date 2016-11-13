@@ -1,6 +1,9 @@
 #pragma once
 
-struct Component {
-	unsigned int id;
-	virtual ~Component() {};
-};
+namespace smeg {
+
+	struct Component {
+		unsigned int id;
+		virtual ~Component() {};
+	};
+}

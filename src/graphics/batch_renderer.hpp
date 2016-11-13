@@ -6,10 +6,13 @@
 #include "batch.hpp"
 #include "texture.hpp"
 
-struct BatchRenderer {
-    std::vector<Batch> batches;
+namespace smeg {
 
-    void Start();
-    void BatchTexture(Texture &texture, SDL_Rect source, SDL_Rect dest, int layer);
-    std::vector<struct Batch>& Collect();
-};
+    struct BatchRenderer {
+        std::vector<Batch> batches;
+
+        void Start();
+        void BatchTexture(Texture &texture, SDL_Rect source, SDL_Rect dest, int layer);
+        std::vector<struct Batch>& Collect();
+    };
+}

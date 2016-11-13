@@ -8,22 +8,25 @@
 #include "service.hpp"
 #include "../graphics/texture.hpp"
 
-typedef std::unordered_map<std::string, std::unique_ptr<Texture>> TextureMap;
+namespace smeg {
 
-struct TextureLibrary : public Service {
-    static const std::string filePrefix;
-    static const std::string resPrefix;
-    
-    private:
-        TextureMap textureMap;
-        SDL_Renderer* renderer;
+    typedef std::unordered_map<std::string, std::unique_ptr<Texture>> TextureMap;
 
-    public:
-        TextureLibrary(SDL_Renderer* renderer) : Service(), renderer(renderer) {}
-        Texture& LoadFile(const std::string &path);
-        Texture& Get(const std::string &key);
-        bool HasKey(const std::string &key);
-        void Cache(const std::string &key, SDL_Surface *image);
-        void Remove(const std::string &key);
-        void Clear();
-};
+    struct TextureLibrary : public Service {
+        static const std::string filePrefix;
+        static const std::string resPrefix;
+        
+        private:
+            TextureMap textureMap;
+            SDL_Renderer* renderer;
+
+        public:
+            TextureLibrary(SDL_Renderer* renderer) : Service(), renderer(renderer) {}
+            Texture& LoadFile(const std::string &path);
+            Texture& Get(const std::string &key);
+            bool HasKey(const std::string &key);
+            void Cache(const std::string &key, SDL_Surface *image);
+            void Remove(const std::string &key);
+            void Clear();
+    };
+}

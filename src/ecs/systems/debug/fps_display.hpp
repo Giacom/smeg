@@ -2,7 +2,10 @@
 
 #include "../../system.hpp"
 
-struct FpsDisplay: public System {
-    FpsDisplay();
-    void Process(Entity &entity);
-};
+namespace smeg {
+
+    struct FpsDisplay: public System {
+        FpsDisplay();
+        void Process(Entity &entity);
+    };
+}

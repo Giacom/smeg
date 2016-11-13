@@ -7,64 +7,67 @@
 #include "ecs/entity.hpp"
 #include "ecs/component.hpp"
 
-void Screen::AddSystem(std::unique_ptr<System> &system) {
-	system->serviceContainer = serviceContainer;
-	systems.emplace_back(std::move(system));
-	std::sort(systems.begin(), systems.end(), Screen::SortSystem);
-}
+namespace smeg {
 
-void Screen::AddEntity(std::unique_ptr<Entity> &entity) {
-	entities.emplace_back(std::move(entity));
-}
+	void Screen::AddSystem(std::unique_ptr<System> &system) {
+		system->serviceContainer = serviceContainer;
+		systems.emplace_back(std::move(system));
+		std::sort(systems.begin(), systems.end(), Screen::SortSystem);
+	}
 
-void Screen::Update() {
-	for (auto &system : systems) {
+	void Screen::AddEntity(std::unique_ptr<Entity> &entity) {
+		entities.emplace_back(std::move(entity));
+	}
 
-		int requiredComponents = system->types.size();
+	void Screen::Update() {
+		for (auto &system : systems) {
 
-		for (auto &entity : entities) {
+			int requiredComponents = system->types.size();
 
-			int matchingComponents = 0;
+			for (auto &entity : entities) {
 
-			for (auto type : system->types) {
-				bool hasMatchingComponent = entity->components.count(type) > 0;
-				if (hasMatchingComponent) {
-					matchingComponents++;
-				}
+				int matchingComponents = 0;
 
-				if (matchingComponents >= requiredComponents) {
-					system->Process(*entity);
-					break;
+				for (auto type : system->types) {
+					bool hasMatchingComponent = entity->components.count(type) > 0;
+					if (hasMatchingComponent) {
+						matchingComponents++;
+					}
+
+					if (matchingComponents >= requiredComponents) {
+						system->Process(*entity);
+						break;
+					}
 				}
 			}
 		}
 	}
-}
 
-void Screen::Render(BatchRenderer& renderer) {
-	for (auto &system :systems) {
+	void Screen::Render(BatchRenderer& renderer) {
+		for (auto &system :systems) {
 
-		int requiredComponents = system->types.size();
+			int requiredComponents = system->types.size();
 
-		for (auto &entity : entities) {
+			for (auto &entity : entities) {
 
-			int matchingComponents = 0;
+				int matchingComponents = 0;
 
-			for (auto type : system->types) {
-				bool hasMatchingComponent = entity->components.count(type) > 0;
-				if (hasMatchingComponent) {
-					matchingComponents++;
-				}
+				for (auto type : system->types) {
+					bool hasMatchingComponent = entity->components.count(type) > 0;
+					if (hasMatchingComponent) {
+						matchingComponents++;
+					}
 
-				if (matchingComponents >= requiredComponents) {
-					system->Render(renderer, *entity);
-					break;
+					if (matchingComponents >= requiredComponents) {
+						system->Render(renderer, *entity);
+						break;
+					}
 				}
 			}
 		}
 	}
-}
 
-bool Screen::SortSystem(std::unique_ptr<System> &systemLeft, std::unique_ptr<System> &systemRight) {
-	return systemLeft->executionOrder < systemRight->executionOrder;
-} 
+	bool Screen::SortSystem(std::unique_ptr<System> &systemLeft, std::unique_ptr<System> &systemRight) {
+		return systemLeft->executionOrder < systemRight->executionOrder;
+	} 
+}

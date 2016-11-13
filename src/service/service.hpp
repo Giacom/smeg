@@ -1,6 +1,5 @@
 #pragma once
 
-
-struct Service {
-
-};
+namespace smeg {
+    class Service {};
+}

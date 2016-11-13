@@ -6,11 +6,13 @@
 #include "entity.hpp"
 #include "component.hpp"
 
+namespace smeg {
 
-int Entity::autoComponentId = 0;
+	int Entity::autoComponentId = 0;
 
-void Entity::AddComponent(std::unique_ptr<Component> &component) {
-	component->id = ++autoComponentId;
-	auto type = std::type_index(typeid(*component));
-	components[type] = std::move(component);
- }
+	void Entity::AddComponent(std::unique_ptr<Component> &component) {
+		component->id = ++autoComponentId;
+		auto type = std::type_index(typeid(*component));
+		components[type] = std::move(component);
+	}
+}

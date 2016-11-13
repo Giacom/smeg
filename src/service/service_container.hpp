@@ -6,22 +6,25 @@
 
 #include "service.hpp"
 
-typedef std::unordered_map<std::type_index, std::unique_ptr<Service>> ServiceMap;
+namespace smeg {
 
-struct ServiceContainer {
+    typedef std::unordered_map<std::type_index, std::unique_ptr<Service>> ServiceMap;
 
-    private:
-        ServiceMap services;
+    class ServiceContainer {
 
-    public:
-        template<typename T>
-        void Provide(std::unique_ptr<Service> &service) {
-            auto type = std::type_index(typeid(T));
-            services[type] = std::move(service);
-        }
+        private:
+            ServiceMap services;
 
-        template<typename T>
-        T& Get() {
-            return *static_cast<T*>(services.at(std::type_index(typeid(T))).get());
-        }
-};
+        public:
+            template<typename T>
+            void Provide(std::unique_ptr<Service> &service) {
+                auto type = std::type_index(typeid(T));
+                services[type] = std::move(service);
+            }
+
+            template<typename T>
+            T& Get() {
+                return *static_cast<T*>(services.at(std::type_index(typeid(T))).get());
+            }
+    };
+}

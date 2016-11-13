@@ -7,18 +7,24 @@
 #include "service/service_container.hpp"
 #include "graphics/batch_renderer.hpp"
 
-struct App {
-	SDL_Window* window;
-	SDL_Renderer* renderer;
-	BatchRenderer batchRenderer;
+namespace smeg {
+	class App {
+		private:
+			SDL_Window* window;
+			SDL_Renderer* renderer;
+			BatchRenderer batchRenderer;
 
-	std::vector<std::unique_ptr<Screen>> screens;
-	ServiceContainer serviceContainer;
+			std::vector<std::unique_ptr<Screen>> screens;
+			ServiceContainer serviceContainer;
 
-	~App();
-	void Init();
-	void Start();
-	bool ProcessEvents();
-	void Update();
-	void Render();
-};
+		public:
+			~App();
+			void Init();
+			void Start();
+
+		private:
+			bool ProcessEvents();
+			void Update();
+			void Render();
+	};
+}

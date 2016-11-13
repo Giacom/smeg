@@ -3,14 +3,17 @@
 #include <string>
 #include "../component.hpp"
 
-struct Sprite: public Component {
+namespace smeg {
 
-	std::string texturePath;
-	
-	int w;
-	int h;
-	int layer;
+	struct Sprite: public Component {
 
-	~Sprite() {}
-	Sprite(const std::string texturePath, int w, int h, int layer = 0);
-};
+		std::string texturePath;
+		
+		int w;
+		int h;
+		int layer;
+
+		~Sprite() {}
+		Sprite(const std::string texturePath, int w, int h, int layer = 0);
+	};
+}

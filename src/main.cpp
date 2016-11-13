@@ -1,7 +1,7 @@
 #include "app.hpp"
 
 int main() {
-	App app;
+	smeg::App app;
 	app.Init();
 	app.Start();
 }

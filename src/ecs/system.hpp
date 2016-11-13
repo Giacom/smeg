@@ -10,18 +10,22 @@
 #include "../service/service_container.hpp"
 #include "../graphics/batch_renderer.hpp"
 
-struct System {
+namespace smeg {
 
-	static const int EARLY = -100;
-	static const int NORMAL = 0;
-	static const int LATE = 100;
+	struct System {
 
-	std::vector<std::type_index> types;
-	ServiceContainer* serviceContainer;
-	int executionOrder = NORMAL;
+		static const int EARLY = -100;
+		static const int NORMAL = 0;
+		static const int LATE = 100;
 
-	System();
+		std::vector<std::type_index> types;
+		ServiceContainer* serviceContainer;
+		int executionOrder = NORMAL;
 
-	virtual void Process(Entity &entity);
-	virtual void Render(BatchRenderer &renderer, Entity &entity);
-};
+		System();
+
+		virtual void Process(Entity &entity);
+		virtual void Render(BatchRenderer &renderer, Entity &entity);
+	};
+
+}

@@ -5,7 +5,10 @@
 #include "../../entity.hpp"
 #include "../../system.hpp"
 
-struct TextRenderer: public System {
-	TextRenderer();
-	void Render(BatchRenderer &renderer, Entity &entity);
-};
+namespace smeg {
+
+	struct TextRenderer: public System {
+		TextRenderer();
+		void Render(BatchRenderer &renderer, Entity &entity);
+	};
+}

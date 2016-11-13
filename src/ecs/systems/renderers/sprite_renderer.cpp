@@ -9,27 +9,30 @@
 #include "../../../service/texture_library.hpp"
 #include "../../../service/time.hpp"
 
-SpriteRenderer::SpriteRenderer() {
-	types.push_back(std::type_index(typeid(Transform)));
-	types.push_back(std::type_index(typeid(Sprite)));
-	executionOrder = System::LATE;
-}
+namespace smeg {
 
-void SpriteRenderer::Process(Entity &entity) {
-	Transform& transform = entity.GetComponent<Transform>();
-	Time& time = serviceContainer->Get<Time>();
-
-	transform.position.x += (100.0f * time.delta);
-	if (transform.position.x > 500) {
-		transform.position.x = -100;
+	SpriteRenderer::SpriteRenderer() {
+		types.push_back(std::type_index(typeid(Transform)));
+		types.push_back(std::type_index(typeid(Sprite)));
+		executionOrder = System::LATE;
 	}
-}
 
-void SpriteRenderer::Render(BatchRenderer &renderer, Entity &entity) {
-	Transform& transform = entity.GetComponent<Transform>();
-	Sprite& sprite = entity.GetComponent<Sprite>();
+	void SpriteRenderer::Process(Entity &entity) {
+		Transform& transform = entity.GetComponent<Transform>();
+		Time& time = serviceContainer->Get<Time>();
 
-	SDL_Rect rect = SDL_Rect { (int)transform.position.x, (int)transform.position.y, sprite.w, sprite.h };
-	auto& textureLibrary = serviceContainer->Get<TextureLibrary>();
-	renderer.BatchTexture(textureLibrary.LoadFile(sprite.texturePath), {}, rect, sprite.layer);
+		transform.position.x += (100.0f * time.delta);
+		if (transform.position.x > 500) {
+			transform.position.x = -100;
+		}
+	}
+
+	void SpriteRenderer::Render(BatchRenderer &renderer, Entity &entity) {
+		Transform& transform = entity.GetComponent<Transform>();
+		Sprite& sprite = entity.GetComponent<Sprite>();
+
+		SDL_Rect rect = SDL_Rect { (int)transform.position.x, (int)transform.position.y, sprite.w, sprite.h };
+		auto& textureLibrary = serviceContainer->Get<TextureLibrary>();
+		renderer.BatchTexture(textureLibrary.LoadFile(sprite.texturePath), {}, rect, sprite.layer);
+	}
 }

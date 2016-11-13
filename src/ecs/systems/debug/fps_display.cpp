@@ -6,17 +6,19 @@
 #include "../../components/debug/fps.hpp"
 #include "../../components/text.hpp"
 
-FpsDisplay::FpsDisplay() {
-	types.push_back(std::type_index(typeid(Fps)));
-	types.push_back(std::type_index(typeid(Text)));
-}
+namespace smeg {
 
+    FpsDisplay::FpsDisplay() {
+        types.push_back(std::type_index(typeid(Fps)));
+        types.push_back(std::type_index(typeid(Text)));
+    }
 
-void FpsDisplay::Process(Entity &entity) {
-    Time &time = serviceContainer->Get<Time>();
-    Text &text = entity.GetComponent<Text>();
-    std::stringstream label;
-    label << "FPS: " << time.fps << " - Delta: " << time.delta;
+    void FpsDisplay::Process(Entity &entity) {
+        Time &time = serviceContainer->Get<Time>();
+        Text &text = entity.GetComponent<Text>();
+        std::stringstream label;
+        label << "FPS: " << time.fps << " - Delta: " << time.delta;
 
-    text.SetText(label.str());
+        text.SetText(label.str());
+    }
 }
