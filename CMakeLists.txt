@@ -1,14 +1,14 @@
 cmake_minimum_required(VERSION 3.5)
-project(SAMPLE)
+project(sample)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS_DEBUG, -g -Wall -Wno-potentially-evaluated-expression -Werror)
 
 add_subdirectory(engine)
 
-add_executable(SAMPLE sample/src/main.cpp)
-target_link_libraries(SAMPLE SMEG)
-target_include_directories(SAMPLE PUBLIC engine/src)
+add_executable(sample sample/src/main.cpp)
+target_link_libraries(sample SMEG)
+target_include_directories(sample PUBLIC engine/src)
 
 # Copy resources
 
@@ -18,7 +18,7 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/sample/res DESTINATION ${CMAKE_BINARY_DIR}
 # Add run target
 
 add_custom_target(run
-    COMMAND ${PROJECT_BINARY_DIR}/SAMPLE
+    COMMAND ${PROJECT_BINARY_DIR}/sample
     DEPENDS sample 
     WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
 )
