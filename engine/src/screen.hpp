@@ -11,6 +11,8 @@
 namespace smeg {
 	class Screen {
 		public:
+			Screen(ServiceContainer* serviceContainer) : serviceContainer(serviceContainer) {}
+
 			std::vector<std::unique_ptr<System>> systems;
 			std::vector<std::unique_ptr<Entity>> entities;
 

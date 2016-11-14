@@ -35,8 +35,6 @@ namespace smeg {
 
 		std::unique_ptr<Service> textureLibrary = std::make_unique<TextureLibrary>(renderer);
 		serviceContainer.Provide<TextureLibrary>(textureLibrary);
-
-
 	}
 
 	void App::Start() {
@@ -78,11 +76,12 @@ namespace smeg {
 		}
 	}
 
-	Screen* App::CreateScreen() {
-		std::unique_ptr<Screen> screen = std::make_unique<Screen>();
-		screen->serviceContainer = &serviceContainer;
-		screens.push_back(std::move(screen));
-		return screens[screens.size() - 1].get();
+	Screen& App::CreateScreen() {
+		//std::unique_ptr<Screen> screen = std::make_unique<Screen>();
+		//screen->serviceContainer = &serviceContainer;
+		//screens.push_back(std::move(screen));
+		screens.push_back(std::make_unique<Screen>(&serviceContainer));
+		return *(screens.at(screens.size() - 1).get());
 	}
 
 	bool App::ProcessEvents() {
