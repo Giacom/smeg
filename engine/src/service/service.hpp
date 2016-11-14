@@ -1,5 +1,5 @@
 #pragma once
 
 namespace smeg {
-    class Service {};
+	class Service {};
 }

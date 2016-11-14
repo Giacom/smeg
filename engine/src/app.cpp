@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL/SDL_ttf.h>
+
 #include <iostream>
 #include <memory>
 #include <algorithm>
@@ -8,13 +9,6 @@
 #include "screen.hpp"
 #include "service/texture_library.hpp"
 #include "service/time.hpp"
-#include "ecs/systems/renderers/sprite_renderer.hpp"
-#include "ecs/systems/renderers/text_renderer.hpp"
-#include "ecs/systems/debug/fps_display.hpp"
-#include "ecs/components/transform.hpp"
-#include "ecs/components/sprite.hpp"
-#include "ecs/components/text.hpp"
-#include "ecs/components/debug/fps.hpp"
 
 namespace smeg {
 	App::~App() {

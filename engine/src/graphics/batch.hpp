@@ -6,13 +6,13 @@
 
 namespace smeg {
 
-    struct Batch {
-        Texture *texture;
-        SDL_Rect source;
-        SDL_Rect dest;
-        int layer;
+	struct Batch {
+		Texture *texture;
+		SDL_Rect source;
+		SDL_Rect dest;
+		int layer;
 
-        Batch(Texture *texture, SDL_Rect source, SDL_Rect dest, int layer) :
-            texture(texture), source(source), dest(dest), layer(layer) {}
-    };
+		Batch(Texture *texture, SDL_Rect source, SDL_Rect dest, int layer) :
+			texture(texture), source(source), dest(dest), layer(layer) {}
+	};
 }

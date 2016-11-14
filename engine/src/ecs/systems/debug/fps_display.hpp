@@ -4,8 +4,8 @@
 
 namespace smeg {
 
-    struct FpsDisplay: public System {
-        FpsDisplay();
-        void Process(Entity &entity);
-    };
+	struct FpsDisplay: public System {
+		FpsDisplay();
+		void Process(Entity &entity);
+	};
 }

@@ -4,14 +4,14 @@
 #include "../../math/vector2.hpp"
 
 namespace smeg {
-    struct Transform: public Component {
-        Vector2 position;
+	struct Transform: public Component {
+		Vector2 position;
 
-        Transform(float x, float y) {
-            Vector2 position(x, y);
-            this->position = position;
-        }
+		Transform(float x, float y) {
+			Vector2 position(x, y);
+			this->position = position;
+		}
 
-        Transform(Vector2 position) : position(position) {}
-    };
+		Transform(Vector2 position) : position(position) {}
+	};
 }

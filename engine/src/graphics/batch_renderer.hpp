@@ -8,11 +8,11 @@
 
 namespace smeg {
 
-    struct BatchRenderer {
-        std::vector<Batch> batches;
+	struct BatchRenderer {
+		std::vector<Batch> batches;
 
-        void Start();
-        void BatchTexture(Texture &texture, SDL_Rect source, SDL_Rect dest, int layer);
-        std::vector<struct Batch>& Collect();
-    };
+		void Start();
+		void BatchTexture(Texture &texture, SDL_Rect source, SDL_Rect dest, int layer);
+		std::vector<struct Batch>& Collect();
+	};
 }

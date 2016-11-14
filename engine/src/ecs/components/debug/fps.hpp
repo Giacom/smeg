@@ -3,5 +3,5 @@
 #include "../../component.hpp"
 
 namespace smeg {
-    struct Fps: public Component {};
+	struct Fps: public Component {};
 }
