@@ -11,6 +11,14 @@ file(GLOB_RECURSE SMEG_SOURCES "src/*.cpp")
 file(GLOB_RECURSE SMEG_HEADERS "src/*.hpp")
 add_library(SMEG ${SMEG_SOURCES})
 
+# Include what you use linting
+find_program(iwyu_path NAMES include-what-you-use iwyu)
+if(NOT iwyu_path)
+  message(FATAL_ERROR "Could not find the program include-what-you-use")
+endif()
+
+set_property(TARGET SMEG PROPERTY CXX_INCLUDE_WHAT_YOU_USE ${iwyu_path})
+
 # CMake modules and find packages
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
