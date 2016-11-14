@@ -39,4 +39,4 @@ target_link_libraries(SMEG ${SDL2_LIBRARY}
                              ${SDL2_TTF_LIBRARIES})
 
 install(TARGETS SMEG DESTINATION lib)
-install(FILES ${SMEG_HEADERS} DESTINATION include
+install(FILES ${SMEG_HEADERS} DESTINATION include)

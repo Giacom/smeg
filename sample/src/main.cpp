@@ -17,10 +17,10 @@ int main() {
 	App app;
 	app.Init();
 
-	Screen& mainScreen = app.CreateScreen();
+	auto& mainScreen = app.CreateScreen();
 
 	// Systems
-	std::unique_ptr<System> drawSystem= std::make_unique<SpriteRenderer>();
+	std::unique_ptr<System> drawSystem = std::make_unique<SpriteRenderer>();
 	mainScreen.AddSystem(drawSystem);
 
 	std::unique_ptr<System> textDrawSystem = std::make_unique<TextRenderer>();
