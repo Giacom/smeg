@@ -2,9 +2,9 @@
 #include <memory>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <iostream>
 
 #include "texture_library.hpp"
+#include "../log.hpp"
 
 namespace smeg {
 
@@ -20,7 +20,8 @@ namespace smeg {
 
 		SDL_Surface* image = IMG_Load(path.c_str());
 		if (!image) {
-			std::cout << "ERROR: Unable to load texture image: " << path << std::endl;
+			Log("ERROR: Unable to load texture image: ");
+			LogLn(path);
 			throw;
 		}
 
@@ -40,20 +41,23 @@ namespace smeg {
 	void TextureLibrary::Cache(const std::string &key, SDL_Surface *image) {
 		SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, image);
 		if (!texture) {
-			std::cout << "ERROR: Unable to convert texture from surface to texture: " << key << std::endl;
+			Log("ERROR: Unable to convert texture from surface to texture: ");
+			LogLn(key);
 			throw;
 		}
-		std::cout << "LOADED TEXTURE: " << key << std::endl;
+		Log("LOADED TEXTURE: ");
+		LogLn(key);
 		textureMap[key] = std::make_unique<Texture>(texture);
 	}
 
 	void TextureLibrary::Remove(const std::string &key) {
 		textureMap.erase(key);
-		std::cout << "UNLOADED TEXTURE:" << key << std::endl;
+		Log("UNLOADED TEXTURE: ");
+		LogLn(key);
 	}
 
 	void TextureLibrary::Clear() {
 		textureMap.clear();
-		std::cout << "UNLOADED ALL TEXTURES" << std::endl;
+		LogLn("UNLOADED ALL TEXTURES");
 	}
 }

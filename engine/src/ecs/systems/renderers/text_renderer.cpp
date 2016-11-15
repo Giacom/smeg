@@ -21,6 +21,11 @@ namespace smeg {
 	void TextRenderer::Render(BatchRenderer &renderer, Entity &entity) {
 		Transform &transform = entity.GetComponent<Transform>();
 		Text &text = entity.GetComponent<Text>();
+
+		if (text.GetText().size() <= 0) {
+			return;
+		}
+
 		auto &textureLibrary = serviceContainer->Get<TextureLibrary>();
 
 		if (text.isDirty) {

@@ -1,12 +1,12 @@
 #include <SDL2/SDL.h>
 #include <SDL/SDL_ttf.h>
 
-#include <iostream>
 #include <memory>
 #include <algorithm>
 
 #include "app.hpp"
 #include "screen.hpp"
+#include "log.hpp"
 #include "service/texture_library.hpp"
 #include "service/time.hpp"
 
@@ -17,16 +17,18 @@ namespace smeg {
 	}
 
 	void App::Init() {
-		std::cout << "Initialising..." << std::endl;
+		LogLn("Initialising");
 		if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
-			std::cout << "Error initialising SDL: " << SDL_GetError() << std::endl;
+			Log("Error initialising SDL: ");
+			LogLn(SDL_GetError());
 		}
 
 		if (TTF_Init() == -1) {
-			std::cout << "Error initialising TTF: " << TTF_GetError() << std::endl;
+			Log("Error initialising TTF: ");
+			LogLn(TTF_GetError());
 		}
 
-		window = SDL_CreateWindow("Hello", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 320, 568, 0);
+		window = SDL_CreateWindow("SMEG", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 320, 568, 0);
 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 		// Services
@@ -77,10 +79,7 @@ namespace smeg {
 	}
 
 	Screen& App::CreateScreen() {
-		//std::unique_ptr<Screen> screen = std::make_unique<Screen>();
-		//screen->serviceContainer = &serviceContainer;
-		//screens.push_back(std::move(screen));
-		screens.push_back(std::make_unique<Screen>(&serviceContainer));
+		screens.emplace_back(std::make_unique<Screen>(&serviceContainer));
 		return *(screens.at(screens.size() - 1).get());
 	}
 

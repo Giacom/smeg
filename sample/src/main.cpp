@@ -1,4 +1,5 @@
 #include "app.hpp"
+#include "log.hpp"
 #include "ecs/systems/renderers/sprite_renderer.hpp"
 #include "ecs/systems/renderers/text_renderer.hpp"
 #include "ecs/systems/debug/fps_display.hpp"
@@ -9,7 +10,6 @@
 
 #include <memory>
 #include <algorithm>
-#include <iostream>
 
 using namespace smeg;
 
@@ -36,9 +36,10 @@ int main() {
 
 		TTF_Font *font = TTF_OpenFont("res/arial.ttf", 24);
 		if (!font) {
-			std::cout << "Error loading font: " << TTF_GetError() << std::endl;
+			Log("Error loading font: ");
+			LogLn(TTF_GetError());
 		} else {
-			std::cout << "Font found!" << std::endl;
+			LogLn("Font found!");
 		}
 
 		std::unique_ptr<Component> transform = std::make_unique<Transform>(20, 10);
@@ -52,7 +53,7 @@ int main() {
 	}
 
 	// Ducks
-	for (int i = -100; i < 100; ++i) {
+	for (int i = -100; i < 1000; ++i) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
 		std::unique_ptr<Component> transform = std::make_unique<Transform>(i * 16 + i, (i * 16) + i);
 		std::unique_ptr<Component> sprite = std::make_unique<Sprite>(std::string("res/duck.png"), 128, 128, 100 - i);
