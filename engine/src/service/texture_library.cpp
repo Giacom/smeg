@@ -20,8 +20,7 @@ namespace smeg {
 
 		SDL_Surface* image = IMG_Load(path.c_str());
 		if (!image) {
-			Log("ERROR: Unable to load texture image: ");
-			LogLn(path);
+			LogError(std::string("Unable to load texture image: ") + path);
 			throw;
 		}
 
@@ -41,23 +40,20 @@ namespace smeg {
 	void TextureLibrary::Cache(const std::string &key, SDL_Surface *image) {
 		SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, image);
 		if (!texture) {
-			Log("ERROR: Unable to convert texture from surface to texture: ");
-			LogLn(key);
+			LogError(std::string("Unable to convert texture from surface to texture: ") + key);
 			throw;
 		}
-		Log("LOADED TEXTURE: ");
-		LogLn(key);
+		Log(std::string("Texture Loaded: ") + key);
 		textureMap[key] = std::make_unique<Texture>(texture);
 	}
 
 	void TextureLibrary::Remove(const std::string &key) {
 		textureMap.erase(key);
-		Log("UNLOADED TEXTURE: ");
-		LogLn(key);
+		Log(std::string("Texture Unloaded: ") + key);
 	}
 
 	void TextureLibrary::Clear() {
 		textureMap.clear();
-		LogLn("UNLOADED ALL TEXTURES");
+		Log("Unloaded All Textures");
 	}
 }

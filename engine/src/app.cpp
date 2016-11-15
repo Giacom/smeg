@@ -17,15 +17,13 @@ namespace smeg {
 	}
 
 	void App::Init() {
-		LogLn("Initialising");
+		Log("Initialising");
 		if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
-			Log("Error initialising SDL: ");
-			LogLn(SDL_GetError());
+			LogError(std::string("Error initialising SDL: ") + SDL_GetError());
 		}
 
 		if (TTF_Init() == -1) {
-			Log("Error initialising TTF: ");
-			LogLn(TTF_GetError());
+			Log(std::string("Error initialising TTF: ") + TTF_GetError());
 		}
 
 		window = SDL_CreateWindow("SMEG", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 320, 568, 0);

@@ -36,10 +36,9 @@ int main() {
 
 		TTF_Font *font = TTF_OpenFont("res/arial.ttf", 24);
 		if (!font) {
-			Log("Error loading font: ");
-			LogLn(TTF_GetError());
+			LogError(std::string("Error loading font: ") + TTF_GetError());
 		} else {
-			LogLn("Font found!");
+			Log("Font found!");
 		}
 
 		std::unique_ptr<Component> transform = std::make_unique<Transform>(20, 10);
