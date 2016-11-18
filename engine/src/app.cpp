@@ -6,7 +6,6 @@
 
 #include "app.hpp"
 #include "screen.hpp"
-#include "log.hpp"
 #include "service/texture_library.hpp"
 #include "service/time.hpp"
 
@@ -17,13 +16,13 @@ namespace smeg {
 	}
 
 	void App::Init() {
-		Log("Initialising");
+		SDL_Log("Initialising");
 		if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
-			LogError(std::string("Error initialising SDL: ") + SDL_GetError());
+			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Error initialising SDL: %s", SDL_GetError());
 		}
 
 		if (TTF_Init() == -1) {
-			Log(std::string("Error initialising TTF: ") + TTF_GetError());
+			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Error initialising TTF: %s", TTF_GetError());
 		}
 
 		window = SDL_CreateWindow("SMEG", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 320, 568, 0);

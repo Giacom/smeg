@@ -4,7 +4,6 @@
 #include <SDL2/SDL_image.h>
 
 #include "texture_library.hpp"
-#include "../log.hpp"
 
 namespace smeg {
 
@@ -20,7 +19,7 @@ namespace smeg {
 
 		SDL_Surface* image = IMG_Load(path.c_str());
 		if (!image) {
-			LogError(std::string("Unable to load texture image: ") + path);
+			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Unable to load texture image: %s", path.c_str());
 			throw;
 		}
 
@@ -40,20 +39,20 @@ namespace smeg {
 	void TextureLibrary::Cache(const std::string &key, SDL_Surface *image) {
 		SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, image);
 		if (!texture) {
-			LogError(std::string("Unable to convert texture from surface to texture: ") + key);
+			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Unable to convert texture from surface to texture: %s", key.c_str());
 			throw;
 		}
-		Log(std::string("Texture Loaded: ") + key);
+		SDL_Log("Texture Loaded: %s", key.c_str());
 		textureMap[key] = std::make_unique<Texture>(texture);
 	}
 
 	void TextureLibrary::Remove(const std::string &key) {
 		textureMap.erase(key);
-		Log(std::string("Texture Unloaded: ") + key);
+		SDL_Log("Texture Unloaded: %s", key.c_str());
 	}
 
 	void TextureLibrary::Clear() {
 		textureMap.clear();
-		Log("Unloaded All Textures");
+		SDL_Log("Unloaded All Textures");
 	}
 }

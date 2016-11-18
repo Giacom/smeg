@@ -1,5 +1,4 @@
 #include "app.hpp"
-#include "log.hpp"
 #include "ecs/systems/renderers/sprite_renderer.hpp"
 #include "ecs/systems/renderers/text_renderer.hpp"
 #include "ecs/systems/debug/fps_display.hpp"
@@ -36,9 +35,9 @@ int main() {
 
 		TTF_Font *font = TTF_OpenFont("res/arial.ttf", 24);
 		if (!font) {
-			LogError(std::string("Error loading font: ") + TTF_GetError());
+			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Error loading font: %s", TTF_GetError());
 		} else {
-			Log("Font found!");
+			SDL_Log("Font found!");
 		}
 
 		std::unique_ptr<Component> transform = std::make_unique<Transform>(20, 10);
