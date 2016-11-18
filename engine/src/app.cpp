@@ -1,5 +1,5 @@
 #include <SDL2/SDL.h>
-#include <SDL/SDL_ttf.h>
+#include <SDL_ttf.h>
 
 #include <memory>
 #include <algorithm>

@@ -52,7 +52,7 @@ int main() {
 	}
 
 	// Ducks
-	for (int i = -100; i < 1000; ++i) {
+	for (int i = -100; i < 100; ++i) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
 		std::unique_ptr<Component> transform = std::make_unique<Transform>(i * 16 + i, (i * 16) + i);
 		std::unique_ptr<Component> sprite = std::make_unique<Sprite>(std::string("res/duck.png"), 128, 128, 100 - i);
