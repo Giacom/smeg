@@ -37,13 +37,13 @@ namespace smeg {
 	}
 
 	void TextureLibrary::Cache(const std::string &key, SDL_Surface *image) {
-		SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, image);
+		/*SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, image);
 		if (!texture) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Unable to convert texture from surface to texture: %s", key.c_str());
 			throw;
 		}
 		SDL_Log("Texture Loaded: %s", key.c_str());
-		textureMap[key] = std::make_unique<Texture>(texture);
+		textureMap[key] = std::make_unique<Texture>(texture);*/
 	}
 
 	void TextureLibrary::Remove(const std::string &key) {

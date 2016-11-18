@@ -11,7 +11,7 @@ namespace smeg {
 	class App {
 		private:
 			SDL_Window* window;
-			SDL_Renderer* renderer;
+			SDL_GLContext* context;
 			BatchRenderer batchRenderer;
 
 			std::vector<std::unique_ptr<Screen>> screens;

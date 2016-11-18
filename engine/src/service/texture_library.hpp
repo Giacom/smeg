@@ -18,10 +18,8 @@ namespace smeg {
 		
 		private:
 			TextureMap textureMap;
-			SDL_Renderer* renderer;
 
 		public:
-			TextureLibrary(SDL_Renderer* renderer) : Service(), renderer(renderer) {}
 			Texture& LoadFile(const std::string &path);
 			Texture& Get(const std::string &key);
 			bool HasKey(const std::string &key);

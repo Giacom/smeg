@@ -7,7 +7,7 @@ add_executable(sample src/main.cpp)
 
 message("Linking to ${sample_SOURCE_DIR}")
 target_link_libraries(sample SMEG)
-target_compile_options(sample PRIVATE -Wall -Werror -Wextra)
+target_compile_options(sample PRIVATE -Wall -Werror -Wextra -g)
 
 # Copy resources
 

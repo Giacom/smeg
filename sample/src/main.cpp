@@ -15,9 +15,9 @@ using namespace smeg;
 int main() {
 	App app;
 	app.Init();
+	/*auto& mainScreen =*/ app.CreateScreen();
 
-	auto& mainScreen = app.CreateScreen();
-
+/*
 	// Systems
 	std::unique_ptr<System> drawSystem = std::make_unique<SpriteRenderer>();
 	mainScreen.AddSystem(drawSystem);
@@ -54,12 +54,12 @@ int main() {
 	for (int i = -100; i < 100; ++i) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
 		std::unique_ptr<Component> transform = std::make_unique<Transform>(i * 16 + i, (i * 16) + i);
-		std::unique_ptr<Component> sprite = std::make_unique<Sprite>(std::string("res/duck.png"), 128, 128, 100 - i);
+		std::unique_ptr<Component> sprite = std::make_unique<Sprite>("res/duck.png", 128, 128, 100 - i);
 
 		entity->AddComponent(transform);
 		entity->AddComponent(sprite);
 		mainScreen.AddEntity(entity);
 	}
-
+*/
 	app.Start();
 }
