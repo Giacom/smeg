@@ -6,7 +6,6 @@
 #include "ecs/system.hpp"
 #include "ecs/entity.hpp"
 #include "service/service_container.hpp"
-#include "graphics/batch_renderer.hpp"
 
 namespace smeg {
 	class Screen {
@@ -19,7 +18,7 @@ namespace smeg {
 			ServiceContainer* serviceContainer;
 
 			void Update();
-			void Render(BatchRenderer &renderer);
+			void Render(BaseRenderer &renderer);
 
 			void AddSystem(std::unique_ptr<System> &system);
 			void AddEntity(std::unique_ptr<Entity> &entity);

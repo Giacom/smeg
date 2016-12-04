@@ -2,6 +2,7 @@
 #include <memory>
 
 #include "sprite_renderer.hpp"
+#include "../../../graphics/base_renderer.hpp"
 #include "../../system.hpp"
 #include "../../entity.hpp"
 #include "../../components/sprite.hpp"
@@ -27,12 +28,13 @@ namespace smeg {
 		}
 	}
 
-	void SpriteRenderer::Render(BatchRenderer &renderer, Entity &entity) {
+	void SpriteRenderer::Render(BaseRenderer &renderer, Entity &entity) {
+        /*
 		Transform& transform = entity.GetComponent<Transform>();
 		Sprite& sprite = entity.GetComponent<Sprite>();
 
 		SDL_Rect rect = SDL_Rect { (int)transform.position.x, (int)transform.position.y, sprite.w, sprite.h };
 		auto& textureLibrary = serviceContainer->Get<TextureLibrary>();
-		renderer.BatchTexture(textureLibrary.LoadFile(sprite.texturePath), {}, rect, sprite.layer);
+        */
 	}
 }

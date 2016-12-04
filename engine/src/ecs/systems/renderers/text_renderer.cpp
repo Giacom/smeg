@@ -18,7 +18,8 @@ namespace smeg {
 		executionOrder = System::LATE;
 	}
 
-	void TextRenderer::Render(BatchRenderer &renderer, Entity &entity) {
+	void TextRenderer::Render(BaseRenderer &renderer, Entity &entity) {
+        /*
 		Transform &transform = entity.GetComponent<Transform>();
 		Text &text = entity.GetComponent<Text>();
 
@@ -52,5 +53,6 @@ namespace smeg {
 
 		SDL_Rect renderQuad = { (int)transform.position.x, (int)transform.position.y, text.w, text.h};
 		renderer.BatchTexture(textureLibrary.Get(text.fontTextureId), {}, renderQuad, text.layer);
+        */
 	}
 }

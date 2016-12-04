@@ -8,7 +8,7 @@
 
 #include "entity.hpp"
 #include "../service/service_container.hpp"
-#include "../graphics/batch_renderer.hpp"
+#include "../graphics/base_renderer.hpp"
 
 namespace smeg {
 
@@ -25,7 +25,7 @@ namespace smeg {
 		System();
 
 		virtual void Process(Entity &entity);
-		virtual void Render(BatchRenderer &renderer, Entity &entity);
+		virtual void Render(BaseRenderer& renderer, Entity &entity);
 	};
 
 }

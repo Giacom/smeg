@@ -5,14 +5,12 @@
 
 #include "screen.hpp"
 #include "service/service_container.hpp"
-#include "graphics/batch_renderer.hpp"
 
 namespace smeg {
 	class App {
 		private:
 			SDL_Window* window;
-			SDL_GLContext* context;
-			BatchRenderer batchRenderer;
+            std::unique_ptr<BaseRenderer> renderer;
 
 			std::vector<std::unique_ptr<Screen>> screens;
 			ServiceContainer serviceContainer;

@@ -1,15 +1,12 @@
 #pragma once
 
-#include <SDL2/SDL.h>
-#include <string>
-
 namespace smeg {
 
 	struct Texture {
-		struct SDL_Texture *sdlTexture;
-		int w, h;
+		int id;
+		int width;
+		int height;
 
-		Texture(struct SDL_Texture *texture);
-		~Texture();
+		Texture(int id, int width, int height);
 	};
 }

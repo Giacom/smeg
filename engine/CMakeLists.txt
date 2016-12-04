@@ -31,25 +31,17 @@ find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 
-# OpenGL
-find_package(OpenGL REQUIRED)
-find_package(GLEW REQUIRED)
-
 message("Found OpenGL: " ${OPENGL_FOUND})
 message("Found GLEW: " ${GLEW_FOUND})
 
 target_include_directories(SMEG PUBLIC ${SDL2_INCLUDE_DIR}
                     ${SDL2_IMAGE_INCLUDE_DIR}
                     ${SDL2_TTF_INCLUDE_DIR}
-                    ${OPENGL_INCLUDE_DIR}
-                    ${GLEW_INCLUDE_DIRS}
                     ${PROJECT_SOURCE_DIR}/src)
                     
 target_link_libraries(SMEG ${SDL2_LIBRARY}
                              ${SDL2_IMAGE_LIBRARIES}
-                             ${SDL2_TTF_LIBRARIES}
-                             ${OPENGL_LIBRARIES}
-                             ${GLEW_LIBRARIES})
+                             ${SDL2_TTF_LIBRARIES})
 
 install(TARGETS SMEG DESTINATION lib)
 install(FILES ${SMEG_HEADERS} DESTINATION include)
