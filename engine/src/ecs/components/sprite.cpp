@@ -1,6 +1,6 @@
 #include "sprite.hpp"
 
 namespace smeg {
-	Sprite::Sprite(const std::string texturePath, int w, int h, int layer) :
-		Component(), texturePath(texturePath), w(w), h(h), layer(layer) {}
+	Sprite::Sprite(const std::string texturePath, int width, int height, int layer) :
+		Component(), texturePath(texturePath), width(width), height(height), layer(layer) {}
 }

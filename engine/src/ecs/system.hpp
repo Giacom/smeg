@@ -24,8 +24,9 @@ namespace smeg {
 
 		System();
 
-		virtual void Process(Entity &entity);
-		virtual void Render(BaseRenderer& renderer, Entity &entity);
+        virtual void Initialise(BaseRenderer& renderer) = 0;
+		virtual void Process(Entity &entity) = 0;
+		virtual void Render(BaseRenderer& renderer, Entity &entity) = 0;
 	};
 
 }

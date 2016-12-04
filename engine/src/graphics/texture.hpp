@@ -3,10 +3,8 @@
 namespace smeg {
 
 	struct Texture {
-		int id;
+		unsigned int id;
 		int width;
 		int height;
-
-		Texture(int id, int width, int height);
 	};
 }

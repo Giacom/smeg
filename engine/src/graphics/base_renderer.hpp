@@ -13,10 +13,9 @@ namespace smeg {
 			virtual void ClearColour(float red, float green, float blue) = 0;
 			virtual void Clear() = 0;
 
-
 			virtual void SwapBuffer(SDL_Window* window) = 0;
 
-			//Texture& GenTexture();
-			//void DeleteTexture(Texture& texture);
+			virtual Texture GenTexture() = 0;
+			virtual void DeleteTexture(Texture& texture) = 0;
 	};
 }

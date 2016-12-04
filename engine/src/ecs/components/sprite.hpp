@@ -9,11 +9,11 @@ namespace smeg {
 
 		std::string texturePath;
 		
-		int w;
-		int h;
+		int width;
+		int height;
 		int layer;
+        
 
-		~Sprite() {}
-		Sprite(const std::string texturePath, int w, int h, int layer = 0);
+		Sprite(const std::string texturePath, int width, int height, int layer = 0);
 	};
 }

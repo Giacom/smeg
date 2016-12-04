@@ -17,5 +17,11 @@ namespace smeg {
             void Clear() override;
 
             void SwapBuffer(SDL_Window* window) override;
+            
+			Texture GenTexture() override;
+			void DeleteTexture(Texture& texture) override;
+
+            unsigned int GenVertexArrays();
+            
 	};
 }

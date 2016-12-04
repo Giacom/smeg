@@ -31,6 +31,7 @@ namespace smeg {
 
 		renderer = std::make_unique<OpenGLRenderer>();
 		renderer->Initialise(window);
+        renderer->ClearColour(0.2058f, 0.3066f, 0.4877f);
 
 		// Services
 		std::unique_ptr<Service> time = std::make_unique<Time>();

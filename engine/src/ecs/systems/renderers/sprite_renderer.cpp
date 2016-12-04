@@ -18,6 +18,9 @@ namespace smeg {
 		executionOrder = System::LATE;
 	}
 
+    void SpriteRenderer::Initialise(BaseRenderer &renderer) {
+    }
+
 	void SpriteRenderer::Process(Entity &entity) {
 		Transform& transform = entity.GetComponent<Transform>();
 		Time& time = serviceContainer->Get<Time>();

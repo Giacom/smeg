@@ -43,4 +43,14 @@ namespace smeg {
     void OpenGLRenderer::SwapBuffer(SDL_Window* window) {
         SDL_GL_SwapWindow(window);
     }
+
+    Texture OpenGLRenderer::GenTexture() {
+        Texture texture;
+        glGenTextures(1, &texture.id);
+        return texture;
+    }
+
+    void OpenGLRenderer::DeleteTexture(Texture& texture) {
+        glDeleteTextures(1, &texture.id);
+    }
 }
