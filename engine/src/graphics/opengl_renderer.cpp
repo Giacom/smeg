@@ -4,6 +4,14 @@
 #include "opengl.hpp"
 
 namespace smeg {
+	OpenGLRenderer::OpenGLRenderer(SDL_Window* window) {
+		Initialise(window);
+	}
+
+	OpenGLRenderer::~OpenGLRenderer() {
+		Deinitialise();
+	}
+
 	void OpenGLRenderer::Initialise(SDL_Window* window) {
 		context = SDL_GL_CreateContext(window);
 

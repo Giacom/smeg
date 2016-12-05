@@ -10,8 +10,8 @@ namespace smeg {
 	        SDL_GLContext context;
 
         public:
-            void Initialise(SDL_Window* window);
-            void Deinitialise();
+            OpenGLRenderer(SDL_Window* window);
+            ~OpenGLRenderer();
 
             void ClearColour(float red, float green, float blue);
             void Clear();
@@ -22,6 +22,10 @@ namespace smeg {
 			void DeleteTexture(Texture& texture);
 
             unsigned int GenVertexArrays();
+
+        private:
+            void Initialise(SDL_Window* window);
+            void Deinitialise();
 
 	};
 }

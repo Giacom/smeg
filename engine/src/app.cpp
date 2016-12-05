@@ -14,7 +14,6 @@
 namespace smeg {
 	App::~App() {
 		SDL_DestroyWindow(window);
-        renderer->Deinitialise();
 	}
 
 	void App::Init() {
@@ -29,8 +28,7 @@ namespace smeg {
 
 		window = SDL_CreateWindow("SMEG", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 320, 568, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 
-		renderer = std::make_unique<OpenGLRenderer>();
-		renderer->Initialise(window);
+		renderer = std::make_unique<OpenGLRenderer>(window);
         renderer->ClearColour(0.2058f, 0.3066f, 0.4877f);
 
 		// Services
