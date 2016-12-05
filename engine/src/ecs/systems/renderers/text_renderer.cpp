@@ -18,7 +18,7 @@ namespace smeg {
 		executionOrder = System::LATE;
 	}
 
-	void TextRenderer::Render(BaseRenderer &renderer, Entity &entity) {
+	void TextRenderer::Render(OpenGLRenderer &renderer, Entity &entity) {
         /*
 		Transform &transform = entity.GetComponent<Transform>();
 		Text &text = entity.GetComponent<Text>();

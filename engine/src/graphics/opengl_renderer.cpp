@@ -1,7 +1,7 @@
 #include <SDL.h>
 
 #include "opengl_renderer.hpp"
-#include "../../graphics/backend/opengl.hpp"
+#include "opengl.hpp"
 
 namespace smeg {
 	void OpenGLRenderer::Initialise(SDL_Window* window) {

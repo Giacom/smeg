@@ -43,7 +43,7 @@ namespace smeg {
 		}
 	}
 
-	void Screen::Render(BaseRenderer& renderer) {
+	void Screen::Render(OpenGLRenderer& renderer) {
 		for (auto &system :systems) {
 
 			int requiredComponents = system->types.size();

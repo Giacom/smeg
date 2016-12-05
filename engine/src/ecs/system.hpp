@@ -8,7 +8,7 @@
 
 #include "entity.hpp"
 #include "../service/service_container.hpp"
-#include "../graphics/base_renderer.hpp"
+#include "../graphics/opengl_renderer.hpp"
 
 namespace smeg {
 
@@ -24,9 +24,9 @@ namespace smeg {
 
 		System();
 
-        virtual void Initialise(BaseRenderer& renderer) = 0;
+        virtual void Initialise(OpenGLRenderer& renderer) = 0;
 		virtual void Process(Entity &entity) = 0;
-		virtual void Render(BaseRenderer& renderer, Entity &entity) = 0;
+		virtual void Render(OpenGLRenderer& renderer, Entity &entity) = 0;
 	};
 
 }

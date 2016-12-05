@@ -9,7 +9,7 @@
 #include "service/texture_library.hpp"
 #include "service/time.hpp"
 
-#include "graphics/renderers/opengl_renderer.hpp"
+#include "graphics/opengl_renderer.hpp"
 
 namespace smeg {
 	App::~App() {

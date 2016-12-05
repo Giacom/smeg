@@ -2,7 +2,7 @@
 #include <memory>
 
 #include "sprite_renderer.hpp"
-#include "../../../graphics/base_renderer.hpp"
+#include "../../../graphics/opengl_renderer.hpp"
 #include "../../system.hpp"
 #include "../../entity.hpp"
 #include "../../components/sprite.hpp"
@@ -18,7 +18,7 @@ namespace smeg {
 		executionOrder = System::LATE;
 	}
 
-    void SpriteRenderer::Initialise(BaseRenderer &renderer) {
+    void SpriteRenderer::Initialise(OpenGLRenderer &renderer) {
     }
 
 	void SpriteRenderer::Process(Entity &entity) {
@@ -31,7 +31,7 @@ namespace smeg {
 		}
 	}
 
-	void SpriteRenderer::Render(BaseRenderer &renderer, Entity &entity) {
+	void SpriteRenderer::Render(OpenGLRenderer &renderer, Entity &entity) {
         /*
 		Transform& transform = entity.GetComponent<Transform>();
 		Sprite& sprite = entity.GetComponent<Sprite>();

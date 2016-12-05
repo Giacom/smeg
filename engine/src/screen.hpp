@@ -18,7 +18,7 @@ namespace smeg {
 			ServiceContainer* serviceContainer;
 
 			void Update();
-			void Render(BaseRenderer &renderer);
+			void Render(OpenGLRenderer &renderer);
 
 			void AddSystem(std::unique_ptr<System> &system);
 			void AddEntity(std::unique_ptr<Entity> &entity);

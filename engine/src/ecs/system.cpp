@@ -7,6 +7,6 @@ namespace smeg {
     void System::Process(Entity &entity) {
     }
 
-    void System::Render(BaseRenderer &renderer, Entity &entity) {
+    void System::Render(OpenGLRenderer &renderer, Entity &entity) {
     }
 }

@@ -10,7 +10,7 @@ namespace smeg {
 	class App {
 		private:
 			SDL_Window* window;
-            std::unique_ptr<BaseRenderer> renderer;
+            std::unique_ptr<OpenGLRenderer> renderer;
 
 			std::vector<std::unique_ptr<Screen>> screens;
 			ServiceContainer serviceContainer;
