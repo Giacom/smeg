@@ -17,7 +17,7 @@ namespace smeg {
 	}
 
 	void App::Init() {
-		SDL_Log("Initialising");
+		SDL_Log("Initialising App");
 		if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Error initialising SDL: %s", SDL_GetError());
 		}
@@ -40,8 +40,13 @@ namespace smeg {
 	}
 
 	void App::Start() {
+		SDL_Log("Starting App");
 		bool quit = false;
 		Time& time = serviceContainer.Get<Time>();
+
+		for (auto& screen : screens) {
+			screen->Initialise(*renderer);
+		}
 
 		auto startTime = SDL_GetTicks();
 		time.lastFrame = startTime;

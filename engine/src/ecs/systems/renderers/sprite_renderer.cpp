@@ -19,6 +19,10 @@ namespace smeg {
 	}
 
     void SpriteRenderer::Initialise(OpenGLRenderer &renderer) {
+		vbo = renderer.GenerateVertexBufferObject(vertices);
+		vao = renderer.GenerateVertexArrayObject();
+		ebo = renderer.GenerateElementBufferObject(indices);
+		shaderProgram = renderer.GenerateShaderProgram(defaultVertexShaderSource, defaultFragmentShaderSource);
     }
 
 	void SpriteRenderer::Process(Entity &entity) {

@@ -19,6 +19,12 @@ namespace smeg {
 		entities.emplace_back(std::move(entity));
 	}
 
+	void Screen::Initialise(OpenGLRenderer& renderer) {
+		for (auto &system : systems) {
+			system->Initialise(renderer);
+		}
+	}
+
 	void Screen::Update() {
 		for (auto &system : systems) {
 

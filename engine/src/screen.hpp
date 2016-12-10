@@ -17,6 +17,7 @@ namespace smeg {
 
 			ServiceContainer* serviceContainer;
 
+			void Initialise(OpenGLRenderer &renderer);
 			void Update();
 			void Render(OpenGLRenderer &renderer);
 

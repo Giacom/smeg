@@ -1,7 +1,10 @@
 #pragma once
 
 #include <SDL.h>
+#include <vector>
+
 #include "texture.hpp"
+#include "opengl.hpp"
 
 namespace smeg {
 
@@ -21,7 +24,12 @@ namespace smeg {
 			Texture GenTexture();
 			void DeleteTexture(Texture& texture);
 
-            unsigned int GenVertexArrays();
+            unsigned int GenerateVertexBufferObject(const std::vector<GLfloat>& vertices);
+            unsigned int GenerateVertexArrayObject();
+            unsigned int GenerateElementBufferObject(const std::vector<GLuint>& indices);
+
+            unsigned int GenerateShaderProgram(const char* vertexShaderSource, const char* fragmentShaderSource);
+
 
         private:
             void Initialise(SDL_Window* window);

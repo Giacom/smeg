@@ -4,6 +4,9 @@ namespace smeg {
     System::System() {
     }
 
+    void System::Initialise(OpenGLRenderer& renderer) {
+    }
+
     void System::Process(Entity &entity) {
     }
 
