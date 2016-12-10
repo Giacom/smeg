@@ -20,7 +20,7 @@ namespace smeg {
 
     void SpriteRenderer::Initialise(OpenGLRenderer &renderer) {
 		vbo = renderer.GenerateVertexBufferObject(vertices);
-		vao = renderer.GenerateVertexArrayObject();
+		vao = renderer.GenerateVertexArrayObject(vbo);
 		ebo = renderer.GenerateElementBufferObject(indices);
 		shaderProgram = renderer.GenerateShaderProgram(defaultVertexShaderSource, defaultFragmentShaderSource);
     }
@@ -36,12 +36,16 @@ namespace smeg {
 	}
 
 	void SpriteRenderer::Render(OpenGLRenderer &renderer, Entity &entity) {
-        /*
-		Transform& transform = entity.GetComponent<Transform>();
 		Sprite& sprite = entity.GetComponent<Sprite>();
 
+		/*
+		Transform& transform = entity.GetComponent<Transform>();
 		SDL_Rect rect = SDL_Rect { (int)transform.position.x, (int)transform.position.y, sprite.w, sprite.h };
+		*/
+
 		auto& textureLibrary = serviceContainer->Get<TextureLibrary>();
-        */
+		auto texture = textureLibrary.LoadFile(renderer, sprite.texturePath);
+
+		renderer.DrawTexture(texture, shaderProgram, vbo, vao, ebo);
 	}
 }

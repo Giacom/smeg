@@ -17,7 +17,7 @@ namespace smeg {
 
 		public:
 			~App();
-			void Init();
+			void Init(int windowWidth = 512, int windowHeight = 512);
 			void Start();
 			Screen& CreateScreen();
 

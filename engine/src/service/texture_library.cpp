@@ -10,7 +10,7 @@ namespace smeg {
 	const std::string TextureLibrary::filePrefix = std::string("file::");
 	const std::string TextureLibrary::resPrefix= std::string("res::");
 
-	Texture& TextureLibrary::LoadFile(const std::string &path) {
+	Texture& TextureLibrary::LoadFile(OpenGLRenderer& renderer, const std::string &path) {
 		std::string key = filePrefix + path;
 		auto existingTexture = textureMap.find(key); 
 		if (existingTexture != textureMap.end()) {
@@ -23,7 +23,7 @@ namespace smeg {
 			throw;
 		}
 
-		Cache(key, image);
+		Cache(renderer, key, image);
 		SDL_FreeSurface(image);
 		return Get(key);
 	}
@@ -36,17 +36,8 @@ namespace smeg {
 		return textureMap.count(key) > 0;
 	}
 
-	void TextureLibrary::Cache(const std::string &key, SDL_Surface *image) {
-		/*SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, image);
-		if (!texture) {
-			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Unable to convert texture from surface to texture: %s", key.c_str());
-			throw;
-		}
-		SDL_Log("Texture Loaded: %s", key.c_str());
-		textureMap[key] = std::make_unique<Texture>(texture);*/
-	}
-
 	void TextureLibrary::Remove(const std::string &key) {
+		// TODO: Unloading texture from memory
 		textureMap.erase(key);
 		SDL_Log("Texture Unloaded: %s", key.c_str());
 	}
@@ -54,5 +45,15 @@ namespace smeg {
 	void TextureLibrary::Clear() {
 		textureMap.clear();
 		SDL_Log("Unloaded All Textures");
+	}
+
+	void TextureLibrary::Cache(OpenGLRenderer& renderer, const std::string &key, SDL_Surface *image) {
+		Texture texture = renderer.GenerateTexture(image);
+		if (!texture.id) {
+			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Unable to convert texture from surface to texture: %s", key.c_str());
+			throw;
+		}
+		SDL_Log("Texture Loaded: %s", key.c_str());
+		textureMap[key] = std::make_unique<Texture>(texture);
 	}
 }

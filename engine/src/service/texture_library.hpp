@@ -7,6 +7,7 @@
 
 #include "service.hpp"
 #include "../graphics/texture.hpp"
+#include "../graphics/opengl_renderer.hpp"
 
 namespace smeg {
 
@@ -20,11 +21,13 @@ namespace smeg {
 			TextureMap textureMap;
 
 		public:
-			Texture& LoadFile(const std::string &path);
+			Texture& LoadFile(OpenGLRenderer& renderer, const std::string &path);
 			Texture& Get(const std::string &key);
 			bool HasKey(const std::string &key);
-			void Cache(const std::string &key, SDL_Surface *image);
 			void Remove(const std::string &key);
 			void Clear();
+
+		private:
+			void Cache(OpenGLRenderer& renderer, const std::string &key, SDL_Surface *image);
 	};
 }

@@ -12,7 +12,7 @@
 
 using namespace smeg;
 
-int main() {
+int main(int, char**) {
 	App app;
 	app.Init();
 	auto& mainScreen = app.CreateScreen();

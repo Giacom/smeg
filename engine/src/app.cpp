@@ -16,7 +16,7 @@ namespace smeg {
 		SDL_DestroyWindow(window);
 	}
 
-	void App::Init() {
+	void App::Init(int windowWidth, int windowHeight) {
 		SDL_Log("Initialising App");
 		if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Error initialising SDL: %s", SDL_GetError());
@@ -26,10 +26,11 @@ namespace smeg {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Error initialising TTF: %s", TTF_GetError());
 		}
 
-		window = SDL_CreateWindow("SMEG", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 320, 568, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+		window = SDL_CreateWindow("SMEG", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 
 		renderer = std::make_unique<OpenGLRenderer>(window);
         renderer->ClearColour(0.2058f, 0.3066f, 0.4877f);
+		renderer->SetViewport(windowWidth, windowHeight);
 
 		// Services
 		std::unique_ptr<Service> time = std::make_unique<Time>();
@@ -54,6 +55,8 @@ namespace smeg {
 		auto interval = 1000 / time.targetFrameRate;
 		auto calculatedFps = 0;
 		auto lastSecond = startTime;
+
+		SDL_Log("Starting app loop.");
 
 		while (!quit) {
 			// Input
@@ -80,6 +83,8 @@ namespace smeg {
 			quit = ProcessEvents();
 			Update();
 			Render();
+
+			renderer->CheckErrors();
 		}
 	}
 
@@ -95,6 +100,13 @@ namespace smeg {
 				case SDL_KEYDOWN:
 				case SDL_QUIT:
 					return true;
+				case SDL_WINDOWEVENT:
+					if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
+						int x = event.window.data1;
+						int y = event.window.data2;
+						glViewport(0, 0, x, y);
+					}
+					break;
 			}
 		}
 		return false;
@@ -112,14 +124,7 @@ namespace smeg {
 		for (auto &screen : screens) {
 			screen->Render(*renderer);
 		}
-			/*
-		for (auto &batch : batchRenderer.Collect()) {
-			const SDL_Rect &source = batch.source;
-			const SDL_Rect &dest = batch.dest;
-			(source.w > 0 && source.h > 0 ? &source : NULL),
-			(dest.w > 0 && dest.h > 0 ? &dest : NULL));
-		}
-			*/
+
 		renderer->SwapBuffer(window);
 	}
 }
