@@ -5,6 +5,7 @@
 
 #include "texture.hpp"
 #include "opengl.hpp"
+#include "../math/matrix4.hpp"
 
 namespace smeg {
 
@@ -22,7 +23,7 @@ namespace smeg {
             void Clear();
 
             void SwapBuffer(SDL_Window* window);
-            void DrawTexture(const Texture& texture, const GLuint program, const GLuint VBO, const GLuint VAO, const GLuint EBO);
+            void DrawTexture(const Texture& texture, const GLuint program, const GLuint VBO, const GLuint VAO, const GLuint EBO, const Matrix4& transform);
             
 			Texture GenerateTexture(const SDL_Surface* surface);
 			void DeleteTexture(Texture& texture);

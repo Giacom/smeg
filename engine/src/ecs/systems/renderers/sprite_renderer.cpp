@@ -26,6 +26,7 @@ namespace smeg {
     }
 
 	void SpriteRenderer::Process(Entity &entity) {
+		/*
 		Transform& transform = entity.GetComponent<Transform>();
 		Time& time = serviceContainer->Get<Time>();
 
@@ -33,19 +34,21 @@ namespace smeg {
 		if (transform.position.x > 500) {
 			transform.position.x = -100;
 		}
+		*/
 	}
 
 	void SpriteRenderer::Render(OpenGLRenderer &renderer, Entity &entity) {
 		Sprite& sprite = entity.GetComponent<Sprite>();
 
-		/*
 		Transform& transform = entity.GetComponent<Transform>();
-		SDL_Rect rect = SDL_Rect { (int)transform.position.x, (int)transform.position.y, sprite.w, sprite.h };
-		*/
+		Matrix4 matrixTransform = Matrix4(1, 0, 0, 0,
+		                                  0, 1, 0, 0,
+										  0, 0, 1, 0,
+										  transform.position.x, transform.position.y, transform.position.z, 1);
 
 		auto& textureLibrary = serviceContainer->Get<TextureLibrary>();
 		auto texture = textureLibrary.LoadFile(renderer, sprite.texturePath);
 
-		renderer.DrawTexture(texture, shaderProgram, vbo, vao, ebo);
+		renderer.DrawTexture(texture, shaderProgram, vbo, vao, ebo, matrixTransform);
 	}
 }

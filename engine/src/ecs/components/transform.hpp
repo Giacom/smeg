@@ -1,17 +1,19 @@
 #pragma once
 
 #include "../component.hpp"
-#include "../../math/vector2.hpp"
+#include "../../math/vector3.hpp"
 
 namespace smeg {
 	struct Transform: public Component {
-		Vector2 position;
+		Vector3 position;
+		float rotation;
 
-		Transform(float x, float y) {
-			Vector2 position(x, y);
+		Transform(float x, float y, float z, float rotation) {
+			Vector3 position(x, y, z);
 			this->position = position;
+			this->rotation = rotation;
 		}
 
-		Transform(Vector2 position) : position(position) {}
+		Transform(Vector3 position, float rotation) : position(position), rotation(rotation) {}
 	};
 }

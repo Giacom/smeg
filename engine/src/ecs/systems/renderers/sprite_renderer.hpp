@@ -34,9 +34,10 @@ namespace smeg {
 			"layout (location = 2) in vec2 texCoord;\n"
 			"out vec3 ourColor;\n"
 			"out vec2 TexCoord;\n"
+			"uniform mat4 transform;\n"
 			"void main()\n"
 			"{\n"
-			"gl_Position = vec4(position.x, position.y, position.z, 1.0);\n"
+			"gl_Position = transform * vec4(position.x, position.y, position.z, 1.0);\n"
 			"TexCoord = texCoord;\n"
 			"ourColor = color;\n"
 			"}\0";

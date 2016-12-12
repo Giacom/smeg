@@ -63,7 +63,7 @@ namespace smeg {
         SDL_GL_SwapWindow(window);
     }
 
-	void OpenGLRenderer::DrawTexture(const Texture& texture, const GLuint program, const GLuint vbo, const GLuint vao, const GLuint ebo) {
+	void OpenGLRenderer::DrawTexture(const Texture& texture, const GLuint program, const GLuint vbo, const GLuint vao, const GLuint ebo, const Matrix4& transform) {
 		if (!texture.id) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "DrawTexture: Invalid texture id (NULL)");
 		}
@@ -73,6 +73,7 @@ namespace smeg {
 		glUseProgram(program);
 		glBindTexture(GL_TEXTURE_2D, texture.id);		
 		glUniform1i(glGetUniformLocation(program, "ourTexture"), 0);
+		glUniformMatrix4fv(glGetUniformLocation(program, "transform"), 1, GL_FALSE, (GLfloat*)&transform.entries); 
 
 		glBindVertexArray(vao);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);	
@@ -120,7 +121,7 @@ namespace smeg {
 		{
 			glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
 		}
-		//glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		return VBO;
 	}
 
@@ -149,7 +150,7 @@ namespace smeg {
 			glEnableVertexAttribArray(2);
 		}
 		glBindVertexArray(0);
-		//glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		return VAO;
 	}
@@ -162,7 +163,7 @@ namespace smeg {
 		{
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort) * indices.size(), indices.data(), GL_STATIC_DRAW);
 		}
-		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 		return EBO;
 	}
