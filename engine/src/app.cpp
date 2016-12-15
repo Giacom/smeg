@@ -105,7 +105,7 @@ namespace smeg {
 				case SDL_QUIT:
 					return true;
 				case SDL_WINDOWEVENT:
-					if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
+					if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
 						int x = event.window.data1;
 						int y = event.window.data2;
 						renderer->SetViewport(x, y);

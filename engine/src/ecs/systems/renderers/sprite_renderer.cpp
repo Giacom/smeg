@@ -33,7 +33,7 @@ namespace smeg {
 
 		transform.position.x += (100.0f * time.delta);
 		if (transform.position.x > 500) {
-			transform.position.x = -100;
+			transform.position.x = -500;
 		}
 		*/
 	}

@@ -52,22 +52,10 @@ int main(int, char**) {
 	*/
 
 	// Ducks
-	/*
-	for (int i = -100; i < 100; ++i) {
+	for (int i = -10; i < 10; ++i) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
-		std::unique_ptr<Component> transform = std::make_unique<Transform>(i * 16 + i, (i * 16) + i);
+		std::unique_ptr<Component> transform = std::make_unique<Transform>(i * 16 + i, (i * 16) + i, 0, 0);
 		std::unique_ptr<Component> sprite = std::make_unique<Sprite>("res/duck.png", 128, 128, 100 - i);
-
-		entity->AddComponent(transform);
-		entity->AddComponent(sprite);
-		mainScreen.AddEntity(entity);
-	}
-	*/
-
-	{
-		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
-		std::unique_ptr<Component> transform = std::make_unique<Transform>(0, 0, 0.1f, 0);
-		std::unique_ptr<Component> sprite = std::make_unique<Sprite>("res/duck.png", 128, 128, 100);
 
 		entity->AddComponent(transform);
 		entity->AddComponent(sprite);
