@@ -42,10 +42,10 @@ namespace smeg {
 		Sprite& sprite = entity.GetComponent<Sprite>();
 
 		Transform& transform = entity.GetComponent<Transform>();
-		Matrix4 matrix = Matrix4(1, 0, 0, transform.position.x,
-		                         0, 1, 0, transform.position.y,
-		                         0, 0, 1, transform.position.z,
-		                         0, 0, 0, 1);
+		Matrix4 matrix = Matrix4(sprite.width, 0,             0,        transform.position.x,
+		                         0,            sprite.height, 0,        transform.position.y,
+		                         0,             0,            1,        transform.position.z,
+		                         0,             0,            0,        1);
 		Matrix4 view = Matrix4::Identity();	
 		Matrix4 perspective = serviceContainer->Get<Viewport>().GetPerspectiveMatrix();
 
