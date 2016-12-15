@@ -9,6 +9,7 @@
 #include "../../components/transform.hpp"
 #include "../../../service/texture_library.hpp"
 #include "../../../service/time.hpp"
+#include "../../../service/viewport.hpp"
 
 namespace smeg {
 
@@ -41,14 +42,16 @@ namespace smeg {
 		Sprite& sprite = entity.GetComponent<Sprite>();
 
 		Transform& transform = entity.GetComponent<Transform>();
-		Matrix4 matrixTransform = Matrix4(1, 0, 0, 0,
-		                                  0, 1, 0, 0,
-										  0, 0, 1, 0,
-										  transform.position.x, transform.position.y, transform.position.z, 1);
+		Matrix4 matrix = Matrix4(1, 0, 0, transform.position.x,
+		                         0, 1, 0, transform.position.y,
+		                         0, 0, 1, transform.position.z,
+		                         0, 0, 0, 1);
+		Matrix4 view = Matrix4::Identity();	
+		Matrix4 perspective = serviceContainer->Get<Viewport>().GetPerspectiveMatrix();
 
 		auto& textureLibrary = serviceContainer->Get<TextureLibrary>();
 		auto texture = textureLibrary.LoadFile(renderer, sprite.texturePath);
 
-		renderer.DrawTexture(texture, shaderProgram, vbo, vao, ebo, matrixTransform);
+		renderer.DrawTexture(texture, shaderProgram, vbo, vao, ebo, matrix, view, perspective);
 	}
 }

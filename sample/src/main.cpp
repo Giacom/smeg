@@ -14,7 +14,7 @@ using namespace smeg;
 
 int main(int, char**) {
 	App app;
-	app.Init();
+	app.Init(800, 600);
 	auto& mainScreen = app.CreateScreen();
 
 	// Systems
@@ -66,7 +66,7 @@ int main(int, char**) {
 
 	{
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
-		std::unique_ptr<Component> transform = std::make_unique<Transform>(0.2f, 0.2f, 0, 0);
+		std::unique_ptr<Component> transform = std::make_unique<Transform>(0, 0, 0, 0);
 		std::unique_ptr<Component> sprite = std::make_unique<Sprite>("res/duck.png", 128, 128, 100);
 
 		entity->AddComponent(transform);
@@ -75,4 +75,5 @@ int main(int, char**) {
 	}
 
 	app.Start();
+	return 0;
 }

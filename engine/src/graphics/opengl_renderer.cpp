@@ -40,7 +40,7 @@ namespace smeg {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		glEnable(GL_CULL_FACE);
+		//glEnable(GL_CULL_FACE);
 	}
 
 	void OpenGLRenderer::Deinitialise() {
@@ -63,7 +63,8 @@ namespace smeg {
         SDL_GL_SwapWindow(window);
     }
 
-	void OpenGLRenderer::DrawTexture(const Texture& texture, const GLuint program, const GLuint vbo, const GLuint vao, const GLuint ebo, const Matrix4& transform) {
+	void OpenGLRenderer::DrawTexture(const Texture& texture, const GLuint program, const GLuint vbo, const GLuint vao, const GLuint ebo,
+	                                 const Matrix4& model, const Matrix4& view, const Matrix4& perspective) {
 		if (!texture.id) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "DrawTexture: Invalid texture id (NULL)");
 		}
@@ -72,8 +73,11 @@ namespace smeg {
 
 		glUseProgram(program);
 		glBindTexture(GL_TEXTURE_2D, texture.id);		
-		glUniform1i(glGetUniformLocation(program, "ourTexture"), 0);
-		glUniformMatrix4fv(glGetUniformLocation(program, "transform"), 1, GL_FALSE, (GLfloat*)&transform.entries); 
+
+		glUniform1i(GetUniformLocation(program, "ourTexture"), 0);
+		glUniformMatrix4fv(GetUniformLocation(program, "model"), 1, GL_FALSE, (GLfloat*)&model.entries); 
+		glUniformMatrix4fv(GetUniformLocation(program, "view"), 1, GL_FALSE, (GLfloat*)&view.entries); 
+		glUniformMatrix4fv(GetUniformLocation(program, "perspective"), 1, GL_FALSE, (GLfloat*)&perspective.entries); 
 
 		glBindVertexArray(vao);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);	
@@ -216,5 +220,13 @@ namespace smeg {
 		for(GLenum err; (err = glGetError()) != GL_NO_ERROR;) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "OpenGL Init: 0x%x", err);
 		}
+	}
+
+	GLint OpenGLRenderer::GetUniformLocation(const GLuint program, const char* name) {
+		GLint location = glGetUniformLocation(program, name);
+		if (location == -1) {
+			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Could not find shader's (%u) uniform location for: %s", program, name);
+		}
+		return location;
 	}
 }

@@ -8,6 +8,7 @@
 #include "screen.hpp"
 #include "service/texture_library.hpp"
 #include "service/time.hpp"
+#include "service/viewport.hpp"
 
 #include "graphics/opengl_renderer.hpp"
 
@@ -38,6 +39,9 @@ namespace smeg {
 
 		std::unique_ptr<Service> textureLibrary = std::make_unique<TextureLibrary>();
 		serviceContainer.Provide<TextureLibrary>(textureLibrary);
+
+		std::unique_ptr<Service> viewport = std::make_unique<Viewport>(windowWidth, windowHeight);
+		serviceContainer.Provide<Viewport>(viewport);
 	}
 
 	void App::Start() {
@@ -104,7 +108,8 @@ namespace smeg {
 					if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
 						int x = event.window.data1;
 						int y = event.window.data2;
-						glViewport(0, 0, x, y);
+						renderer->SetViewport(x, y);
+						serviceContainer.Get<Viewport>().UpdateViewport(x, y);
 					}
 					break;
 			}
