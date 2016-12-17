@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "../component.hpp"
+#include "ecs/component.hpp"
 
 namespace smeg {
 
@@ -14,6 +14,7 @@ namespace smeg {
 		int layer;
         
 
-		Sprite(const std::string texturePath, int width, int height, int layer = 0);
+		Sprite(const std::string texturePath, int width, int height, int layer = 0) :
+		       Component(), texturePath(texturePath), width(width), height(height), layer(layer) {}
 	};
 }

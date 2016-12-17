@@ -3,7 +3,7 @@
 #include <SDL2/SDL.h>
 #include <SDL_ttf.h>
 #include <string>
-#include "../component.hpp"
+#include "ecs/component.hpp"
 
 namespace smeg {
 	struct Text: public Component {

@@ -3,12 +3,12 @@
 #include <memory>
 
 #include "text_renderer.hpp"
-#include "../../system.hpp"
-#include "../../entity.hpp"
-#include "../../components/transform.hpp"
-#include "../../components/text.hpp"
-#include "../../../service/texture_library.hpp"
-#include "../../../service/time.hpp"
+#include "ecs/system.hpp"
+#include "ecs/entity.hpp"
+#include "ecs/components/transform.hpp"
+#include "ecs/components/text.hpp"
+#include "service/texture_library.hpp"
+#include "service/time.hpp"
 
 namespace smeg {
 
@@ -18,7 +18,7 @@ namespace smeg {
 		executionOrder = System::LATE;
 	}
 
-	void TextRenderer::Render(OpenGLRenderer &renderer, Entity &entity) {
+	void TextRenderer::Render(OpenGLRenderer& renderer, SpriteBatchRenderer &batcher, Entity &entity) {
         /*
 		Transform &transform = entity.GetComponent<Transform>();
 		Text &text = entity.GetComponent<Text>();

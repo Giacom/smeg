@@ -95,8 +95,18 @@ namespace smeg {
 
     Texture OpenGLRenderer::GenerateTexture(const SDL_Surface* image) {
         Texture texture;
-		SDL_Log("Generating texture for %s", SDL_GetPixelFormatName(image->format->format));
         glGenTextures(1, &texture.id);
+		
+		if (!texture.id) {
+			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Unable to convert texture from surface to texture!");
+			CheckErrors();
+			throw;
+		}
+
+		SDL_Log("Generating texture for %s", SDL_GetPixelFormatName(image->format->format));
+		bool transparent = image->format->Amask != 0;
+		GLuint format = transparent ? GL_RGBA : GL_RGB;
+		
 		glBindTexture(GL_TEXTURE_2D, texture.id);
 		{
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // X wrapping
@@ -105,13 +115,16 @@ namespace smeg {
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Far away
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // Close up
 
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
+			glTexImage2D(GL_TEXTURE_2D, 0, format, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
 			glGenerateMipmap(GL_TEXTURE_2D);
 		}
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		texture.width = image->w;
 		texture.height = image->h;
+		texture.transparent = transparent; // Is transparent if there is alpha information
+		SDL_Log("Generating texture: [id: %u, w: %u, h: %u, transparent: %s]",
+		        texture.id, texture.width, texture.height, texture.transparent ? "true" : "false");
         return texture;
     }
     

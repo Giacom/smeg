@@ -49,7 +49,7 @@ namespace smeg {
 		}
 	}
 
-	void Screen::Render(OpenGLRenderer& renderer) {
+	void Screen::Render(OpenGLRenderer& renderer, SpriteBatchRenderer& batcher) {
 		for (auto &system :systems) {
 
 			int requiredComponents = system->types.size();
@@ -65,7 +65,7 @@ namespace smeg {
 					}
 
 					if (matchingComponents >= requiredComponents) {
-						system->Render(renderer, *entity);
+						system->Render(renderer, batcher, *entity);
 						break;
 					}
 				}

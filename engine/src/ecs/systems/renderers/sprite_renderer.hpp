@@ -1,9 +1,10 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-#include "../../../graphics/opengl_renderer.hpp"
-#include "../../entity.hpp"
-#include "../../system.hpp"
+#include "graphics/sprite_batch_renderer.hpp"
+#include "graphics/opengl_renderer.hpp"
+#include "ecs/entity.hpp"
+#include "ecs/system.hpp"
 
 namespace smeg {
 
@@ -58,6 +59,6 @@ namespace smeg {
 		SpriteRenderer();
 		void Initialise(OpenGLRenderer &renderer);
 		void Process(Entity &entity);
-		void Render(OpenGLRenderer& renderer, Entity &entity);
+		void Render(OpenGLRenderer& renderer, SpriteBatchRenderer& batcher, Entity &entity);
 	};
 }

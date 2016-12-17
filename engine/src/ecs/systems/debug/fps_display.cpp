@@ -2,9 +2,9 @@
 
 #include <sstream>
 
-#include "../../../service/time.hpp"
-#include "../../components/debug/fps.hpp"
-#include "../../components/text.hpp"
+#include "service/time.hpp"
+#include "ecs/components/debug/fps.hpp"
+#include "ecs/components/text.hpp"
 
 namespace smeg {
 

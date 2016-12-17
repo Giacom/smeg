@@ -19,7 +19,7 @@ namespace smeg {
 
 		SDL_Surface* image = IMG_Load(path.c_str());
 		if (!image) {
-			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Unable to load texture image: %s", path.c_str());
+			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Unable to load texture image: %s\nError %s", path.c_str(), IMG_GetError());
 			throw;
 		}
 
@@ -49,10 +49,6 @@ namespace smeg {
 
 	void TextureLibrary::Cache(OpenGLRenderer& renderer, const std::string &key, SDL_Surface *image) {
 		Texture texture = renderer.GenerateTexture(image);
-		if (!texture.id) {
-			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Unable to convert texture from surface to texture: %s", key.c_str());
-			throw;
-		}
 		SDL_Log("Texture Loaded: %s", key.c_str());
 		textureMap[key] = std::make_unique<Texture>(texture);
 	}

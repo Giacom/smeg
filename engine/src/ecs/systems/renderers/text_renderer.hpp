@@ -1,14 +1,14 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-#include "../../../graphics/opengl_renderer.hpp"
-#include "../../entity.hpp"
-#include "../../system.hpp"
+#include "graphics/opengl_renderer.hpp"
+#include "ecs/entity.hpp"
+#include "ecs/system.hpp"
 
 namespace smeg {
 
 	struct TextRenderer: public System {
 		TextRenderer();
-		void Render(OpenGLRenderer &renderer, Entity &entity);
+		void Render(OpenGLRenderer& renderer, SpriteBatchRenderer &batcher, Entity &entity);
 	};
 }

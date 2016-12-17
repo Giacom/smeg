@@ -1,8 +1,8 @@
 #pragma once
 
 #include "service.hpp"
-#include "../math/matrix4.hpp"
-#include "../math/vector2.hpp"
+#include "math/matrix4.hpp"
+#include "math/vector2.hpp"
 
 
 namespace smeg {

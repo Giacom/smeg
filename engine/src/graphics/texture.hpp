@@ -4,7 +4,8 @@ namespace smeg {
 
 	struct Texture {
 		unsigned int id;
-		int width;
-		int height;
+		unsigned int width;
+		unsigned int height;
+		bool transparent;
 	};
 }

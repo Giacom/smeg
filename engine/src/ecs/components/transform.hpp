@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../component.hpp"
-#include "../../math/vector3.hpp"
+#include "ecs/component.hpp"
+#include "math/vector3.hpp"
 
 namespace smeg {
 	struct Transform: public Component {

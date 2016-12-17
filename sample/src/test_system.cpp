@@ -19,5 +19,5 @@ void TestSystem::Process(smeg::Entity &entity) {
 	transform.position.x += time.delta * 100;
 };
 
-void TestSystem::Render(smeg::OpenGLRenderer&, smeg::Entity&) {
+void TestSystem::Render(smeg::OpenGLRenderer&, smeg::SpriteBatchRenderer&, smeg::Entity&) {
 }

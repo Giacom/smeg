@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 14)
 # TODO: Replace with non-recursive
 file(GLOB_RECURSE SMEG_SOURCES "src/*.cpp")
 file(GLOB_RECURSE SMEG_HEADERS "src/*.hpp")
-add_library(SMEG ${SMEG_SOURCES})
+add_library(SMEG ${SMEG_SOURCES} ${SMEG_HEADERS})
 
 target_compile_options(SMEG PRIVATE -Wall -Wno-potentially-evaluated-expression -Werror -g)
 

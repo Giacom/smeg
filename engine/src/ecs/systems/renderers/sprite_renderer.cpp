@@ -2,14 +2,14 @@
 #include <memory>
 
 #include "sprite_renderer.hpp"
-#include "../../../graphics/opengl_renderer.hpp"
-#include "../../system.hpp"
-#include "../../entity.hpp"
-#include "../../components/sprite.hpp"
-#include "../../components/transform.hpp"
-#include "../../../service/texture_library.hpp"
-#include "../../../service/time.hpp"
-#include "../../../service/viewport.hpp"
+#include "graphics/opengl_renderer.hpp"
+#include "ecs/system.hpp"
+#include "ecs/entity.hpp"
+#include "ecs/components/sprite.hpp"
+#include "ecs/components/transform.hpp"
+#include "service/texture_library.hpp"
+#include "service/time.hpp"
+#include "service/viewport.hpp"
 
 namespace smeg {
 
@@ -29,20 +29,13 @@ namespace smeg {
 	void SpriteRenderer::Process(Entity &entity) {
 	}
 
-	void SpriteRenderer::Render(OpenGLRenderer &renderer, Entity &entity) {
+	void SpriteRenderer::Render(OpenGLRenderer& renderer, SpriteBatchRenderer &batcher, Entity &entity) {
 		Sprite& sprite = entity.GetComponent<Sprite>();
-
 		Transform& transform = entity.GetComponent<Transform>();
-		Matrix4 matrix = Matrix4(sprite.width, 0,             0,        transform.position.x,
-		                         0,            sprite.height, 0,        transform.position.y,
-		                         0,             0,            1,        transform.position.z,
-		                         0,             0,            0,        1);
-		Matrix4 view = Matrix4::Identity();	
-		Matrix4 perspective = serviceContainer->Get<Viewport>().GetPerspectiveMatrix();
 
-		auto& textureLibrary = serviceContainer->Get<TextureLibrary>();
+		TextureLibrary& textureLibrary = serviceContainer->Get<TextureLibrary>();
+
 		auto texture = textureLibrary.LoadFile(renderer, sprite.texturePath);
-
-		renderer.DrawTexture(texture, shaderProgram, vbo, vao, ebo, matrix, view, perspective);
+		batcher.Batch(texture, sprite.width, sprite.height, transform.position, shaderProgram, vbo, vao, ebo);
 	}
 }

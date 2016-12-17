@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 file(GLOB_RECURSE APP_SOURCES "src/*.cpp")
 file(GLOB_RECURSE APP_HEADERS "src/*.hpp")
 
-add_executable(sample ${APP_SOURCES})
+add_executable(sample ${APP_SOURCES} ${APP_HEADERS})
 
 message("Linking to ${sample_SOURCE_DIR}")
 target_link_libraries(sample SMEG)

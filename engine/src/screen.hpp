@@ -19,7 +19,7 @@ namespace smeg {
 
 			void Initialise(OpenGLRenderer &renderer);
 			void Update();
-			void Render(OpenGLRenderer &renderer);
+			void Render(OpenGLRenderer& renderer, SpriteBatchRenderer& batcher);
 
 			void AddSystem(std::unique_ptr<System> &system);
 			void AddEntity(std::unique_ptr<Entity> &entity);

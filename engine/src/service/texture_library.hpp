@@ -6,8 +6,8 @@
 #include <SDL2/SDL.h>
 
 #include "service.hpp"
-#include "../graphics/texture.hpp"
-#include "../graphics/opengl_renderer.hpp"
+#include "graphics/texture.hpp"
+#include "graphics/opengl_renderer.hpp"
 
 namespace smeg {
 

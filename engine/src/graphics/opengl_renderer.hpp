@@ -5,7 +5,7 @@
 
 #include "texture.hpp"
 #include "opengl.hpp"
-#include "../math/matrix4.hpp"
+#include "math/matrix4.hpp"
 
 namespace smeg {
 

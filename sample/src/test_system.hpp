@@ -7,5 +7,5 @@ struct TestSystem : public smeg::System {
 
 	void Initialise(smeg::OpenGLRenderer& renderer);
 	void Process(smeg::Entity &entity);
-	void Render(smeg::OpenGLRenderer& renderer, smeg::Entity &entity);
+	void Render(smeg::OpenGLRenderer& renderer, smeg::SpriteBatchRenderer& batcher, smeg::Entity &entity);
 };

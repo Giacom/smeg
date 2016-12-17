@@ -11,6 +11,7 @@ namespace smeg {
 		private:
 			SDL_Window* window;
             std::unique_ptr<OpenGLRenderer> renderer;
+			SpriteBatchRenderer spriteBatchRenderer;
 
 			std::vector<std::unique_ptr<Screen>> screens;
 			ServiceContainer serviceContainer;
