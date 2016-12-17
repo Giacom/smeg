@@ -22,8 +22,6 @@ namespace smeg {
 		ServiceContainer* serviceContainer;
 		int executionOrder = NORMAL;
 
-		System();
-
         virtual void Initialise(OpenGLRenderer& renderer) = 0;
 		virtual void Process(Entity &entity) = 0;
 		virtual void Render(OpenGLRenderer& renderer, Entity &entity) = 0;

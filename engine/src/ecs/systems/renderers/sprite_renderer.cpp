@@ -27,15 +27,6 @@ namespace smeg {
     }
 
 	void SpriteRenderer::Process(Entity &entity) {
-		/*
-		Transform& transform = entity.GetComponent<Transform>();
-		Time& time = serviceContainer->Get<Time>();
-
-		transform.position.x += (100.0f * time.delta);
-		if (transform.position.x > 500) {
-			transform.position.x = -500;
-		}
-		*/
 	}
 
 	void SpriteRenderer::Render(OpenGLRenderer &renderer, Entity &entity) {

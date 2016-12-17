@@ -3,7 +3,10 @@ project(sample LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(sample src/main.cpp)
+file(GLOB_RECURSE APP_SOURCES "src/*.cpp")
+file(GLOB_RECURSE APP_HEADERS "src/*.hpp")
+
+add_executable(sample ${APP_SOURCES})
 
 message("Linking to ${sample_SOURCE_DIR}")
 target_link_libraries(sample SMEG)

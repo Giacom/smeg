@@ -7,6 +7,9 @@
 #include "ecs/components/text.hpp"
 #include "ecs/components/debug/fps.hpp"
 
+#include "test_component.hpp"
+#include "test_system.hpp"
+
 #include <memory>
 #include <algorithm>
 
@@ -20,6 +23,9 @@ int main(int, char**) {
 	// Systems
 	std::unique_ptr<System> drawSystem = std::make_unique<SpriteRenderer>();
 	mainScreen.AddSystem(drawSystem);
+
+	std::unique_ptr<System> testSystem = std::make_unique<TestSystem>();
+	mainScreen.AddSystem(testSystem);
 
 	/*
 	std::unique_ptr<System> textDrawSystem = std::make_unique<TextRenderer>();
@@ -52,13 +58,15 @@ int main(int, char**) {
 	*/
 
 	// Ducks
-	for (int i = -10; i < 10; ++i) {
+	for (int i = 0; i < 10; ++i) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
-		std::unique_ptr<Component> transform = std::make_unique<Transform>(i * 16 + i, (i * 16) + i, 0, 0);
+		std::unique_ptr<Component> transform = std::make_unique<Transform>(i * 100 + i, (i * 16) + i, 10 - i, 0);
 		std::unique_ptr<Component> sprite = std::make_unique<Sprite>("res/duck.png", 128, 128, 100 - i);
+		std::unique_ptr<Component> testComponent = std::make_unique<TestComponent>();
 
 		entity->AddComponent(transform);
 		entity->AddComponent(sprite);
+		entity->AddComponent(testComponent);
 		mainScreen.AddEntity(entity);
 	}
 

@@ -17,10 +17,10 @@ namespace smeg {
 
 		const std::vector<float> vertices = { 
 			// Positions          // Colors           	  // Texture Coords
-			-1.0,  1.0f, 0.0f,   1.0f, 1.0f, 1.0f,   0.0f, 0.0f,  // Top Left 
-			-1.0f, -1.0f, 0.0f,   1.0f, 1.0f, 1.0f,   0.0f, 1.0f, // Bottom Left
-			1.0f, -1.0f, 0.0f,   1.0f, 1.0f, 1.0f,   1.0f, 1.0f, // Bottom Right
-			1.0f,  1.0f, 0.0f,   1.0f, 1.0f, 1.0f,   1.0f, 0.0f, // Top Right
+			-1.0,  1.0f, 1.0f,   1.0f, 1.0f, 1.0f,   0.0f, 0.0f,  // Top Left 
+			-1.0f, -1.0f, 1.0f,   1.0f, 1.0f, 1.0f,   0.0f, 1.0f, // Bottom Left
+			1.0f, -1.0f, 1.0f,   1.0f, 1.0f, 1.0f,   1.0f, 1.0f, // Bottom Right
+			1.0f,  1.0f, 1.0f,   1.0f, 1.0f, 1.0f,   1.0f, 0.0f, // Top Right
 		};
 
 		const std::vector<unsigned short> indices = {
@@ -56,8 +56,8 @@ namespace smeg {
 			"}\n\0";
 
 		SpriteRenderer();
-		void Initialise(OpenGLRenderer &renderer) override;
-		void Process(Entity &entity) override;
-		void Render(OpenGLRenderer& renderer, Entity &entity) override;
+		void Initialise(OpenGLRenderer &renderer);
+		void Process(Entity &entity);
+		void Render(OpenGLRenderer& renderer, Entity &entity);
 	};
 }
