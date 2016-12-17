@@ -1,3 +1,4 @@
+//#include <cmath.h>
 #include "test_system.hpp"
 #include "test_component.hpp"
 
@@ -17,6 +18,7 @@ void TestSystem::Process(smeg::Entity &entity) {
 	smeg::Transform &transform = entity.GetComponent<smeg::Transform>();
 
 	transform.position.x += time.delta * 100;
+	transform.position.x = fmod(transform.position.x * 2, 1024) - transform.position.x;
 };
 
 void TestSystem::Render(smeg::OpenGLRenderer&, smeg::SpriteBatchRenderer&, smeg::Entity&) {

@@ -6,6 +6,7 @@
 #include "ecs/system.hpp"
 #include "ecs/entity.hpp"
 #include "ecs/component.hpp"
+#include "service/viewport.hpp"
 
 namespace smeg {
 
@@ -49,7 +50,8 @@ namespace smeg {
 		}
 	}
 
-	void Screen::Render(OpenGLRenderer& renderer, SpriteBatchRenderer& batcher) {
+	void Screen::Render(OpenGLRenderer& renderer) {
+		batcher.Start();
 		for (auto &system :systems) {
 
 			int requiredComponents = system->types.size();
@@ -71,6 +73,10 @@ namespace smeg {
 				}
 			}
 		}
+
+		Matrix4 view = Matrix4::Identity();	
+		Matrix4 perspective = serviceContainer->Get<Viewport>().GetPerspectiveMatrix();
+		batcher.Render(renderer, view, perspective);
 	}
 
 	bool Screen::SortSystem(std::unique_ptr<System> &systemLeft, std::unique_ptr<System> &systemRight) {

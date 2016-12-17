@@ -126,16 +126,9 @@ namespace smeg {
 	void App::Render() {
 		renderer->Clear();
 
-		Matrix4 view = Matrix4::Identity();	
-		Matrix4 perspective = serviceContainer.Get<Viewport>().GetPerspectiveMatrix();
-
-		spriteBatchRenderer.Start();
-
 		for (auto &screen : screens) {
-			screen->Render(*renderer, spriteBatchRenderer);
+			screen->Render(*renderer);
 		}
-
-		spriteBatchRenderer.Render(*renderer, view, perspective);
 
 		renderer->SwapBuffer(window);
 	}

@@ -16,10 +16,11 @@ namespace smeg {
 			std::vector<std::unique_ptr<Entity>> entities;
 
 			ServiceContainer* serviceContainer;
+			SpriteBatchRenderer batcher;
 
 			void Initialise(OpenGLRenderer &renderer);
 			void Update();
-			void Render(OpenGLRenderer& renderer, SpriteBatchRenderer& batcher);
+			void Render(OpenGLRenderer& renderer);
 
 			void AddSystem(std::unique_ptr<System> &system);
 			void AddEntity(std::unique_ptr<Entity> &entity);

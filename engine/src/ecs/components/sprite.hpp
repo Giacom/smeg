@@ -11,10 +11,8 @@ namespace smeg {
 		
 		int width;
 		int height;
-		int layer;
-        
 
-		Sprite(const std::string texturePath, int width, int height, int layer = 0) :
-		       Component(), texturePath(texturePath), width(width), height(height), layer(layer) {}
+		Sprite(const std::string texturePath, int width, int height) :
+		       Component(), texturePath(texturePath), width(width), height(height) {}
 	};
 }
