@@ -24,7 +24,30 @@ namespace smeg {
     }
 
 	void SpriteRenderer::Register(OpenGLRenderer &renderer, Entity &entity) {
+		TextureLibrary& textureLibrary = serviceContainer->Get<TextureLibrary>();
 		Sprite& sprite = entity.GetComponent<Sprite>();
+		
+		auto texture = textureLibrary.LoadFile(renderer, sprite.texturePath);
+		Rect normalisedRect;
+		if (sprite.drawRect == Rect()) {
+			normalisedRect = Rect(0, 0, 1, 1);
+		} else {
+			normalisedRect = sprite.drawRect.GetNormalisedRect(Vector2(texture.width, texture.height));
+		}
+
+		Vector2 topLeft = normalisedRect.TopLeft();
+		Vector2 topRight = normalisedRect.TopRight();
+		Vector2 bottomLeft = normalisedRect.BottomLeft();
+		Vector2 bottomRight = normalisedRect.BottomRight();
+
+		sprite.vertices = {
+			// Positions          // Colors          // Texture Coords
+			-0.5,  0.5f, 0.5f,   1.0f, 1.0f, 1.0f,   topLeft.x, topLeft.y,  // Top Left 
+			-0.5f, -0.5f, 0.5f,  1.0f, 1.0f, 1.0f,   bottomLeft.x, bottomLeft.y, // Bottom Left
+			0.5f, -0.5f, 0.5f,   1.0f, 1.0f, 1.0f,   bottomRight.x, bottomRight.y, // Bottom Right
+			0.5f,  0.5f, 0.5f,   1.0f, 1.0f, 1.0f,   topRight.x, topRight.y, // Top Right
+		};
+
 		sprite.vbo = renderer.GenerateVertexBufferObject(sprite.vertices);
 		sprite.vao = renderer.GenerateVertexArrayObject(sprite.vbo);
 		sprite.ebo = renderer.GenerateElementBufferObject(sprite.indices);

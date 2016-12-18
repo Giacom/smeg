@@ -17,19 +17,19 @@ namespace smeg {
 			return Vector2(1, 1);
 		}
 
-		Vector2 operator+(const Vector2& b) {
+		Vector2 operator+(const Vector2& b) const {
 			return Vector2(this->x + b.x, this->y + b.y); 
 		}
 
-		Vector2 operator-(const Vector2& b) {
+		Vector2 operator-(const Vector2& b) const {
 			return Vector2(this->x - b.x, this->y - b.y); 
 		}
 
-		Vector2 operator*(const float scale) {
+		Vector2 operator*(const float scale) const {
 			return Vector2(this->x * scale, this->y * scale);
 		}
 
-		bool operator==(const Vector2& b) {
+		bool operator==(const Vector2& b) const {
 			return this->x == b.x && this->y == b.y;
 		}
 	};

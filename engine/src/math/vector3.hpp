@@ -18,19 +18,19 @@ namespace smeg {
 			return Vector3(1, 1, 1);
 		}
 
-		Vector3 operator+(const Vector3& b) {
+		Vector3 operator+(const Vector3& b) const {
 			return Vector3(this->x + b.x, this->y + b.y, this->z + b.z); 
 		}
 
-		Vector3 operator-(const Vector3& b) {
+		Vector3 operator-(const Vector3& b) const {
 			return Vector3(this->x - b.x, this->y - b.y, this->z - b.z); 
 		}
 
-		Vector3 operator*(const float scale) {
+		Vector3 operator*(const float scale) const {
 			return Vector3(this->x * scale, this->y * scale, this->z * scale);
 		}
 
-		bool operator==(const Vector3& b) {
+		bool operator==(const Vector3& b) const {
 			return this->x == b.x && this->y == b.y && this->z == b.z;
 		}
 	};
