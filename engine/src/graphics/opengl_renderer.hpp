@@ -13,14 +13,13 @@ namespace smeg {
 		private:
 			SDL_GLContext context;
 
-		private:
-			void Initialise(SDL_Window* window);
-			void Deinitialise();
 
 		public:
-			OpenGLRenderer(SDL_Window* window);
 			~OpenGLRenderer();
 
+			void Initialise(SDL_Window* window);
+			void Deinitialise();
+			
 			void SetViewport(GLuint width, GLuint height);
 
 			void ClearColour(GLfloat red, GLfloat green, GLfloat blue);

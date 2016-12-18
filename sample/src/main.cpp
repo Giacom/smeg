@@ -6,6 +6,8 @@
 #include "ecs/components/sprite.hpp"
 #include "ecs/components/text.hpp"
 #include "ecs/components/debug/fps.hpp"
+#include "math/vector2.hpp"
+#include "math/rect.hpp"
 
 #include "test_component.hpp"
 #include "test_system.hpp"
@@ -60,8 +62,8 @@ int main(int, char**) {
 	// Ducks
 	for (int i = 8; i >= 0; i--) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
-		std::unique_ptr<Component> transform = std::make_unique<Transform>(i * 200 + i, (i * 16) + i, i, 0);
-		std::unique_ptr<Component> sprite = std::make_unique<Sprite>(i % 4 == 0 ? "res/duck.png" : "res/duck_opaque.jpg", 200, 200);
+		std::unique_ptr<Component> transform = std::make_unique<Transform>(i * 100 + i, (i * 16) + i, i, 0);
+		std::unique_ptr<Component> sprite = std::make_unique<Sprite>(i % 4 == 0 ? "res/duck.png" : "res/duck_opaque.jpg", Rect(), Vector2(200, 200));
 		std::unique_ptr<Component> testComponent = std::make_unique<TestComponent>();
 
 		entity->AddComponent(transform);

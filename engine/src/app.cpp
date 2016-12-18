@@ -29,9 +29,9 @@ namespace smeg {
 
 		window = SDL_CreateWindow("SMEG", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 
-		renderer = std::make_unique<OpenGLRenderer>(window);
-        renderer->ClearColour(0.2058f, 0.3066f, 0.4877f);
-		renderer->SetViewport(windowWidth, windowHeight);
+		renderer.Initialise(window);
+        renderer.ClearColour(0.2058f, 0.3066f, 0.4877f);
+		renderer.SetViewport(windowWidth, windowHeight);
 
 		// Services
 		std::unique_ptr<Service> time = std::make_unique<Time>();
@@ -50,7 +50,7 @@ namespace smeg {
 		Time& time = serviceContainer.Get<Time>();
 
 		for (auto& screen : screens) {
-			screen->Initialise(*renderer);
+			screen->Initialise();
 		}
 
 		auto startTime = SDL_GetTicks();
@@ -88,12 +88,12 @@ namespace smeg {
 			Update();
 			Render();
 
-			renderer->CheckErrors();
+			renderer.CheckErrors();
 		}
 	}
 
 	Screen& App::CreateScreen() {
-		screens.emplace_back(std::make_unique<Screen>(&serviceContainer));
+		screens.emplace_back(std::make_unique<Screen>(&serviceContainer, &renderer));
 		return *(screens.at(screens.size() - 1).get());
 	}
 
@@ -108,7 +108,7 @@ namespace smeg {
 					if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
 						int x = event.window.data1;
 						int y = event.window.data2;
-						renderer->SetViewport(x, y);
+						renderer.SetViewport(x, y);
 						serviceContainer.Get<Viewport>().UpdateViewport(x, y);
 					}
 					break;
@@ -124,12 +124,12 @@ namespace smeg {
 	}
 
 	void App::Render() {
-		renderer->Clear();
+		renderer.Clear();
 
 		for (auto &screen : screens) {
-			screen->Render(*renderer);
+			screen->Render();
 		}
 
-		renderer->SwapBuffer(window);
+		renderer.SwapBuffer(window);
 	}
 }

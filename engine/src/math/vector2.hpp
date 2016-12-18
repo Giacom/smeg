@@ -3,9 +3,10 @@
 namespace smeg {
 
 	struct Vector2 {
-		float x, y; 
+		float x = 0.0f;
+		float y = 0.0f; 
 
-		Vector2() : x(0), y(0) {}
+		Vector2() = default;
 		Vector2(float x, float y) : x(x), y(y) {}
 
 		static Vector2 Zero() {
@@ -26,6 +27,10 @@ namespace smeg {
 
 		Vector2 operator*(const float scale) {
 			return Vector2(this->x * scale, this->y * scale);
+		}
+
+		bool operator==(const Vector2& b) {
+			return this->x == b.x && this->y == b.y;
 		}
 	};
 }

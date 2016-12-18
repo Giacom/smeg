@@ -16,19 +16,6 @@ namespace smeg {
 
 		unsigned int shaderProgram;
 
-		const std::vector<float> vertices = { 
-			// Positions          // Colors           	  // Texture Coords
-			-0.5,  0.5f, 0.5f,   1.0f, 1.0f, 1.0f,   0.0f, 0.0f,  // Top Left 
-			-0.5f, -0.5f, 0.5f,   1.0f, 1.0f, 1.0f,   0.0f, 1.0f, // Bottom Left
-			0.5f, -0.5f, 0.5f,   1.0f, 1.0f, 1.0f,   1.0f, 1.0f, // Bottom Right
-			0.5f,  0.5f, 0.5f,   1.0f, 1.0f, 1.0f,   1.0f, 0.0f, // Top Right
-		};
-
-		const std::vector<unsigned short> indices = {
-			0, 1, 2,
-			2, 3, 0,
-		};
-
 		const char* defaultVertexShaderSource = "#version 330 core\n"
 			"layout (location = 0) in vec3 position;\n"
 			"layout (location = 1) in vec3 color;\n"
@@ -58,6 +45,8 @@ namespace smeg {
 
 		SpriteRenderer();
 		void Initialise(OpenGLRenderer &renderer);
+		void Register(OpenGLRenderer &renderer, Entity &entity);
+		void Deregister(OpenGLRenderer &renderer, Entity &entity);
 		void Process(Entity &entity);
 		void Render(OpenGLRenderer& renderer, SpriteBatchRenderer& batcher, Entity &entity);
 	};

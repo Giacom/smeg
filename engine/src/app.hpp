@@ -10,12 +10,13 @@ namespace smeg {
 	class App {
 		private:
 			SDL_Window* window;
-            std::unique_ptr<OpenGLRenderer> renderer;
-
 			std::vector<std::unique_ptr<Screen>> screens;
+
 			ServiceContainer serviceContainer;
+            OpenGLRenderer renderer;
 
 		public:
+			App() = default;
 			~App();
 			void Init(int windowWidth = 512, int windowHeight = 512);
 			void Start();

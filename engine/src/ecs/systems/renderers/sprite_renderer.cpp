@@ -20,14 +20,19 @@ namespace smeg {
 	}
 
     void SpriteRenderer::Initialise(OpenGLRenderer &renderer) {
-		vbo = renderer.GenerateVertexBufferObject(vertices);
-		vao = renderer.GenerateVertexArrayObject(vbo);
-		ebo = renderer.GenerateElementBufferObject(indices);
 		shaderProgram = renderer.GenerateShaderProgram(defaultVertexShaderSource, defaultFragmentShaderSource);
     }
 
-	void SpriteRenderer::Process(Entity &entity) {
-	}
+	void SpriteRenderer::Register(OpenGLRenderer &renderer, Entity &entity) {
+		Sprite& sprite = entity.GetComponent<Sprite>();
+		sprite.vbo = renderer.GenerateVertexBufferObject(sprite.vertices);
+		sprite.vao = renderer.GenerateVertexArrayObject(sprite.vbo);
+		sprite.ebo = renderer.GenerateElementBufferObject(sprite.indices);
+	}	
+	
+	void SpriteRenderer::Deregister(OpenGLRenderer &renderer, Entity &entity) {}
+
+	void SpriteRenderer::Process(Entity &entity) {}
 
 	void SpriteRenderer::Render(OpenGLRenderer& renderer, SpriteBatchRenderer &batcher, Entity &entity) {
 		Sprite& sprite = entity.GetComponent<Sprite>();
@@ -36,6 +41,6 @@ namespace smeg {
 		TextureLibrary& textureLibrary = serviceContainer->Get<TextureLibrary>();
 
 		auto texture = textureLibrary.LoadFile(renderer, sprite.texturePath);
-		batcher.Batch(texture, sprite.width, sprite.height, transform.position, shaderProgram, vbo, vao, ebo);
+		batcher.Batch(texture, sprite.size, transform.position, shaderProgram, sprite.vbo, sprite.vao, sprite.ebo);
 	}
 }

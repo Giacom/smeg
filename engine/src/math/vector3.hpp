@@ -3,9 +3,11 @@
 namespace smeg {
 
 	struct Vector3 {
-		float x, y, z; 
+		float x = 0.0f;
+		float y = 0.0f;
+		float z = 0.0f;
 
-		Vector3() : x(0), y(0), z(0) {}
+		Vector3() = default;
 		Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
 
 		static Vector3 Zero() {
@@ -26,6 +28,10 @@ namespace smeg {
 
 		Vector3 operator*(const float scale) {
 			return Vector3(this->x * scale, this->y * scale, this->z * scale);
+		}
+
+		bool operator==(const Vector3& b) {
+			return this->x == b.x && this->y == b.y && this->z == b.z;
 		}
 	};
 }

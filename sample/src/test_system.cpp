@@ -5,12 +5,23 @@
 #include "service/time.hpp"
 #include "ecs/components/transform.hpp"
 
+#include <SDL.h>
+
 TestSystem::TestSystem() {
 	types.push_back(std::type_index(typeid(TestComponent)));
 	types.push_back(std::type_index(typeid(smeg::Transform)));
 }
 
 void TestSystem::Initialise(smeg::OpenGLRenderer&) {
+	SDL_Log("Test system initialised");
+}
+
+void TestSystem::Register(smeg::OpenGLRenderer&, smeg::Entity& entity) {
+	SDL_Log("Test system registered for entity %p.", &entity);
+}
+
+void TestSystem::Deregister(smeg::OpenGLRenderer&, smeg::Entity& entity) {
+	SDL_Log("Test system deregistered for entity %p.", &entity);
 }
 
 void TestSystem::Process(smeg::Entity &entity) {

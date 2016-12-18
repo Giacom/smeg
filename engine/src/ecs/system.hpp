@@ -23,6 +23,10 @@ namespace smeg {
 		int executionOrder = NORMAL;
 
         virtual void Initialise(OpenGLRenderer& renderer) = 0;
+		
+		virtual void Register(OpenGLRenderer& renderer, Entity &entity) = 0;
+		virtual void Deregister(OpenGLRenderer& renderer, Entity &entity) = 0;
+
 		virtual void Process(Entity &entity) = 0;
 		virtual void Render(OpenGLRenderer& renderer, SpriteBatchRenderer& batcher, Entity &entity) = 0;
 	};

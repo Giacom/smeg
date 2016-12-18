@@ -12,7 +12,7 @@ namespace smeg {
 
 		public:
 			void Start();
-			void Batch(Texture texture, int width, int height, Vector3 position,
+			void Batch(Texture texture, Vector2 size, Vector3 position,
 			           unsigned int shaderProgram, unsigned int vbo, unsigned int vao, unsigned int ebo);
 			void Render(OpenGLRenderer& renderer, const Matrix4& view, const Matrix4& perspective);
 	};
