@@ -1,8 +1,9 @@
 #include <string>
 #include <memory>
-#include <SDL.h>
-#include <SDL_image.h>
 
+#include "SDL.h"
+
+#include "graphics/image.hpp"
 #include "texture_library.hpp"
 
 namespace smeg {
@@ -17,12 +18,7 @@ namespace smeg {
 			return Get(key);
 		}
 
-		SDL_Surface* image = IMG_Load(path.c_str());
-		if (!image) {
-			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Unable to load texture image: %s\nError %s", path.c_str(), IMG_GetError());
-			throw;
-		}
-
+		SDL_Surface* image = Image::Load(path.c_str());
 		Cache(renderer, key, image);
 		SDL_FreeSurface(image);
 		return Get(key);

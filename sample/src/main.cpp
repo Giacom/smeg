@@ -60,7 +60,7 @@ int main(int, char**) {
 	*/
 
 	// Ducks
-	/*
+	
 	for (int i = 8; i >= 0; i--) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
 		std::unique_ptr<Component> transform = std::make_unique<Transform>(i * 100 + i, (i * 16) + i, i, 0);
@@ -71,8 +71,9 @@ int main(int, char**) {
 		entity->AddComponent(sprite);
 		entity->AddComponent(testComponent);
 		mainScreen.AddEntity(entity);
-	}*/
+	}
 
+/*
 	for (int i = 8; i >= 0; i--) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
 		std::unique_ptr<Component> transform = std::make_unique<Transform>(i * 128 + i, 0, i, 0);
@@ -87,6 +88,7 @@ int main(int, char**) {
 		entity->AddComponent(testComponent);
 		mainScreen.AddEntity(entity);
 	}
+	*/
 
 	app.Start();
 	return 0;

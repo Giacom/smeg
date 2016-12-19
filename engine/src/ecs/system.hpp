@@ -4,7 +4,7 @@
 #include <typeinfo>
 #include <typeindex>
 
-#include <SDL.h>
+#include "SDL.h"
 
 #include "entity.hpp"
 #include "service/service_container.hpp"

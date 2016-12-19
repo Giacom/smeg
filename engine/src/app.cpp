@@ -1,4 +1,4 @@
-#include <SDL.h>
+#include "SDL.h"
 #include <SDL_ttf.h>
 
 #include <memory>
@@ -63,6 +63,7 @@ namespace smeg {
 		SDL_Log("Starting app loop.");
 
 		while (!quit) {
+
 			// Input
 			time.ticks++;
 			time.current = SDL_GetTicks();

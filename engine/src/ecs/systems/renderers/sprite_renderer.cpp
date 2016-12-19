@@ -1,4 +1,4 @@
-#include <SDL.h>
+#include "SDL.h"
 #include <memory>
 
 #include "sprite_renderer.hpp"

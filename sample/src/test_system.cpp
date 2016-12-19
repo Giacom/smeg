@@ -5,7 +5,7 @@
 #include "service/time.hpp"
 #include "ecs/components/transform.hpp"
 
-#include <SDL.h>
+#include "SDL.h"
 
 TestSystem::TestSystem() {
 	types.push_back(std::type_index(typeid(TestComponent)));

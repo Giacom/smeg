@@ -9,6 +9,7 @@ set(BUILD_SHARED_LIBS false)
 # TODO: Replace with non-recursive
 file(GLOB_RECURSE SMEG_SOURCES "src/*.cpp")
 file(GLOB_RECURSE SMEG_HEADERS "src/*.hpp")
+file(GLOB_RECURSE SMEG_C_HEADERS "src/*.h")
 add_library(SMEG ${SMEG_SOURCES} ${SMEG_HEADERS})
 
 if(NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
@@ -33,19 +34,13 @@ message("CMake Directory: ${CMAKE_MODULE_PATH}")
 # SDL Libraries
 set(SDL2_BUILDING_LIBRARY)
 find_package(SDL2 REQUIRED)
-find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 
-message("Found OpenGL: " ${OPENGL_FOUND})
-message("Found GLEW: " ${GLEW_FOUND})
-
 target_include_directories(SMEG PUBLIC ${SDL2_INCLUDE_DIR}
-                    ${SDL2_IMAGE_INCLUDE_DIR}
                     ${SDL2_TTF_INCLUDE_DIR}
                     ${PROJECT_SOURCE_DIR}/src)
                     
 target_link_libraries(SMEG ${SDL2_LIBRARY}
-                             ${SDL2_IMAGE_LIBRARIES}
                              ${SDL2_TTF_LIBRARIES})
 
 install(TARGETS SMEG DESTINATION lib)
