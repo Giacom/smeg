@@ -17,11 +17,11 @@ void TestSystem::Initialise(smeg::OpenGLRenderer&) {
 }
 
 void TestSystem::Register(smeg::OpenGLRenderer&, smeg::Entity& entity) {
-	SDL_Log("Test system registered for entity %p.", &entity);
+	SDL_Log("Test system registered for entity %p.", (void*) &entity);
 }
 
 void TestSystem::Deregister(smeg::OpenGLRenderer&, smeg::Entity& entity) {
-	SDL_Log("Test system deregistered for entity %p.", &entity);
+	SDL_Log("Test system deregistered for entity %p.", (void*) &entity);
 }
 
 void TestSystem::Process(smeg::Entity &entity) {

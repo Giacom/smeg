@@ -12,7 +12,7 @@ file(GLOB_RECURSE SMEG_HEADERS "src/*.hpp")
 add_library(SMEG ${SMEG_SOURCES} ${SMEG_HEADERS})
 
 if(NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-	target_compile_options(SMEG PRIVATE "-Wall -Wno-potentially-evaluated-expression -Werror -g")
+	target_compile_options(SMEG PRIVATE -Wall -Wno-potentially-evaluated-expression -Werror -g)
 endif()
 
 
