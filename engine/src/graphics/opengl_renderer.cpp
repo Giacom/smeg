@@ -16,8 +16,6 @@ namespace smeg {
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
-        OpenGL_Init();
-
 		{
 			int value = 0;
 			SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &value);
@@ -32,6 +30,8 @@ namespace smeg {
 		if (!context) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Error initialising GL Context: %s", SDL_GetError());
 		}
+
+		OpenGL_Init();
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -112,8 +112,8 @@ namespace smeg {
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // Close up
 
 			glTexImage2D(GL_TEXTURE_2D, 0, format, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
-			glGenerateMipmap(GL_TEXTURE_2D);
 		}
+		CheckErrors();
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		texture.width = image->w;

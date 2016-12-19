@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 project(SMEG LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 14)
+set(BUILD_SHARED_LIBS false)
 
 # Source Code For Engine
 
@@ -10,7 +11,10 @@ file(GLOB_RECURSE SMEG_SOURCES "src/*.cpp")
 file(GLOB_RECURSE SMEG_HEADERS "src/*.hpp")
 add_library(SMEG ${SMEG_SOURCES} ${SMEG_HEADERS})
 
-target_compile_options(SMEG PRIVATE -Wall -Wno-potentially-evaluated-expression -Werror -g)
+if(NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+	target_compile_options(SMEG PRIVATE "-Wall -Wno-potentially-evaluated-expression -Werror -g")
+endif()
+
 
 # Include what you use linting
 if(IWYU_ENABLED)
@@ -27,6 +31,7 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 message("CMake Directory: ${CMAKE_MODULE_PATH}")
 
 # SDL Libraries
+set(SDL2_BUILDING_LIBRARY)
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)

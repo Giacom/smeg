@@ -10,7 +10,9 @@ add_executable(sample ${APP_SOURCES} ${APP_HEADERS})
 
 message("Linking to ${sample_SOURCE_DIR}")
 target_link_libraries(sample SMEG)
-target_compile_options(sample PRIVATE -Wall -Werror -Wextra -g)
+if(NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+	target_compile_options(sample PRIVATE -Wall -Werror -Wextra -g)
+endif()
 
 # Copy resources
 

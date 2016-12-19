@@ -2,6 +2,8 @@
 
 // Include this file in order to use OpenGL functions
 
+void* GetProcAddress(const char* name);
+
 // Call this once after creating your OpenGL context to load the GL functions from the GL driver.
 void OpenGL_Init();
 

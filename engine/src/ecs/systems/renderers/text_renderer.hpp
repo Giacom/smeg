@@ -1,6 +1,6 @@
 #pragma once
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include "graphics/opengl_renderer.hpp"
 #include "ecs/entity.hpp"
 #include "ecs/system.hpp"

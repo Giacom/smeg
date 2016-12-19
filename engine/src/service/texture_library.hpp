@@ -3,7 +3,7 @@
 #include <string>
 #include <unordered_map>
 #include <memory>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 #include "service.hpp"
 #include "graphics/texture.hpp"
