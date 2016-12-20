@@ -6,7 +6,7 @@ namespace smeg {
 	}
 
 	void Viewport::UpdateViewport(int width, int height) {
-		perspectiveMatrix = Matrix4::Ortho(width / 2, -(width / 2), height / 2, -(height / 2), 100, -100);
+		perspectiveMatrix = Matrix4::Ortho(width / 2, -(width / 2), height / 2, -(height / 2), 10000, -10000);
 		size = Vector2(width, height);
 	}
 

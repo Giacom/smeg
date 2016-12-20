@@ -5,7 +5,21 @@
 namespace smeg {
 	/// Loads a file and returns a tuple with a unique ptr to its data and the data size
 	FileData File::Load(const char* filePath) {
-		SDL_RWops* fileOp = SDL_RWFromFile(filePath, "rb");
+		std::string fullPath;
+		{
+			char* basePath = SDL_GetBasePath();
+			if (!basePath) {
+				SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Loading file (%s) failed: Unable to get base path - Details: %s.", filePath, SDL_GetError());
+				throw;
+			}
+
+			fullPath = std::string(basePath) + filePath;
+			SDL_free(basePath);
+		}
+		
+		SDL_Log("Loading file: %s", fullPath.c_str());
+
+		SDL_RWops* fileOp = SDL_RWFromFile(fullPath.c_str(), "rb");
 
 		if (!fileOp) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Loading file (%s) failed: %s", filePath, SDL_GetError());

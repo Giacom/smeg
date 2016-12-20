@@ -19,7 +19,8 @@ using namespace smeg;
 
 int main(int, char**) {
 	App app;
-	app.Init(800, 600);
+	app.Init("SMEG Sample", 800, 600);
+
 	auto& mainScreen = app.CreateScreen();
 
 	// Systems
@@ -75,9 +76,9 @@ int main(int, char**) {
 	}
 	*/
 
-	for (int i = 7; i >= 0; i--) {
+	for (int i = 32; i >= 0; i--) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
-		std::unique_ptr<Component> transform = std::make_unique<Transform>(i * 128 + i, 0, i, 0);
+		std::unique_ptr<Component> transform = std::make_unique<Transform>(i * 30 + i, 0, i, 0);
 
 		Rect drawRect = i % 2 == 0 ? Rect(0, 0, 32, 32) : Rect(32, 0, 32, 32);
 

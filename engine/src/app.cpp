@@ -11,20 +11,18 @@
 
 #include "graphics/opengl_renderer.hpp"
 
-#include "io/image.hpp"
-
 namespace smeg {
 	App::~App() {
 		SDL_DestroyWindow(window);
 	}
 
-	void App::Init(int windowWidth, int windowHeight) {
+	void App::Init(const char* title, int windowWidth, int windowHeight) {
 		SDL_Log("Initialising App");
 		if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Error initialising SDL: %s", SDL_GetError());
 		}
 
-		window = SDL_CreateWindow("SMEG", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+		window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 
 		renderer.Initialise(window);
         renderer.ClearColour(0.2058f, 0.3066f, 0.4877f);

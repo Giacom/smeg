@@ -30,8 +30,9 @@ void TestSystem::Process(smeg::Entity &entity) {
 
 	transform.position.x += time.delta * 100.0f;
 
-	transform.position.x = fmod(transform.position.x * 2, 1024) - transform.position.x;
-	transform.position.y = sin(transform.position.x * 0.01f) * 50;
+	transform.position.x = (fmod(transform.position.x * 2, 1024) - transform.position.x); 
+	transform.position.y = (sin(transform.position.x * 0.01f + (float)(time.ticks) * 0.01f) * 50);
+	transform.position.z = transform.position.x;
 };
 
 void TestSystem::Render(smeg::OpenGLRenderer&, smeg::SpriteBatchRenderer&, smeg::Entity&) {
