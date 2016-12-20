@@ -14,6 +14,5 @@ namespace smeg {
 		unsigned int vbo;
 		unsigned int vao;
 		unsigned int ebo;
-		// TODO: Add Rect to draw
 	};
 }

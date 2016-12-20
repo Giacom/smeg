@@ -2,7 +2,7 @@
 
 namespace smeg {
 	struct Matrix4 {
-		static const unsigned int EntrySize = 4 * 4;
+		static const unsigned short EntrySize = 4 * 4;
 		float entries[EntrySize];
 
 		Matrix4() {

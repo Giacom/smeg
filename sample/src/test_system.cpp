@@ -28,8 +28,10 @@ void TestSystem::Process(smeg::Entity &entity) {
 	smeg::Time &time = serviceContainer->Get<smeg::Time>();
 	smeg::Transform &transform = entity.GetComponent<smeg::Transform>();
 
-	transform.position.x += time.delta * 100;
+	transform.position.x += time.delta * 100.0f;
+
 	transform.position.x = fmod(transform.position.x * 2, 1024) - transform.position.x;
+	transform.position.y = sin(transform.position.x * 0.01f) * 50;
 };
 
 void TestSystem::Render(smeg::OpenGLRenderer&, smeg::SpriteBatchRenderer&, smeg::Entity&) {
