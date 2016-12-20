@@ -4,9 +4,9 @@
 #include <utility>
 
 namespace smeg {
-
+	typedef std::pair<std::unique_ptr<unsigned char[]>, int> FileData;
 	class File {
 		public:
-			static std::pair<std::unique_ptr<unsigned char[]>, int> Load(const char* filePath);
+			static FileData Load(const char* filePath);
 	};
 }

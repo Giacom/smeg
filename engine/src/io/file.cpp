@@ -4,11 +4,17 @@
 
 namespace smeg {
 	/// Loads a file and returns a tuple with a unique ptr to its data and the data size
-	std::pair<std::unique_ptr<unsigned char[]>, int> File::Load(const char* filePath) {
+	FileData File::Load(const char* filePath) {
 		SDL_RWops* fileOp = SDL_RWFromFile(filePath, "rb");
-		int size = SDL_RWsize(fileOp);
+
+		if (!fileOp) {
+			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Loading file (%s) failed: %s", filePath, SDL_GetError());
+			throw;
+		}
+
+		long size = SDL_RWsize(fileOp);
 		if (size <= 0) {
-			SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Loading file failed: Unable to get file size for %s", filePath);
+			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Loading file (%s) failed: Unable to get file size.", filePath);
 			throw;
 		}
 
