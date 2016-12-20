@@ -1,5 +1,4 @@
 #include "SDL.h"
-#include <SDL_ttf.h>
 
 #include <memory>
 #include <algorithm>
@@ -12,6 +11,8 @@
 
 #include "graphics/opengl_renderer.hpp"
 
+#include "io/image.hpp"
+
 namespace smeg {
 	App::~App() {
 		SDL_DestroyWindow(window);
@@ -21,10 +22,6 @@ namespace smeg {
 		SDL_Log("Initialising App");
 		if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Error initialising SDL: %s", SDL_GetError());
-		}
-
-		if (TTF_Init() == -1) {
-			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Error initialising TTF: %s", TTF_GetError());
 		}
 
 		window = SDL_CreateWindow("SMEG", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);

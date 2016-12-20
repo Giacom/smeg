@@ -1,13 +1,22 @@
 #include "image.hpp"
 
+#include "file.hpp"
+
 #define STB_IMAGE_IMPLEMENTATION
+//#define STBI_NO_STDIO
 #include "libs/stb_image.h"
 
 namespace smeg {
 	SDL_Surface* Image::Load(const char* filePath) {
 
+		auto loadedFile = File::Load(filePath);
+		
+		auto& fileData = loadedFile.first;
+		int size = loadedFile.second;
+
 		int width, height, orig_format;
-		unsigned char* data = stbi_load(filePath, &width, &height, &orig_format, 0);
+
+		unsigned char* data = stbi_load_from_memory(fileData.get(), size, &width, &height, &orig_format, 0);
 		if(data == NULL) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Loading image failed: %s", stbi_failure_reason());
 			throw;

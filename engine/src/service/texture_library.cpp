@@ -3,7 +3,7 @@
 
 #include "SDL.h"
 
-#include "graphics/image.hpp"
+#include "io/image.hpp"
 #include "texture_library.hpp"
 
 namespace smeg {
