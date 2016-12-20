@@ -711,7 +711,7 @@ void (GLAPIENTRYP glTexPageCommitmentARB)(GLenum target, GLint level, GLint xoff
 void* GetProcAddress(const char* name) {
 	void* procAddress = SDL_GL_GetProcAddress(name);
 	if (!procAddress) {
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Unable to load GL Proc: %s", name);
+		SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "Unable to load GL Proc: %s", name);
 	}
 	return procAddress;
 }

@@ -16,8 +16,12 @@ endif()
 
 # Copy resources
 
-message("Copying resource files from " ${PROJECT_SOURCE_DIR}/res " to build target ${PROJECT_BINARY_DIR}.")
-file(COPY ${PROJECT_SOURCE_DIR}/res DESTINATION ${PROJECT_BINARY_DIR})
+#message("Copying resource files from " ${sample_SOURCE_DIR}/res " to build target ${sample_BINARY_DIR}/${CMAKE_INSTALL_CONFIG_NAME}.")
+#file(COPY ${PROJECT_SOURCE_DIR}/res DESTINATION ${PROJECT_BINARY_DIR}/${CMAKE_CFG_INTDIR})
+
+add_custom_command(TARGET sample PRE_BUILD 
+  COMMAND "${CMAKE_COMMAND}" -E copy_directory "${PROJECT_SOURCE_DIR}/res" "${CMAKE_CFG_INTDIR}/res" 
+  COMMENT "Copying resources (${PROJECT_SOURCE_DIR}/res) to output directory (${CMAKE_CFG_INTDIR}/res)")
 
 # Add run target
 

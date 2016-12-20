@@ -12,13 +12,13 @@ namespace smeg {
 		auto loadedFile = File::Load(filePath);
 		
 		auto& fileData = loadedFile.first;
-		int size = loadedFile.second;
+		long size = loadedFile.second;
 
 		int width, height, orig_format;
 
 		unsigned char* data = stbi_load_from_memory(fileData.get(), size, &width, &height, &orig_format, 0);
 		if(data == NULL) {
-			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Loading image failed: %s", stbi_failure_reason());
+			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Loading image failed (%s): %s", filePath, stbi_failure_reason());
 			throw;
 		}
 
@@ -51,7 +51,7 @@ namespace smeg {
 													rmask, gmask, bmask, amask);
 
 		if (surf == NULL) {
-			SDL_Log("Creating surface failed: %s", SDL_GetError());
+			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Creating surface failed: %s", SDL_GetError());
 			stbi_image_free(data);
 			throw;
 		}
