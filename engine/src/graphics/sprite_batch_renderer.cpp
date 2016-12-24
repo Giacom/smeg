@@ -8,20 +8,20 @@ namespace smeg {
 		opaqueBatches.clear();
 	}
 
-	void SpriteBatchRenderer::Batch(Texture texture, Vector2 size, Vector3 position,
-	                                unsigned int shaderProgram, unsigned int vbo,unsigned int vao, unsigned int ebo) {
+	void SpriteBatchRenderer::Batch(const Texture& texture, const Vector2& size, const Vector3& position,
+	                                const unsigned int shaderProgram, const unsigned int vbo, const unsigned int vao, const unsigned int ebo) {
 		SpriteBatch spriteBatch = { texture, size, position, shaderProgram, vbo, vao, ebo };
 
 		if (spriteBatch.texture.transparent) {
 			// Sort the order if the texture is transparent
-			transparentBatches.emplace_back(spriteBatch);
+			transparentBatches.push_back(spriteBatch);
 			
 			std::sort(transparentBatches.begin(), transparentBatches.end(), [](const SpriteBatch &lhs, const SpriteBatch &rhs) {
 				return lhs.position.z < rhs.position.z;
 			});
 
 		} else {
-			opaqueBatches.emplace_back(spriteBatch);
+			opaqueBatches.push_back(spriteBatch);
 		}
 	}
 

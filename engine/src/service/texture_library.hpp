@@ -11,9 +11,9 @@
 
 namespace smeg {
 
-	typedef std::unordered_map<std::string, std::unique_ptr<Texture>> TextureMap;
+	typedef std::unordered_map<std::string, Texture> TextureMap;
 
-	struct TextureLibrary : public Service {
+	class TextureLibrary : public Service {
 		static const std::string filePrefix;
 		static const std::string resPrefix;
 		

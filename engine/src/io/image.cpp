@@ -3,6 +3,7 @@
 #include "file.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
+#define STBI_NO_PSD
 //#define STBI_NO_STDIO
 #include "libs/stb_image.h"
 

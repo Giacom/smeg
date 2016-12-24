@@ -121,5 +121,5 @@ namespace smeg {
 
 	bool Screen::SortSystem(std::unique_ptr<System> &systemLeft, std::unique_ptr<System> &systemRight) {
 		return systemLeft->executionOrder < systemRight->executionOrder;
-	} 
+	}
 }

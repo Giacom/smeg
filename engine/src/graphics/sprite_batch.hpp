@@ -7,6 +7,7 @@
 namespace smeg {
 	struct SpriteBatch {
 		Texture texture;
+
 		Vector2 size;
 		Vector3 position;
 

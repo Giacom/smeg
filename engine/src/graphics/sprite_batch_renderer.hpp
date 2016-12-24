@@ -12,8 +12,8 @@ namespace smeg {
 
 		public:
 			void Start();
-			void Batch(Texture texture, Vector2 size, Vector3 position,
-			           unsigned int shaderProgram, unsigned int vbo, unsigned int vao, unsigned int ebo);
+			void Batch(const Texture& texture, const Vector2& size, const Vector3& position,
+			           const unsigned int shaderProgram, const unsigned int vbo, const unsigned int vao, const unsigned int ebo);
 			void Render(OpenGLRenderer& renderer, const Matrix4& view, const Matrix4& perspective);
 	};
 }

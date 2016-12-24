@@ -19,6 +19,7 @@ namespace smeg {
 			template<typename T>
 			void Provide(std::unique_ptr<Service> &service) {
 				auto type = std::type_index(typeid(T));
+				service->serviceContainer = this;
 				services[type] = std::move(service);
 			}
 

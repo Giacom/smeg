@@ -25,7 +25,7 @@ namespace smeg {
 	}
 
 	Texture& TextureLibrary::Get(const std::string &key) {
-		return *textureMap.at(key).get();
+		return textureMap.at(key);
 	}
 
 	bool TextureLibrary::HasKey(const std::string &key) {
@@ -44,8 +44,7 @@ namespace smeg {
 	}
 
 	void TextureLibrary::Cache(OpenGLRenderer& renderer, const std::string &key, SDL_Surface *image) {
-		Texture texture = renderer.GenerateTexture(image);
+		textureMap[key] = renderer.GenerateTexture(image);
 		SDL_Log("Texture Loaded: %s", key.c_str());
-		textureMap[key] = std::make_unique<Texture>(texture);
 	}
 }

@@ -3,6 +3,8 @@
 #include <string>
 
 #include "SDL.h"
+// #include "graphics/colour.hpp"
+// #include "graphics/font.hpp"
 #include "ecs/component.hpp"
 
 namespace smeg {
@@ -10,12 +12,15 @@ namespace smeg {
 		
 		public:
 			// Points to a texture
-			std::string fontTextureId;
+			std::string bitmapTextureId;
+			std::string fontPath;
 
 		private:
 			std::string text;
+			// Colour colour;
 
 		public:
+			//Text(std::string text, std::string fontPath, Colour colour) : fontPath(fontPath), text(text), colour(colour) {}
 
 			void SetText(std::string text) {
 				// If are the same, just return.

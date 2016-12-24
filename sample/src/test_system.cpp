@@ -1,4 +1,5 @@
-//#include <cmath.h>
+#include <cmath>
+
 #include "test_system.hpp"
 #include "test_component.hpp"
 
