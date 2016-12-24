@@ -1,6 +1,9 @@
 #include "file.hpp"
 
+#include <string>
+
 #include "SDL.h"
+
 
 namespace smeg {
 	/// Loads a file and returns a tuple with a unique ptr to its data and the data size
