@@ -10,17 +10,22 @@
 #include "service/texture_library.hpp"
 #include "service/time.hpp"
 #include "service/viewport.hpp"
+#include "io/file.hpp"
 
 namespace smeg {
 
-	SpriteRenderer::SpriteRenderer() {
+	SpriteRenderer::SpriteRenderer(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath) :
+	                               vertexShaderFilePath(vertexShaderFilePath), fragmentShaderFilePath(fragmentShaderFilePath) {
 		types.push_back(std::type_index(typeid(Transform)));
 		types.push_back(std::type_index(typeid(Sprite)));
 		executionOrder = System::LATE;
 	}
 
     void SpriteRenderer::Initialise(OpenGLRenderer &renderer) {
-		shaderProgram = renderer.GenerateShaderProgram(defaultVertexShaderSource, defaultFragmentShaderSource);
+		std::string vertexShaderSource = File::LoadText(vertexShaderFilePath.c_str());
+		std::string fragmentShaderSource = File::LoadText(fragmentShaderFilePath.c_str());
+
+		shaderProgram = renderer.GenerateShaderProgram(vertexShaderSource.c_str(), fragmentShaderSource.c_str());
     }
 
 	void SpriteRenderer::Register(OpenGLRenderer &renderer, Entity &entity) {

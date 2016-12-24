@@ -5,12 +5,13 @@
 #include "texture_library.hpp"
 #include "io/file.hpp"
 
+#define STB_TRUETYPE_IMPLEMENTATION
 #include "libs/stb_truetype.h"
 
 namespace smeg {
 
 	const std::string FontLibrary::fontPrefix = std::string("font::");
-
+/*
 	Font& FontLibrary::LoadFont(const std::string& path, float pixelSize) {
 		std::string key = fontPrefix + path + "::" + std::to_string(pixelSize);
 		auto existingFont = fontMap.find(key);
@@ -43,7 +44,11 @@ namespace smeg {
 
 		int extraSpace = stbtt_BakeFontBitmap(data.get(), 0, pixelSize, bitmap.get(), 512, 512, startCharacter, numberOfCharacters, charData.get());
 
-		for (int i = 0; i < 
+		// TODO: Libraries are storage only. They shouldn't be creating the textures.
+		// Change TextureLibrary to not use the OpenGLRenderer and to have the SpriteRenderer do it.
+		// Remove the Service::serviceContainer too.
+
 
 	}
+*/
 }

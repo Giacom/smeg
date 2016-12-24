@@ -29,6 +29,7 @@ namespace smeg {
 
 		if (!context) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Error initialising GL Context: %s", SDL_GetError());
+			throw;
 		}
 
 		OpenGL_Init();
@@ -64,6 +65,7 @@ namespace smeg {
 	                                 const Matrix4& model, const Matrix4& view, const Matrix4& perspective) {
 		if (!texture.id) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "DrawTexture: Invalid texture id (NULL)");
+			throw;
 		}
 
 		glActiveTexture(GL_TEXTURE0);
@@ -196,6 +198,7 @@ namespace smeg {
 		if (!success) {
 			glGetShaderInfoLog(vertexShader, logBufferSize, NULL, logBuffer);
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Vertex Compile Error: %s", logBuffer);
+			throw;
 		}
 
 		// Fragment
@@ -207,6 +210,7 @@ namespace smeg {
 		if (!success) {
 			glGetShaderInfoLog(fragmentShader, logBufferSize, NULL, logBuffer);
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Fragment Compile Error: %s", logBuffer);
+			throw;
 		}
 
 		// Program
@@ -219,6 +223,7 @@ namespace smeg {
 		if (!success) {
 			glGetProgramInfoLog(shaderProgram, logBufferSize, NULL, logBuffer);
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Shader Linking Error: %s", logBuffer);
+			throw;
 		}
 
 		glDeleteShader(vertexShader);
@@ -227,8 +232,13 @@ namespace smeg {
 	}
 
 	void OpenGLRenderer::CheckErrors() {
+		bool errorOccured = false;
 		for(GLenum err; (err = glGetError()) != GL_NO_ERROR;) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "OpenGL Init: 0x%x", err);
+			errorOccured = true;
+		}
+		if (errorOccured) {
+			throw;
 		}
 	}
 
@@ -236,6 +246,7 @@ namespace smeg {
 		GLint location = glGetUniformLocation(program, name);
 		if (location == -1) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Could not find shader's (%u) uniform location for: %s", program, name);
+			throw;
 		}
 		return location;
 	}
