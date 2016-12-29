@@ -86,6 +86,15 @@ int main(int, char**) {
 		mainScreen.AddEntity(entity);
 	}
 
+	// std::unique_ptr<Entity> entity = std::make_unique<Entity>();
+	// std::unique_ptr<Component> transform = std::make_unique<Transform>(0, -512, 0, 0);
+
+	// std::unique_ptr<Component> sprite = std::make_unique<Sprite>("test", Rect::New(), Vector2::New(1024 * 2, 1024 * 2));
+
+	// entity->AddComponent(transform);
+	// entity->AddComponent(sprite);
+	// mainScreen.AddEntity(entity);
+
 	app.Start();
 	return 0;
 }

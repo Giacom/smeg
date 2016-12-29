@@ -27,7 +27,7 @@ namespace smeg {
 			void Remove(const std::string &key);
 			void Clear();
 
-		private:
+		//private:
 			void Cache(OpenGLRenderer& renderer, const std::string &key, SDL_Surface *image);
 	};
 }

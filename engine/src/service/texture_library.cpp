@@ -18,7 +18,7 @@ namespace smeg {
 			return Get(key);
 		}
 
-		SDL_Surface* image = Image::Load(path.c_str());
+		SDL_Surface* image = Image::LoadFromFile(path.c_str());
 		Cache(renderer, key, image);
 		Image::Free(image);
 		return Get(key);

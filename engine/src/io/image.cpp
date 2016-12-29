@@ -8,7 +8,7 @@
 #include "libs/stb_image.h"
 
 namespace smeg {
-	SDL_Surface* Image::Load(const char* filePath) {
+	SDL_Surface* Image::LoadFromFile(const char* filePath) {
 
 		auto loadedFile = File::Load(filePath);
 		
@@ -23,6 +23,10 @@ namespace smeg {
 			throw;
 		}
 
+		return LoadFromMem(data, width, height, orig_format);
+	}
+
+	SDL_Surface* Image::LoadFromMem(unsigned char* data, int width, int height, int format) {
 		// Set up the pixel format color masks for RGB(A) byte arrays.
 		// Only STBI_rgb (3) and STBI_rgb_alpha (4) are supported here!
 		Uint32 rmask, gmask, bmask, amask;
@@ -36,11 +40,11 @@ namespace smeg {
 		rmask = 0x000000ff;
 		gmask = 0x0000ff00;
 		bmask = 0x00ff0000;
-		amask = (orig_format == STBI_rgb) ? 0 : 0xff000000;
+		amask = (format == STBI_rgb) ? 0 : 0xff000000;
 		#endif
 
 		int depth, pitch;
-		if (orig_format == STBI_rgb) {
+		if (format == STBI_rgb) {
 			depth = 24;
 			pitch = 3*width; // 3 bytes per pixel * pixels per row
 		} else { // STBI_rgb_alpha (RGBA)

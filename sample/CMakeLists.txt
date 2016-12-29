@@ -27,6 +27,6 @@ add_custom_command(TARGET sample POST_BUILD
 
 add_custom_target(run
     COMMAND ${PROJECT_BINARY_DIR}/sample
-    DEPENDS sample 
+    DEPENDS sample
     WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
 )

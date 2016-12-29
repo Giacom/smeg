@@ -6,6 +6,7 @@
 #include "app.hpp"
 #include "screen.hpp"
 #include "service/texture_library.hpp"
+#include "service/font_library.hpp"
 #include "service/time.hpp"
 #include "service/viewport.hpp"
 
@@ -35,8 +36,13 @@ namespace smeg {
 		std::unique_ptr<Service> textureLibrary = std::make_unique<TextureLibrary>();
 		serviceContainer.Provide<TextureLibrary>(textureLibrary);
 
+		std::unique_ptr<Service> fontLibrary = std::make_unique<FontLibrary>();
+		serviceContainer.Provide<FontLibrary>(fontLibrary);
+
 		std::unique_ptr<Service> viewport = std::make_unique<Viewport>(windowWidth, windowHeight);
 		serviceContainer.Provide<Viewport>(viewport);
+
+//		serviceContainer.Get<FontLibrary>().LoadFont(renderer, "res/arial.ttf", 32);
 	}
 
 	void App::Start() {

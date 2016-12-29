@@ -102,8 +102,20 @@ namespace smeg {
 		}
 
 		SDL_Log("Generating texture for %s", SDL_GetPixelFormatName(image->format->format));
-		bool transparent = image->format->Amask != 0;
-		GLuint format = transparent ? GL_RGBA : GL_RGB;
+
+		bool transparent = false;
+		GLuint format = 0;
+
+		switch (image->format->format) {
+			case SDL_PIXELFORMAT_INDEX8:
+				transparent = true;
+				format = GL_ALPHA;
+				break;
+			default:
+				transparent = image->format->Amask != 0;
+				format = transparent ? GL_RGBA : GL_RGB;
+				break;
+		}
 		
 		glBindTexture(GL_TEXTURE_2D, texture.id);
 		{
@@ -113,7 +125,7 @@ namespace smeg {
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Far away
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // Close up
 
-			glTexImage2D(GL_TEXTURE_2D, 0, format, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
+			glTexImage2D(GL_TEXTURE_2D, 0, transparent ? GL_RGBA : GL_RGB, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
 		}
 		CheckErrors();
 		glBindTexture(GL_TEXTURE_2D, 0);

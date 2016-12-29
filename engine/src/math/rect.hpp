@@ -20,6 +20,11 @@ namespace smeg {
 			return Rect { origin, size };
 		}
 
+		/// Give two coordinates and it will calculate the width and height of the Rect
+		static Rect PointToPoint(float x0, float y0, float x1, float y1) {
+			return Rect { Vector2 { x0, y0 }, Vector2 { x1 - x0, y1 - y0 } };
+		}
+
 		Vector2 TopLeft() const {
 			return origin;
 		}

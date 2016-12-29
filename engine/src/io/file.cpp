@@ -93,6 +93,6 @@ namespace smeg {
 			fullPath = std::string(basePath) + relativePath;
 			SDL_free(basePath);
 		}
-		return relativePath;
+		return fullPath;
 	}
 }
