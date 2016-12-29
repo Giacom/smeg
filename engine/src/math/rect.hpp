@@ -8,25 +8,28 @@ namespace smeg {
 		Vector2 origin;
 		Vector2 size;
 
-		Rect() = default;
+		static Rect New() {
+			return Rect();
+		}
 
-		Rect(float x, float y, float width, float height) {
-			origin = Vector2(x, y);
-			size = Vector2(width, height);
-		}		
+		static Rect New(float x, float y, float width, float height) {
+			return Rect { Vector2 { x, y }, Vector2 { width, height} };
+		}
 
-		Rect(Vector2 origin, Vector2 size) : origin(origin), size(size) {}
+		static Rect New(Vector2 origin, Vector2 size) {
+			return Rect { origin, size };
+		}
 
 		Vector2 TopLeft() const {
 			return origin;
 		}
 		
 		Vector2 TopRight() const {
-			return Vector2(origin.x + size.x, origin.y);
+			return Vector2::New(origin.x + size.x, origin.y);
 		}
 
 		Vector2 BottomLeft() const {
-			return Vector2(origin.x, origin.y + size.y);
+			return Vector2::New(origin.x, origin.y + size.y);
 		}
 
 		Vector2 BottomRight() const {
@@ -38,9 +41,9 @@ namespace smeg {
 		}
 
 		Rect GetNormalisedRect(Vector2 normalisedFrom) const {
-			Vector2 normalisedOrigin = Vector2(origin.x / normalisedFrom.x, origin.y / normalisedFrom.y);
-			Vector2 normalisedSize = Vector2(size.x / normalisedFrom.x, size.y / normalisedFrom.y);
-			return Rect(normalisedOrigin, normalisedSize);
+			Vector2 normalisedOrigin = Vector2::New(origin.x / normalisedFrom.x, origin.y / normalisedFrom.y);
+			Vector2 normalisedSize = Vector2::New(size.x / normalisedFrom.x, size.y / normalisedFrom.y);
+			return Rect::New(normalisedOrigin, normalisedSize);
 		}
 	};
 }

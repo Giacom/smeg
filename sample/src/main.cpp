@@ -75,9 +75,9 @@ int main(int, char**) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
 		std::unique_ptr<Component> transform = std::make_unique<Transform>(i * 30 + i, 0, i, 0);
 
-		Rect drawRect = i % 2 == 0 ? Rect(0, 0, 32, 32) : Rect(32, 0, 32, 32);
+		Rect drawRect = i % 2 == 0 ? Rect::New(0, 0, 32, 32) : Rect::New(32, 0, 32, 32);
 
-		std::unique_ptr<Component> sprite = std::make_unique<Sprite>("res/duck_spritesheet.png", drawRect, Vector2(128, 128));
+		std::unique_ptr<Component> sprite = std::make_unique<Sprite>("res/duck_spritesheet.png", drawRect, Vector2::New(128, 128));
 		std::unique_ptr<Component> testComponent = std::make_unique<TestComponent>();
 
 		entity->AddComponent(transform);

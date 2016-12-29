@@ -9,7 +9,7 @@ namespace smeg {
 		float rotation;
 
 		Transform(float x, float y, float z, float rotation) {
-			Vector3 position(x, y, z);
+			Vector3 position = Vector3::New(x, y, z);
 			this->position = position;
 			this->rotation = rotation;
 		}

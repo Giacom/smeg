@@ -35,9 +35,9 @@ namespace smeg {
 		auto texture = textureLibrary.LoadFile(renderer, sprite.texturePath);
 		Rect normalisedRect;
 		if (sprite.drawRect == Rect()) {
-			normalisedRect = Rect(0, 0, 1, 1);
+			normalisedRect = Rect::New(0, 0, 1, 1);
 		} else {
-			normalisedRect = sprite.drawRect.GetNormalisedRect(Vector2(texture.width, texture.height));
+			normalisedRect = sprite.drawRect.GetNormalisedRect(Vector2::New(texture.width, texture.height));
 		}
 
 		Vector2 topLeft = normalisedRect.TopLeft();
