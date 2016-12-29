@@ -13,10 +13,10 @@ namespace smeg {
 			               float m21, float m22, float m23, float m24,
 			               float m31, float m32, float m33, float m34,
 			               float m41, float m42, float m43, float m44) {
-			return Matrix4 { m11, m21, m31, m41,
-							 m12, m22, m32, m42,
-							 m13, m23, m33, m43,
-							 m14, m24, m34, m44 };
+			return Matrix4 { { m11, m21, m31, m41,
+							   m12, m22, m32, m42,
+							   m13, m23, m33, m43,
+			                   m14, m24, m34, m44 } };
 		}
 
 		static Matrix4 Identity() {
