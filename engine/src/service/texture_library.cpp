@@ -20,7 +20,7 @@ namespace smeg {
 
 		SDL_Surface* image = Image::Load(path.c_str());
 		Cache(renderer, key, image);
-		SDL_FreeSurface(image);
+		Image::Free(image);
 		return Get(key);
 	}
 

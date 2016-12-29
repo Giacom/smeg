@@ -57,9 +57,11 @@ namespace smeg {
 			throw;
 		}
 
-		// Turn off the prealloc flag so it Will make SDL_FreeSurface free the image data
-		surf->flags &= ~SDL_PREALLOC;
-
 		return surf;
+	}
+
+	void Image::Free(SDL_Surface* image) {
+		SDL_FreeSurface(image);
+		stbi_image_free(image->pixels);
 	}
 };

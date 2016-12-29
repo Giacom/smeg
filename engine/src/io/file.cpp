@@ -23,7 +23,7 @@ namespace smeg {
 			throw;
 		}
 
-		std::unique_ptr<unsigned char[]> res = std::make_unique<unsigned char[]>(res_size + 1);
+		std::unique_ptr<unsigned char[]> res = std::make_unique<unsigned char[]>(res_size);
 
 		Sint64 nb_read_total = 0, nb_read = 1;
 		unsigned char* buf = res.get();
@@ -39,9 +39,7 @@ namespace smeg {
 			throw;
 		}
 
-		res[nb_read_total] = '\0';
-
-		return std::make_pair(std::move(res), res_size);
+		return std::make_pair(std::move(res), nb_read_total);
 	}
 
 	std::string File::LoadText(const char* filePath) {
@@ -62,7 +60,7 @@ namespace smeg {
 			throw;
 		}
 
-		std::unique_ptr<char[]> res = std::make_unique<char[]>(res_size);
+		std::unique_ptr<char[]> res = std::make_unique<char[]>(res_size + 1);
 
 		Sint64 nb_read_total = 0, nb_read = 1;
 		char* buf = res.get();
@@ -71,6 +69,8 @@ namespace smeg {
 			nb_read_total += nb_read;
 			buf += nb_read;
 		}
+		res[nb_read_total] = '\0';
+
 		SDL_RWclose(fileOp);
 
 		if (nb_read_total != res_size) {
