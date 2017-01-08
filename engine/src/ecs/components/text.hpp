@@ -1,11 +1,13 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include "SDL.h"
 // #include "graphics/colour.hpp"
 // #include "graphics/font.hpp"
 #include "ecs/component.hpp"
+#include "math/vector2.hpp"
 
 namespace smeg {
 	struct Text: public Component {
@@ -14,6 +16,18 @@ namespace smeg {
 			// Points to a texture
 			std::string bitmapTextureId;
 			std::string fontPath;
+			Vector2 size;
+
+			std::vector<float> vertices;
+
+			const std::vector<unsigned short> indices = {
+				0, 1, 2,
+				2, 3, 0,
+			};
+
+			unsigned int vbo;
+			unsigned int vao;
+			unsigned int ebo;
 
 		private:
 			std::string text;

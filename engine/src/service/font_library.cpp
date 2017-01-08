@@ -69,7 +69,7 @@ namespace smeg {
 			character++;
 		}
 
-		font->textureFontId = "file::test";
+		font->textureFontId = "test";
 
 		TextureLibrary& textureLibrary = serviceContainer->Get<TextureLibrary>();
 		textureLibrary.Cache(renderer, "file::test", image);

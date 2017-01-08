@@ -8,7 +8,16 @@
 namespace smeg {
 
 	struct TextRenderer: public System {
-		TextRenderer();
+		unsigned int vbo;
+		unsigned int vao;
+		unsigned int ebo;
+
+		unsigned int shaderProgram;
+
+		std::string vertexShaderFilePath;
+		std::string fragmentShaderFilePath;
+
+		TextRenderer(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
 		void Initialise(OpenGLRenderer &renderer);
 		void Register(OpenGLRenderer &renderer, Entity &entity);
 		void Deregister(OpenGLRenderer &renderer, Entity &entity);

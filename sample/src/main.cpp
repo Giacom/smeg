@@ -27,11 +27,11 @@ int main(int, char**) {
 	std::unique_ptr<System> drawSystem = std::make_unique<SpriteRenderer>("res/sprite_shader.vert", "res/sprite_shader.frag");
 	mainScreen.AddSystem(drawSystem);
 
+	std::unique_ptr<System> fontSystem = std::make_unique<TextRenderer>("res/sprite_shader.vert", "res/sprite_shader.frag");
+	mainScreen.AddSystem(fontSystem);
+
 	std::unique_ptr<System> testSystem = std::make_unique<TestSystem>();
 	mainScreen.AddSystem(testSystem);
-
-	std::unique_ptr<System> textDrawSystem = std::make_unique<TextRenderer>();
-	mainScreen.AddSystem(textDrawSystem);
 
 	/*
 	std::unique_ptr<System> fpsDisplay = std::make_unique<FpsDisplay>();
@@ -40,6 +40,7 @@ int main(int, char**) {
 
 	// Components
 	// FPS Display
+	/*
 	{
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
 
@@ -53,6 +54,7 @@ int main(int, char**) {
 		// entity->AddComponent(fps);
 		mainScreen.AddEntity(entity);
 	}
+	*/
 	
 
 	// Ducks
@@ -71,6 +73,7 @@ int main(int, char**) {
 	}
 	*/
 
+/*
 	for (int i = 32; i >= 0; i--) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
 		std::unique_ptr<Component> transform = std::make_unique<Transform>(i * 30 + i, 0, i, 0);
@@ -85,15 +88,16 @@ int main(int, char**) {
 		entity->AddComponent(testComponent);
 		mainScreen.AddEntity(entity);
 	}
+*/
 
-	// std::unique_ptr<Entity> entity = std::make_unique<Entity>();
-	// std::unique_ptr<Component> transform = std::make_unique<Transform>(0, -512, 0, 0);
+	std::unique_ptr<Entity> entity = std::make_unique<Entity>();
+	std::unique_ptr<Component> transform = std::make_unique<Transform>(0, 0, 0, 0);
+	std::unique_ptr<Component> text = std::make_unique<Text>();
 
-	// std::unique_ptr<Component> sprite = std::make_unique<Sprite>("test", Rect::New(), Vector2::New(1024 * 2, 1024 * 2));
+	entity->AddComponent(transform);
+	entity->AddComponent(text);
 
-	// entity->AddComponent(transform);
-	// entity->AddComponent(sprite);
-	// mainScreen.AddEntity(entity);
+	mainScreen.AddEntity(entity);
 
 	app.Start();
 	return 0;
