@@ -70,6 +70,7 @@ namespace smeg {
 		}
 
 		font->textureFontId = "test";
+		font->pixelSize = pixelSize;
 
 		TextureLibrary& textureLibrary = serviceContainer->Get<TextureLibrary>();
 		textureLibrary.Cache(renderer, "file::test", image);

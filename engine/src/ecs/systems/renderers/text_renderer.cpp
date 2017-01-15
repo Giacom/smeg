@@ -28,14 +28,8 @@ namespace smeg {
 	void TextRenderer::Register(OpenGLRenderer &renderer, Entity &entity) {
 		Text& text = entity.GetComponent<Text>();
 
-		// if (text.drawRect == Rect()) {
-		// 	normalisedRect = Rect::New(0, 0, 1, 1);
-		// } else {
-		// 	normalisedRect = text.drawRect.GetNormalisedRect(Vector2::New(texture.width, texture.height));
-		// }
-
 		std::vector<float> vertices;
-		std::vector<unsigned short> indices;// = { 0, 1, 2, 2, 3, 0, /* */ 4, 5, 6, 6, 7, 4 };	
+		std::vector<unsigned short> indices;
 
 		FontLibrary& fontLibrary = serviceContainer->Get<FontLibrary>();
 		auto& font = fontLibrary.LoadFont(renderer, "res/arial.ttf", 24);
@@ -43,15 +37,18 @@ namespace smeg {
 		TextureLibrary& textureLibrary = serviceContainer->Get<TextureLibrary>();
 		auto texture = textureLibrary.LoadFile(renderer, font.textureFontId);
 
-		float advance = 0;
-		float totalAdvance = 0;
+		float x = 0;
+		float y = 0;
 		int indiceCount = 0;
 
 		for (const char& textCharacter : text.GetText()) {
-			totalAdvance += font.characters[textCharacter].advance;
-		}
 
-		for (const char& textCharacter : text.GetText()) {
+			if (textCharacter == '\n') {
+				y -= font.pixelSize;
+				x = 0;
+				continue;
+			}
+
 			Character character = font.characters[textCharacter];
 
 			Rect normalisedBox = character.boundingBox.GetNormalisedRect(Vector2::New(texture.width, texture.height));
@@ -61,26 +58,29 @@ namespace smeg {
 			Vector2 bottomLeft = normalisedBox.BottomLeft();
 			Vector2 bottomRight = normalisedBox.BottomRight();
 
-			unsigned short zero = indiceCount;
-			unsigned short first = 1 + indiceCount;
-			unsigned short second = 2 + indiceCount;
-			unsigned short third = 3 + indiceCount;
-
-			indiceCount += 4;
+			unsigned short zero = indiceCount++;
+			unsigned short first = indiceCount++;
+			unsigned short second = indiceCount++;
+			unsigned short third = indiceCount++;
 
 			indices.insert(indices.end(), { zero, first, second, second, third, zero});
 
-			float normalisedAdvanceLeft = advance / totalAdvance;
-			float normalisedAdvanceRight = (advance + character.advance) / totalAdvance;
+			float normalisedAdvanceLeft = (x + character.offset.x);
+			float normalisedAdvanceRight = x + character.offset.x + character.boundingBox.size.x;
+
+			float normalisedOffsetTop = y + -character.offset.y;
+			float normalisedOffsetBottom = y + -character.offset.y + -character.boundingBox.size.y;
+
+			SDL_Log("%f", normalisedOffsetTop);
 
 			// Top left
-			vertices.insert(vertices.end(), { normalisedAdvanceLeft, 1.0f, 1.0f, /* */ 1.0f, 1.0f, 1.0f, /* */ topLeft.x, topLeft.y });
-			vertices.insert(vertices.end(), { normalisedAdvanceLeft, 0.0f, 1.0f, /* */ 1.0f, 1.0f, 1.0f, /* */ bottomLeft.x, bottomLeft.y });
+			vertices.insert(vertices.end(), { normalisedAdvanceLeft, normalisedOffsetTop, 1.0f, /* */ 1.0f, 1.0f, 1.0f, /* */ topLeft.x, topLeft.y });
+			vertices.insert(vertices.end(), { normalisedAdvanceLeft, normalisedOffsetBottom, 1.0f, /* */ 1.0f, 1.0f, 1.0f, /* */ bottomLeft.x, bottomLeft.y });
 
-			vertices.insert(vertices.end(), { normalisedAdvanceRight, 0.0f, 1.0f, /* */ 1.0f, 1.0f, 1.0f, /* */ bottomRight.x, bottomRight.y });
-			vertices.insert(vertices.end(), { normalisedAdvanceRight, 1.0f, 1.0f, /* */ 1.0f, 1.0f, 1.0f, /* */ topRight.x, topRight.y });
+			vertices.insert(vertices.end(), { normalisedAdvanceRight, normalisedOffsetBottom, 1.0f, /* */ 1.0f, 1.0f, 1.0f, /* */ bottomRight.x, bottomRight.y });
+			vertices.insert(vertices.end(), { normalisedAdvanceRight, normalisedOffsetTop, 1.0f, /* */ 1.0f, 1.0f, 1.0f, /* */ topRight.x, topRight.y });
 
-			advance += character.advance;
+			x += character.advance;
 		}
 
 		text.vertices = vertices;
