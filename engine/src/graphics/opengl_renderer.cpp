@@ -145,12 +145,16 @@ namespace smeg {
 	unsigned int OpenGLRenderer::GenerateVertexBufferObject(const std::vector<GLfloat>& vertices) {
 		GLuint VBO;
 		glGenBuffers(1, &VBO);
+		BindVertexBufferObject(VBO, vertices);
+		return VBO;
+	}
+
+	void OpenGLRenderer::BindVertexBufferObject(const GLuint VBO, const std::vector<GLfloat>& vertices) {
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		{
 			glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
 		}
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		return VBO;
 	}
 
 	unsigned int OpenGLRenderer::GenerateVertexArrayObject(const GLuint VBO) {

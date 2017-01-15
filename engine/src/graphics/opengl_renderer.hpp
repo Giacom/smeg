@@ -33,6 +33,8 @@ namespace smeg {
 			void DeleteTexture(Texture& texture);
 
 			unsigned int GenerateVertexBufferObject(const std::vector<GLfloat>& vertices);
+			void BindVertexBufferObject(const GLuint VBO, const std::vector<GLfloat>& vertices);
+
 			unsigned int GenerateVertexArrayObject(const GLuint VBO);
 			unsigned int GenerateElementBufferObject(const std::vector<GLushort>& indices);
 

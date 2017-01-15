@@ -7,24 +7,50 @@
 
 namespace smeg {
 
-	struct Sprite: public Component {
+	class Sprite: public Component {
 
-		const std::string texturePath;
-		const Rect drawRect;
-		const Vector2 size;
+		private:
+			std::string texturePath;
+			Rect drawRect;
+			bool isDirty = true;
 
-		unsigned int vbo;
-		unsigned int vao;
-		unsigned int ebo;
+		public:
+			unsigned int vbo = 0;
+			unsigned int vao = 0;
+			unsigned int ebo = 0;
 
-		std::vector<float> vertices;
+			Vector2 size;
+			
+			std::vector<float> vertices;
 
-		const std::vector<unsigned short> indices = {
-			0, 1, 2,
-			2, 3, 0,
-		};
+			const std::vector<unsigned short> indices = {
+				0, 1, 2,
+				2, 3, 0,
+			};
 
-		Sprite(const std::string texturePath, Rect drawRect, Vector2 size) :
-			   Component(), texturePath(texturePath), drawRect(drawRect), size(size) {}
+			Sprite(const std::string texturePath, Rect drawRect, Vector2 size) :
+				Component(), texturePath(texturePath), drawRect(drawRect), size(size) {}
+
+			void SetTexturePath(std::string texturePath) {
+				this->texturePath = texturePath;
+				isDirty = true;
+			}
+
+			const std::string& GetTexturePath() {
+				return this->texturePath;
+			}
+
+			void SetDrawRect(Rect drawRect) {
+				this->drawRect = drawRect;
+				isDirty = true;
+			}
+
+			Rect GetDrawRect() {
+				return this->drawRect;
+			}
+
+			bool IsDirty() {
+				return this->isDirty;
+			}
 	};
 }

@@ -73,7 +73,6 @@ int main(int, char**) {
 	}
 	*/
 
-/*
 	for (int i = 32; i >= 0; i--) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
 		std::unique_ptr<Component> transform = std::make_unique<Transform>(i * 30 + i, 0, i, 0);
@@ -88,16 +87,17 @@ int main(int, char**) {
 		entity->AddComponent(testComponent);
 		mainScreen.AddEntity(entity);
 	}
-*/
 
-	std::unique_ptr<Entity> entity = std::make_unique<Entity>();
-	std::unique_ptr<Component> transform = std::make_unique<Transform>(-200, 0, 0, 0);
-	std::unique_ptr<Component> text = std::make_unique<Text>("SMEG DOES TEXT\nAND NEW LINES!", Vector2::New(2, 2));
+	{
+		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
+		std::unique_ptr<Component> transform = std::make_unique<Transform>(-200, 0, 1000, 0);
+		std::unique_ptr<Component> text = std::make_unique<Text>("SMEG DOES TEXT\nAND NEW LINES!", Vector2::New(2, 2));
 
-	entity->AddComponent(transform);
-	entity->AddComponent(text);
+		entity->AddComponent(transform);
+		entity->AddComponent(text);
 
-	mainScreen.AddEntity(entity);
+		mainScreen.AddEntity(entity);
+	}
 
 	app.Start();
 	return 0;

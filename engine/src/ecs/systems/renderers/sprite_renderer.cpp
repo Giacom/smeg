@@ -29,15 +29,38 @@ namespace smeg {
     }
 
 	void SpriteRenderer::Register(OpenGLRenderer &renderer, Entity &entity) {
-		TextureLibrary& textureLibrary = serviceContainer->Get<TextureLibrary>();
 		Sprite& sprite = entity.GetComponent<Sprite>();
+		UpdateRenderData(renderer, sprite);
+	}	
+	
+	void SpriteRenderer::Deregister(OpenGLRenderer &renderer, Entity &entity) {}
+
+	void SpriteRenderer::Process(Entity &entity) {	}
+
+	void SpriteRenderer::Render(OpenGLRenderer& renderer, SpriteBatchRenderer &batcher, Entity &entity) {
+		Sprite& sprite = entity.GetComponent<Sprite>();
+		Transform& transform = entity.GetComponent<Transform>();
+		TextureLibrary& textureLibrary = serviceContainer->Get<TextureLibrary>();
+
+		UpdateRenderData(renderer, sprite);
+
+		auto texture = textureLibrary.LoadFile(renderer, sprite.GetTexturePath());
+		batcher.Batch(texture, sprite.size, transform.position, sprite.indices.size(), shaderProgram, sprite.vbo, sprite.vao, sprite.ebo);
+	}
+
+	void SpriteRenderer::UpdateRenderData(OpenGLRenderer &renderer, Sprite &sprite) {
+		if (!sprite.IsDirty()) {
+			return;
+		}
+
+		TextureLibrary& textureLibrary = serviceContainer->Get<TextureLibrary>();
 		
-		auto texture = textureLibrary.LoadFile(renderer, sprite.texturePath);
+		auto texture = textureLibrary.LoadFile(renderer, sprite.GetTexturePath());
 		Rect normalisedRect;
-		if (sprite.drawRect == Rect()) {
+		if (sprite.GetDrawRect() == Rect()) {
 			normalisedRect = Rect::New(0, 0, 1, 1);
 		} else {
-			normalisedRect = sprite.drawRect.GetNormalisedRect(Vector2::New(texture.width, texture.height));
+			normalisedRect = sprite.GetDrawRect().GetNormalisedRect(Vector2::New(texture.width, texture.height));
 		}
 
 		Vector2 topLeft = normalisedRect.TopLeft();
@@ -47,28 +70,24 @@ namespace smeg {
 
 		sprite.vertices = {
 			// Positions          // Colors          // Texture Coords
-			-0.5,  0.5f, 0.5f,   1.0f, 1.0f, 1.0f,   topLeft.x, topLeft.y,  // Top Left 
-			-0.5f, -0.5f, 0.5f,  1.0f, 1.0f, 1.0f,   bottomLeft.x, bottomLeft.y, // Bottom Left
-			0.5f, -0.5f, 0.5f,   1.0f, 1.0f, 1.0f,   bottomRight.x, bottomRight.y, // Bottom Right
-			0.5f,  0.5f, 0.5f,   1.0f, 1.0f, 1.0f,   topRight.x, topRight.y, // Top Right
+			-0.5,  0.5f, 0.5f,   1.0f, 1.0f, 1.0f,   topLeft.x, topLeft.y,
+			-0.5f, -0.5f, 0.5f,  1.0f, 1.0f, 1.0f,   bottomLeft.x, bottomLeft.y,
+			0.5f, -0.5f, 0.5f,   1.0f, 1.0f, 1.0f,   bottomRight.x, bottomRight.y,
+			0.5f,  0.5f, 0.5f,   1.0f, 1.0f, 1.0f,   topRight.x, topRight.y
 		};
 
-		sprite.vbo = renderer.GenerateVertexBufferObject(sprite.vertices);
-		sprite.vao = renderer.GenerateVertexArrayObject(sprite.vbo);
-		sprite.ebo = renderer.GenerateElementBufferObject(sprite.indices);
-	}	
-	
-	void SpriteRenderer::Deregister(OpenGLRenderer &renderer, Entity &entity) {}
+		if (!sprite.vbo) {
+			sprite.vbo = renderer.GenerateVertexBufferObject(sprite.vertices);
+		} else {
+			renderer.BindVertexBufferObject(sprite.vbo, sprite.vertices);
+		}
 
-	void SpriteRenderer::Process(Entity &entity) {}
+		if (!sprite.vao) {
+			sprite.vao = renderer.GenerateVertexArrayObject(sprite.vbo);
+		}
 
-	void SpriteRenderer::Render(OpenGLRenderer& renderer, SpriteBatchRenderer &batcher, Entity &entity) {
-		Sprite& sprite = entity.GetComponent<Sprite>();
-		Transform& transform = entity.GetComponent<Transform>();
-
-		TextureLibrary& textureLibrary = serviceContainer->Get<TextureLibrary>();
-
-		auto texture = textureLibrary.LoadFile(renderer, sprite.texturePath);
-		batcher.Batch(texture, sprite.size, transform.position, sprite.indices.size(), shaderProgram, sprite.vbo, sprite.vao, sprite.ebo);
+		if (!sprite.ebo) {
+			sprite.ebo = renderer.GenerateElementBufferObject(sprite.indices);
+		}
 	}
 }
