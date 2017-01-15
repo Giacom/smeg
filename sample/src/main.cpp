@@ -91,8 +91,8 @@ int main(int, char**) {
 */
 
 	std::unique_ptr<Entity> entity = std::make_unique<Entity>();
-	std::unique_ptr<Component> transform = std::make_unique<Transform>(0, 0, 0, 0);
-	std::unique_ptr<Component> text = std::make_unique<Text>();
+	std::unique_ptr<Component> transform = std::make_unique<Transform>(-300, -300, 0, 0);
+	std::unique_ptr<Component> text = std::make_unique<Text>("HELLO WORLD", Vector2::New(600, 400));
 
 	entity->AddComponent(transform);
 	entity->AddComponent(text);

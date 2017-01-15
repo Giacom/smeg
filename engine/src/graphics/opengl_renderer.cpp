@@ -61,7 +61,7 @@ namespace smeg {
         SDL_GL_SwapWindow(window);
     }
 
-	void OpenGLRenderer::DrawTexture(const Texture& texture, const GLuint program, const GLuint vbo, const GLuint vao, const GLuint ebo,
+	void OpenGLRenderer::DrawTexture(const Texture& texture, const unsigned int indiceCount, const GLuint program, const GLuint vbo, const GLuint vao, const GLuint ebo,
 	                                 const Matrix4& model, const Matrix4& view, const Matrix4& perspective) {
 		if (!texture.id) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "DrawTexture: Invalid texture id (NULL)");
@@ -82,7 +82,7 @@ namespace smeg {
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);	
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
+		glDrawElements(GL_TRIANGLES, indiceCount, GL_UNSIGNED_SHORT, 0);
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);

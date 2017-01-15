@@ -26,7 +26,7 @@ namespace smeg {
 			void Clear();
 
 			void SwapBuffer(SDL_Window* window);
-			void DrawTexture(const Texture& texture, const GLuint program, const GLuint VBO, const GLuint VAO, const GLuint EBO,
+			void DrawTexture(const Texture& texture, const unsigned int indiceCount, const GLuint program, const GLuint VBO, const GLuint VAO, const GLuint EBO,
 							 const Matrix4& model, const Matrix4& view, const Matrix4& perspective);
 			
 			Texture GenerateTexture(const SDL_Surface* surface);

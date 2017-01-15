@@ -69,6 +69,6 @@ namespace smeg {
 		TextureLibrary& textureLibrary = serviceContainer->Get<TextureLibrary>();
 
 		auto texture = textureLibrary.LoadFile(renderer, sprite.texturePath);
-		batcher.Batch(texture, sprite.size, transform.position, shaderProgram, sprite.vbo, sprite.vao, sprite.ebo);
+		batcher.Batch(texture, sprite.size, transform.position, sprite.indices.size(), shaderProgram, sprite.vbo, sprite.vao, sprite.ebo);
 	}
 }

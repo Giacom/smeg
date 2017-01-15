@@ -11,6 +11,8 @@ namespace smeg {
 		Vector2 size;
 		Vector3 position;
 
+		unsigned int indiceCount;
+
 		unsigned int shaderProgram;
 		unsigned int vbo;
 		unsigned int vao;

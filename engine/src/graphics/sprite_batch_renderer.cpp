@@ -9,8 +9,8 @@ namespace smeg {
 	}
 
 	void SpriteBatchRenderer::Batch(const Texture& texture, const Vector2& size, const Vector3& position,
-	                                const unsigned int shaderProgram, const unsigned int vbo, const unsigned int vao, const unsigned int ebo) {
-		SpriteBatch spriteBatch = { texture, size, position, shaderProgram, vbo, vao, ebo };
+	                                const unsigned int indiceCount, const unsigned int shaderProgram, const unsigned int vbo, const unsigned int vao, const unsigned int ebo) {
+		SpriteBatch spriteBatch = { texture, size, position, indiceCount, shaderProgram, vbo, vao, ebo };
 
 		if (spriteBatch.texture.transparent) {
 			// Sort the order if the texture is transparent
@@ -31,7 +31,7 @@ namespace smeg {
 										       0,              batch.size.y,        0,         batch.position.y,
 										       0,              0,                   1,         batch.position.z,
 										       0,              0,                   0,         1);
-			renderer.DrawTexture(batch.texture, batch.shaderProgram, batch.vbo, batch.vao, batch.ebo, model, view, perspective);
+			renderer.DrawTexture(batch.texture, batch.indiceCount, batch.shaderProgram, batch.vbo, batch.vao, batch.ebo, model, view, perspective);
 		};
 
 		for (auto& batch : opaqueBatches) {

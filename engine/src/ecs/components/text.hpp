@@ -19,11 +19,7 @@ namespace smeg {
 			Vector2 size;
 
 			std::vector<float> vertices;
-
-			const std::vector<unsigned short> indices = {
-				0, 1, 2,
-				2, 3, 0,
-			};
+			std::vector<unsigned short> indices;
 
 			unsigned int vbo;
 			unsigned int vao;
@@ -35,6 +31,7 @@ namespace smeg {
 
 		public:
 			//Text(std::string text, std::string fontPath, Colour colour) : fontPath(fontPath), text(text), colour(colour) {}
+			Text(std::string text, Vector2 size) : size(size), text(text) {}
 
 			void SetText(std::string text) {
 				// If are the same, just return.
