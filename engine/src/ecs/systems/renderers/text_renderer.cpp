@@ -4,7 +4,6 @@
 #include "text_renderer.hpp"
 #include "math/rect.hpp"
 #include "ecs/components/transform.hpp"
-#include "ecs/components/text.hpp"
 #include "service/texture_library.hpp"
 #include "service/font_library.hpp"
 #include "io/file.hpp"
@@ -27,7 +26,32 @@ namespace smeg {
 
 	void TextRenderer::Register(OpenGLRenderer &renderer, Entity &entity) {
 		Text& text = entity.GetComponent<Text>();
+		UpdateTextMesh(renderer, text);
+	}	
+	
+	void TextRenderer::Deregister(OpenGLRenderer &renderer, Entity &entity) {}
 
+	void TextRenderer::Process(Entity &entity) {}
+
+	void TextRenderer::Render(OpenGLRenderer& renderer, SpriteBatchRenderer &batcher, Entity &entity) {
+		Text& text = entity.GetComponent<Text>();
+		Transform& transform = entity.GetComponent<Transform>();
+
+		if (text.dirty) {
+			UpdateTextMesh(renderer, text);
+			text.dirty = false;
+		}
+
+		FontLibrary& fontLibrary = serviceContainer->Get<FontLibrary>();
+		Font& font = fontLibrary.LoadFont(renderer, "res/arial.ttf", 24);
+
+		TextureLibrary& textureLibrary = serviceContainer->Get<TextureLibrary>();
+		auto& texture = textureLibrary.LoadFile(renderer, font.textureFontId);
+
+		batcher.Batch(texture, text.size, transform.position, text.indices.size(), shaderProgram, text.vbo, text.vao, text.ebo);
+	}
+
+	void TextRenderer::UpdateTextMesh(OpenGLRenderer& renderer, Text &text) {
 		std::vector<float> vertices;
 		std::vector<unsigned short> indices;
 
@@ -71,8 +95,6 @@ namespace smeg {
 			float normalisedOffsetTop = y + -character.offset.y;
 			float normalisedOffsetBottom = y + -character.offset.y + -character.boundingBox.size.y;
 
-			SDL_Log("%f", normalisedOffsetTop);
-
 			// Top left
 			vertices.insert(vertices.end(), { normalisedAdvanceLeft, normalisedOffsetTop, 1.0f, /* */ 1.0f, 1.0f, 1.0f, /* */ topLeft.x, topLeft.y });
 			vertices.insert(vertices.end(), { normalisedAdvanceLeft, normalisedOffsetBottom, 1.0f, /* */ 1.0f, 1.0f, 1.0f, /* */ bottomLeft.x, bottomLeft.y });
@@ -86,25 +108,20 @@ namespace smeg {
 		text.vertices = vertices;
 		text.indices = indices;
 
-		text.vbo = renderer.GenerateVertexBufferObject(text.vertices);
-		text.vao = renderer.GenerateVertexArrayObject(text.vbo);
-		text.ebo = renderer.GenerateElementBufferObject(text.indices);
-	}	
-	
-	void TextRenderer::Deregister(OpenGLRenderer &renderer, Entity &entity) {}
+		if (!text.vbo) {
+			text.vbo = renderer.GenerateVertexBufferObject(text.vertices);
+		} else {
+			renderer.BindVertexBufferObject(text.vbo, text.vertices);
+		}
 
-	void TextRenderer::Process(Entity &entity) {}
+		if (!text.vao) {
+			text.vao = renderer.GenerateVertexArrayObject(text.vbo);
+		}
 
-	void TextRenderer::Render(OpenGLRenderer& renderer, SpriteBatchRenderer &batcher, Entity &entity) {
-		Text& text = entity.GetComponent<Text>();
-		Transform& transform = entity.GetComponent<Transform>();
-
-		FontLibrary& fontLibrary = serviceContainer->Get<FontLibrary>();
-		Font& font = fontLibrary.LoadFont(renderer, "res/arial.ttf", 24);
-
-		TextureLibrary& textureLibrary = serviceContainer->Get<TextureLibrary>();
-		auto& texture = textureLibrary.LoadFile(renderer, font.textureFontId);
-
-		batcher.Batch(texture, text.size, transform.position, text.indices.size(), shaderProgram, text.vbo, text.vao, text.ebo);
+		if (!text.ebo) {
+			text.ebo = renderer.GenerateElementBufferObject(text.indices);
+		} else {
+			renderer.BindElementBufferObject(text.ebo, text.indices);
+		}
 	}
 }

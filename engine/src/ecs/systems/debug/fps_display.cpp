@@ -21,4 +21,10 @@ namespace smeg {
 
 		text.SetText(label.str());
 	}
+
+
+	void FpsDisplay::Initialise(OpenGLRenderer &renderer) {}
+	void FpsDisplay::Register(OpenGLRenderer &renderer, Entity &entity) {}
+	void FpsDisplay::Deregister(OpenGLRenderer &renderer, Entity &entity) {}
+	void FpsDisplay::Render(OpenGLRenderer& renderer, SpriteBatchRenderer& batcher, Entity &entity) {}
 }

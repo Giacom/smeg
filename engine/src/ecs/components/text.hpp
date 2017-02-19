@@ -21,9 +21,11 @@ namespace smeg {
 			std::vector<float> vertices;
 			std::vector<unsigned short> indices;
 
-			unsigned int vbo;
-			unsigned int vao;
-			unsigned int ebo;
+			unsigned int vbo = 0;
+			unsigned int vao = 0;
+			unsigned int ebo = 0;
+
+			bool dirty = false;
 
 		private:
 			std::string text;
@@ -38,10 +40,11 @@ namespace smeg {
 				if (this->text.compare(text) == 0) {
 					return;
 				}
+				this->dirty = true;
 				this->text = text;
 			}
 
-			const std::string& GetText() {
+			const std::string& GetText() const {
 				return text;
 			}
 	};

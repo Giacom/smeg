@@ -36,7 +36,11 @@ namespace smeg {
 			void BindVertexBufferObject(const GLuint VBO, const std::vector<GLfloat>& vertices);
 
 			unsigned int GenerateVertexArrayObject(const GLuint VBO);
+			void BindVertexArrayObject(const GLuint VAO, const GLuint VBO);
+
 			unsigned int GenerateElementBufferObject(const std::vector<GLushort>& indices);
+			void BindElementBufferObject(const GLuint EBO, const std::vector<GLushort>& indices);
+
 
 			unsigned int GenerateShaderProgram(const char* vertexShaderSource, const char* fragmentShaderSource);
 

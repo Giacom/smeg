@@ -146,6 +146,7 @@ namespace smeg {
 		GLuint VBO;
 		glGenBuffers(1, &VBO);
 		BindVertexBufferObject(VBO, vertices);
+		SDL_Log("Generating vertex buffer: %u", VBO);
 		return VBO;
 	}
 
@@ -161,6 +162,13 @@ namespace smeg {
 		GLuint VAO;
 		glGenVertexArrays(1, &VAO);
 
+		BindVertexArrayObject(VAO, VBO);
+		SDL_Log("Generating vertex array: %u", VAO);
+
+		return VAO;
+	}
+
+	void OpenGLRenderer::BindVertexArrayObject(const GLuint VAO, const GLuint VBO) {
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		glBindVertexArray(VAO);
 		{
@@ -183,21 +191,22 @@ namespace smeg {
 		}
 		glBindVertexArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-		return VAO;
 	}
 
 	unsigned int OpenGLRenderer::GenerateElementBufferObject(const std::vector<GLushort>& indices) {
 		GLuint EBO;
 		glGenBuffers(1, &EBO);
+		BindElementBufferObject(EBO, indices);
+		SDL_Log("Generating element buffer: %u", EBO);
+		return EBO;
+	}
 
+	void OpenGLRenderer::BindElementBufferObject(const GLuint EBO, const std::vector<GLushort>& indices) {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 		{
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort) * indices.size(), indices.data(), GL_STATIC_DRAW);
 		}
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-		return EBO;
 	}
 	
 	unsigned int OpenGLRenderer::GenerateShaderProgram(const char* vertexShaderSource, const char* fragmentShaderSource) {

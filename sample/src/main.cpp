@@ -33,6 +33,9 @@ int main(int, char**) {
 	std::unique_ptr<System> testSystem = std::make_unique<TestSystem>();
 	mainScreen.AddSystem(testSystem);
 
+	std::unique_ptr<System> fpsSystem = std::make_unique<FpsDisplay>();
+	mainScreen.AddSystem(fpsSystem);
+
 	/*
 	std::unique_ptr<System> fpsDisplay = std::make_unique<FpsDisplay>();
 	mainScreen.AddSystem(fpsDisplay);
@@ -95,6 +98,19 @@ int main(int, char**) {
 
 		entity->AddComponent(transform);
 		entity->AddComponent(text);
+
+		mainScreen.AddEntity(entity);
+	}
+
+	{
+		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
+		std::unique_ptr<Component> transform = std::make_unique<Transform>(0, -100, 500, 0);
+		std::unique_ptr<Component> text = std::make_unique<Text>("-100", Vector2::New(2, 2));
+		std::unique_ptr<Component> fps = std::make_unique<Fps>();
+
+		entity->AddComponent(transform);
+		entity->AddComponent(text);
+		entity->AddComponent(fps);
 
 		mainScreen.AddEntity(entity);
 	}

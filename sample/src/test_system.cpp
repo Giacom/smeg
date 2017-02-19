@@ -40,7 +40,7 @@ void TestSystem::Process(smeg::Entity &entity) {
 
 	if (time.ticks % 100 == 0) {
 		//sprite.SetDrawRect(smeg::Rect::New(time.ticks / 100, time.ticks / 100, 32, 32)); 
-		sprite.SetTexturePath("res/duck_opaque.jpg");
+	//	sprite.SetTexturePath("res/duck_opaque.jpg");
 		sprite.SetDrawRect(smeg::Rect::New());
 		sprite.size = smeg::Vector2::New(256, 256);
 	}

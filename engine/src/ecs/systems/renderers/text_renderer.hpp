@@ -2,6 +2,7 @@
 
 #include "SDL.h"
 #include "graphics/opengl_renderer.hpp"
+#include "ecs/components/text.hpp"
 #include "ecs/entity.hpp"
 #include "ecs/system.hpp"
 
@@ -23,5 +24,7 @@ namespace smeg {
 		void Deregister(OpenGLRenderer &renderer, Entity &entity);
 		void Process(Entity &entity);
 		void Render(OpenGLRenderer& renderer, SpriteBatchRenderer& batcher, Entity &entity);
+
+		void UpdateTextMesh(OpenGLRenderer& renderer, Text &text);
 	};
 }
