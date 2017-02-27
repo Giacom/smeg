@@ -36,6 +36,7 @@ int main(int, char**) {
 	std::unique_ptr<System> fpsSystem = std::make_unique<FpsDisplay>();
 	mainScreen.AddSystem(fpsSystem);
 
+
 	/*
 	std::unique_ptr<System> fpsDisplay = std::make_unique<FpsDisplay>();
 	mainScreen.AddSystem(fpsDisplay);
@@ -80,10 +81,8 @@ int main(int, char**) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
 		std::unique_ptr<Component> transform = std::make_unique<Transform>(i * 30 + i, 0, i, 0);
 
-		Rect drawRect = i % 2 == 0 ? Rect::New(0, 0, 32, 32) : Rect::New(32, 0, 32, 32);
-
-		std::unique_ptr<Component> sprite = std::make_unique<Sprite>("res/duck_spritesheet.png", drawRect, Vector2::New(128, 128));
-		std::unique_ptr<Component> testComponent = std::make_unique<TestComponent>();
+		std::unique_ptr<Component> sprite = std::make_unique<Sprite>("res/duck.png", Rect::New(), Vector2::New(128, 128));
+		std::unique_ptr<Component> testComponent = std::make_unique<TestComponent>(i, i % 3);
 
 		entity->AddComponent(transform);
 		entity->AddComponent(sprite);
@@ -104,7 +103,7 @@ int main(int, char**) {
 
 	{
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
-		std::unique_ptr<Component> transform = std::make_unique<Transform>(0, -100, 500, 0);
+		std::unique_ptr<Component> transform = std::make_unique<Transform>(-400, -290, 500, 0);
 		std::unique_ptr<Component> text = std::make_unique<Text>("-100", Vector2::New(2, 2));
 		std::unique_ptr<Component> fps = std::make_unique<Fps>();
 

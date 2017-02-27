@@ -17,7 +17,7 @@ namespace smeg {
 		Time &time = serviceContainer->Get<Time>();
 		Text &text = entity.GetComponent<Text>();
 		std::stringstream label;
-		label << "FPS: " << time.fps << " - Delta: " << time.delta;
+		label << "FPS: " << time.fps << " - Delta: " << time.delta << " - Ticks: " << time.ticks;
 
 		text.SetText(label.str());
 	}

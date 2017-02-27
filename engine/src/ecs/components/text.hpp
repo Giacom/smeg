@@ -32,7 +32,6 @@ namespace smeg {
 			// Colour colour;
 
 		public:
-			//Text(std::string text, std::string fontPath, Colour colour) : fontPath(fontPath), text(text), colour(colour) {}
 			Text(std::string text, Vector2 size) : size(size), text(text) {}
 
 			void SetText(std::string text) {

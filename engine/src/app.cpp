@@ -40,7 +40,7 @@ namespace smeg {
 		serviceContainer.Provide<FontLibrary>(fontLibrary);
 
 		std::unique_ptr<Service> viewport = std::make_unique<Viewport>(windowWidth, windowHeight);
-		serviceContainer.Provide<Viewport>(viewport);
+		serviceContainer.Provide<Viewport>(viewport);        
 
 //		serviceContainer.Get<FontLibrary>().LoadFont(renderer, "res/arial.ttf", 32);
 	}
