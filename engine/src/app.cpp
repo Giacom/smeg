@@ -104,6 +104,10 @@ namespace smeg {
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 				case SDL_KEYDOWN:
+					if (event.key.keysym.sym == SDLK_ESCAPE) {
+						return true;
+					}
+					break;
 				case SDL_QUIT:
 					return true;
 				case SDL_WINDOWEVENT:
