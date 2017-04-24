@@ -26,7 +26,7 @@ namespace smeg {
 		window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 
 		renderer.Initialise(window);
-        renderer.ClearColour(0.2058f, 0.3066f, 0.4877f);
+		renderer.ClearColour(0.2058f, 0.3066f, 0.4877f);
 		renderer.SetViewport(windowWidth, windowHeight);
 
 		// Services
