@@ -109,7 +109,7 @@ namespace smeg {
 		switch (image->format->format) {
 			case SDL_PIXELFORMAT_INDEX8:
 				transparent = true;
-				format = GL_ALPHA;
+				format = GL_RED;
 				break;
 			default:
 				transparent = image->format->Amask != 0;

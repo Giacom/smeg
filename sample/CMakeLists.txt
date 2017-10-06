@@ -18,6 +18,11 @@ endif()
 
 #message("Copying resource files from " ${sample_SOURCE_DIR}/res " to build target ${sample_BINARY_DIR}/${CMAKE_INSTALL_CONFIG_NAME}.")
 #file(COPY ${PROJECT_SOURCE_DIR}/res DESTINATION ${PROJECT_BINARY_DIR}/${CMAKE_CFG_INTDIR})
+if (WIN32)
+  add_custom_command(TARGET sample POST_BUILD
+    COMMAND "${CMAKE_COMMAND}" -E copy "${PROJECT_SOURCE_DIR}/SDL2.dll" "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/SDL2.dll"
+    COMMENT "Copying SDL2.dll to output directory (${CMAKE_CFG_INTDIR}/SDL2.dll})")
+ endif()
 
 add_custom_command(TARGET sample POST_BUILD 
   COMMAND "${CMAKE_COMMAND}" -E copy_directory "${PROJECT_SOURCE_DIR}/res" "${CMAKE_CFG_INTDIR}/res" 

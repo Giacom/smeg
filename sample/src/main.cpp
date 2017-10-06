@@ -27,7 +27,7 @@ int main(int, char**) {
 	std::unique_ptr<System> drawSystem = std::make_unique<SpriteRenderer>("res/sprite_shader.vert", "res/sprite_shader.frag");
 	mainScreen.AddSystem(drawSystem);
 
-	std::unique_ptr<System> fontSystem = std::make_unique<TextRenderer>("res/sprite_shader.vert", "res/sprite_shader.frag");
+	std::unique_ptr<System> fontSystem = std::make_unique<TextRenderer>("res/sprite_shader.vert", "res/text_shader.frag");
 	mainScreen.AddSystem(fontSystem);
 
 	std::unique_ptr<System> testSystem = std::make_unique<TestSystem>();
