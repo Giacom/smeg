@@ -18,11 +18,11 @@ namespace smeg {
 			FontMap fontMap;
 
 		public:
-			Font& LoadFont(OpenGLRenderer& renderer, const std::string& path, float pixelSize);
+			Font& LoadFont(OpenGLRenderer& renderer, const std::string& path, f32 pixelSize);
 			Font& Get(const std::string& key);
 			bool HasKey(const std::string& key);
 
 		private:
-			void Cache(OpenGLRenderer& renderer, const std::string& key, const std::string& path, float pixelSize);
+			void Cache(OpenGLRenderer& renderer, const std::string& key, const std::string& path, f32 pixelSize);
 	};
 }

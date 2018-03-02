@@ -52,7 +52,7 @@ namespace smeg {
 	}
 
 	void TextRenderer::UpdateTextMesh(OpenGLRenderer& renderer, Text &text) {
-		std::vector<float> vertices;
+		std::vector<f32> vertices;
 		std::vector<unsigned short> indices;
 
 		FontLibrary& fontLibrary = serviceContainer->Get<FontLibrary>();
@@ -61,9 +61,9 @@ namespace smeg {
 		TextureLibrary& textureLibrary = serviceContainer->Get<TextureLibrary>();
 		auto texture = textureLibrary.LoadFile(renderer, font.textureFontId);
 
-		float x = 0;
-		float y = 0;
-		int indiceCount = 0;
+		f32 x = 0;
+		f32 y = 0;
+		i32 indiceCount = 0;
 
 		for (const char& textCharacter : text.GetText()) {
 
@@ -89,11 +89,11 @@ namespace smeg {
 
 			indices.insert(indices.end(), { zero, first, second, second, third, zero});
 
-			float normalisedAdvanceLeft = (x + character.offset.x);
-			float normalisedAdvanceRight = x + character.offset.x + character.boundingBox.size.x;
+			f32 normalisedAdvanceLeft = (x + character.offset.x);
+			f32 normalisedAdvanceRight = x + character.offset.x + character.boundingBox.size.x;
 
-			float normalisedOffsetTop = y + -character.offset.y;
-			float normalisedOffsetBottom = y + -character.offset.y + -character.boundingBox.size.y;
+			f32 normalisedOffsetTop = y + -character.offset.y;
+			f32 normalisedOffsetBottom = y + -character.offset.y + -character.boundingBox.size.y;
 
 			// Top left
 			vertices.insert(vertices.end(), { normalisedAdvanceLeft, normalisedOffsetTop, 1.0f, /* */ 1.0f, 1.0f, 1.0f, /* */ topLeft.x, topLeft.y });

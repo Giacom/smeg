@@ -1,17 +1,19 @@
 #pragma once
 
+#include "common.hpp"
+
 namespace smeg {
 
 	struct Vector3 {
-		float x = 0.0f;
-		float y = 0.0f;
-		float z = 0.0f;
+		f32 x = 0.0f;
+		f32 y = 0.0f;
+		f32 z = 0.0f;
 
 		static Vector3 New() {
 			return Vector3();
 		}
 
-		static Vector3 New(float x, float y, float z) {
+		static Vector3 New(f32 x, f32 y, f32 z) {
 			return Vector3 { x, y, z };
 		}
 
@@ -31,7 +33,7 @@ namespace smeg {
 			return Vector3::New(this->x - b.x, this->y - b.y, this->z - b.z);
 		}
 
-		Vector3 operator*(const float scale) const {
+		Vector3 operator*(const f32 scale) const {
 			return Vector3::New(this->x * scale, this->y * scale, this->z * scale);
 		}
 

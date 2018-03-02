@@ -14,7 +14,7 @@ namespace smeg {
 	class SpriteRenderer: public System {
 
 		public:
-			unsigned int shaderProgram;
+			u32 shaderProgram;
 
 			std::string vertexShaderFilePath;
 			std::string fragmentShaderFilePath;

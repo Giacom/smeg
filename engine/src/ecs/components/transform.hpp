@@ -6,14 +6,14 @@
 namespace smeg {
 	struct Transform: public Component {
 		Vector3 position;
-		float rotation;
+		f32 rotation;
 
-		Transform(float x, float y, float z, float rotation) {
+		Transform(f32 x, f32 y, f32 z, f32 rotation) {
 			Vector3 position = Vector3::New(x, y, z);
 			this->position = position;
 			this->rotation = rotation;
 		}
 
-		Transform(Vector3 position, float rotation) : position(position), rotation(rotation) {}
+		Transform(Vector3 position, f32 rotation) : position(position), rotation(rotation) {}
 	};
 }

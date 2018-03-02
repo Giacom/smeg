@@ -3,8 +3,8 @@
 #include "ecs/component.hpp"
 
 struct TestComponent : public smeg::Component {
-	int duckIndex = 0;
-	int duckShown = 0;
+	i32 duckIndex = 0;
+	i32 duckShown = 0;
 
-	TestComponent(int duckIndex, int duckShown) : duckIndex(duckIndex), duckShown(duckShown) {};
+	TestComponent(i32 duckIndex, i32 duckShown) : duckIndex(duckIndex), duckShown(duckShown) {};
 };

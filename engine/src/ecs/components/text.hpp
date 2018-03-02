@@ -18,12 +18,12 @@ namespace smeg {
 			std::string fontPath;
 			Vector2 size;
 
-			std::vector<float> vertices;
+			std::vector<f32> vertices;
 			std::vector<unsigned short> indices;
 
-			unsigned int vbo = 0;
-			unsigned int vao = 0;
-			unsigned int ebo = 0;
+			u32 vbo = 0;
+			u32 vao = 0;
+			u32 ebo = 0;
 
 			bool dirty = false;
 

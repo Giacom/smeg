@@ -8,9 +8,9 @@ namespace smeg {
 	struct Character {
 		Rect boundingBox;
 		Vector2 offset;
-		float advance;
+		f32 advance;
 
-		static Character New(float x0, float y0, float x1, float y1, float xOff, float yOff, float advance) {
+		static Character New(f32 x0, f32 y0, f32 x1, f32 y1, f32 xOff, f32 yOff, f32 advance) {
 			return Character { Rect::PointToPoint(x0, y0, x1, y1), Vector2::New(xOff, yOff), advance };
 		}
 	};
@@ -18,6 +18,6 @@ namespace smeg {
 	/*
 
    unsigned short x0,y0,x1,y1; // coordinates of bbox in bitmap
-   float xoff,yoff,xadvance;
+   f32 xoff,yoff,xadvance;
 	*/
 }

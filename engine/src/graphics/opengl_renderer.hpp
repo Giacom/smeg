@@ -26,23 +26,23 @@ namespace smeg {
 			void Clear();
 
 			void SwapBuffer(SDL_Window* window);
-			void DrawTexture(const Texture& texture, const unsigned int indiceCount, const GLuint program, const GLuint VBO, const GLuint VAO, const GLuint EBO,
+			void DrawTexture(const Texture& texture, const u32 indiceCount, const GLuint program, const GLuint VBO, const GLuint VAO, const GLuint EBO,
 							 const Matrix4& model, const Matrix4& view, const Matrix4& perspective);
 			
 			Texture GenerateTexture(const SDL_Surface* surface);
 			void DeleteTexture(Texture& texture);
 
-			unsigned int GenerateVertexBufferObject(const std::vector<GLfloat>& vertices);
+			u32 GenerateVertexBufferObject(const std::vector<GLfloat>& vertices);
 			void BindVertexBufferObject(const GLuint VBO, const std::vector<GLfloat>& vertices);
 
-			unsigned int GenerateVertexArrayObject(const GLuint VBO);
+			u32 GenerateVertexArrayObject(const GLuint VBO);
 			void BindVertexArrayObject(const GLuint VAO, const GLuint VBO);
 
-			unsigned int GenerateElementBufferObject(const std::vector<GLushort>& indices);
+			u32 GenerateElementBufferObject(const std::vector<GLushort>& indices);
 			void BindElementBufferObject(const GLuint EBO, const std::vector<GLushort>& indices);
 
 
-			unsigned int GenerateShaderProgram(const char* vertexShaderSource, const char* fragmentShaderSource);
+			u32 GenerateShaderProgram(const char* vertexShaderSource, const char* fragmentShaderSource);
 
 			void CheckErrors();
 			GLint GetUniformLocation(const GLuint program, const char* name);

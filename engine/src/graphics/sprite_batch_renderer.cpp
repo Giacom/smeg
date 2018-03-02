@@ -9,7 +9,7 @@ namespace smeg {
 	}
 
 	void SpriteBatchRenderer::Batch(const Texture& texture, const Vector2& size, const Vector3& position,
-	                                const unsigned int indiceCount, const unsigned int shaderProgram, const unsigned int vbo, const unsigned int vao, const unsigned int ebo) {
+	                                const u32 indiceCount, const u32 shaderProgram, const u32 vbo, const u32 vao, const u32 ebo) {
 		SpriteBatch spriteBatch = { texture, size, position, indiceCount, shaderProgram, vbo, vao, ebo };
 
 		if (spriteBatch.texture.flags & TEXTURE_FLAG_TRANSPARENT) {

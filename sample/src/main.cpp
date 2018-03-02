@@ -17,7 +17,7 @@
 
 using namespace smeg;
 
-int main(int, char**) {
+i32 main(i32, char**) {
 	App app;
 	app.Init("SMEG Sample", 800, 600);
 
@@ -64,7 +64,7 @@ int main(int, char**) {
 	// Ducks
 	
 	/*
-	for (int i = 8; i >= 0; i--) {
+	for (i32 i = 8; i >= 0; i--) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
 		std::unique_ptr<Component> transform = std::make_unique<Transform>(i * 100 + i, (i * 16) + i, i, 0);
 		std::unique_ptr<Component> sprite = std::make_unique<Sprite>(i % 4 == 0 ? "res/duck.png" : "res/duck_opaque.jpg", Rect(), Vector2(200, 200));
@@ -77,7 +77,7 @@ int main(int, char**) {
 	}
 	*/
 
-	for (int i = 32; i >= 0; i--) {
+	for (i32 i = 32; i >= 0; i--) {
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
 		std::unique_ptr<Component> transform = std::make_unique<Transform>(i * 30 + i, 0, i, 0);
 

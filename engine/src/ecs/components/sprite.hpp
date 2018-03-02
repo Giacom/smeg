@@ -15,13 +15,13 @@ namespace smeg {
 			bool isDirty = true;
 
 		public:
-			unsigned int vbo = 0;
-			unsigned int vao = 0;
-			unsigned int ebo = 0;
+			u32 vbo = 0;
+			u32 vao = 0;
+			u32 ebo = 0;
 
 			Vector2 size;
 			
-			std::vector<float> vertices;
+			std::vector<f32> vertices;
 
 			const std::vector<unsigned short> indices = {
 				0, 1, 2,

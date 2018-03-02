@@ -11,11 +11,11 @@ namespace smeg {
 		Vector2 size;
 		Vector3 position;
 
-		unsigned int indiceCount;
+		u32 indiceCount;
 
-		unsigned int shaderProgram;
-		unsigned int vbo;
-		unsigned int vao;
-		unsigned int ebo;
+		u32 shaderProgram;
+		u32 vbo;
+		u32 vao;
+		u32 ebo;
 	};
 }

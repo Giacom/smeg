@@ -17,7 +17,7 @@ namespace smeg {
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
 		{
-			int value = 0;
+			i32 value = 0;
 			SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &value);
 			SDL_Log("SDL_GL_CONTEXT_MAJOR_VERSION: %d\n", value);
 
@@ -61,7 +61,7 @@ namespace smeg {
         SDL_GL_SwapWindow(window);
     }
 
-	void OpenGLRenderer::DrawTexture(const Texture& texture, const unsigned int indiceCount, const GLuint program, const GLuint vbo, const GLuint vao, const GLuint ebo,
+	void OpenGLRenderer::DrawTexture(const Texture& texture, const u32 indiceCount, const GLuint program, const GLuint vbo, const GLuint vao, const GLuint ebo,
 	                                 const Matrix4& model, const Matrix4& view, const Matrix4& perspective) {
 		if (!texture.id) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "DrawTexture: Invalid texture id (NULL)");
@@ -142,7 +142,7 @@ namespace smeg {
         glDeleteTextures(1, &texture.id);
     }
 
-	unsigned int OpenGLRenderer::GenerateVertexBufferObject(const std::vector<GLfloat>& vertices) {
+	u32 OpenGLRenderer::GenerateVertexBufferObject(const std::vector<GLfloat>& vertices) {
 		GLuint VBO;
 		glGenBuffers(1, &VBO);
 		BindVertexBufferObject(VBO, vertices);
@@ -158,7 +158,7 @@ namespace smeg {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	unsigned int OpenGLRenderer::GenerateVertexArrayObject(const GLuint VBO) {
+	u32 OpenGLRenderer::GenerateVertexArrayObject(const GLuint VBO) {
 		GLuint VAO;
 		glGenVertexArrays(1, &VAO);
 
@@ -193,7 +193,7 @@ namespace smeg {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	unsigned int OpenGLRenderer::GenerateElementBufferObject(const std::vector<GLushort>& indices) {
+	u32 OpenGLRenderer::GenerateElementBufferObject(const std::vector<GLushort>& indices) {
 		GLuint EBO;
 		glGenBuffers(1, &EBO);
 		BindElementBufferObject(EBO, indices);
@@ -209,9 +209,9 @@ namespace smeg {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 	
-	unsigned int OpenGLRenderer::GenerateShaderProgram(const char* vertexShaderSource, const char* fragmentShaderSource) {
+	u32 OpenGLRenderer::GenerateShaderProgram(const char* vertexShaderSource, const char* fragmentShaderSource) {
 		GLint success;
-		const unsigned int logBufferSize = 512;
+		const u32 logBufferSize = 512;
 		GLchar logBuffer[logBufferSize];
 
 		// Vertex

@@ -12,7 +12,7 @@ namespace smeg {
 			return Rect();
 		}
 
-		static Rect New(float x, float y, float width, float height) {
+		static Rect New(f32 x, f32 y, f32 width, f32 height) {
 			return Rect { Vector2 { x, y }, Vector2 { width, height} };
 		}
 
@@ -21,7 +21,7 @@ namespace smeg {
 		}
 
 		/// Give two coordinates and it will calculate the width and height of the Rect
-		static Rect PointToPoint(float x0, float y0, float x1, float y1) {
+		static Rect PointToPoint(f32 x0, f32 y0, f32 x1, f32 y1) {
 			return Rect { Vector2 { x0, y0 }, Vector2 { x1 - x0, y1 - y0 } };
 		}
 

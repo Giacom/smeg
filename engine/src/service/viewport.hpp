@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common.hpp"
+
 #include "service.hpp"
 #include "math/matrix4.hpp"
 #include "math/vector2.hpp"
@@ -14,8 +16,8 @@ namespace smeg {
 			Matrix4 perspectiveMatrix;
 
 		public:
-			Viewport(int width, int height);
-			void UpdateViewport(int width, int height);
+			Viewport(i32 width, i32 height);
+			void UpdateViewport(i32 width, i32 height);
 			const Matrix4& GetPerspectiveMatrix();
 	};
 }

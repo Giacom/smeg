@@ -14,7 +14,7 @@ namespace smeg {
 
 	const std::string FontLibrary::fontPrefix = std::string("font::");
 
-	Font& FontLibrary::LoadFont(OpenGLRenderer& renderer, const std::string& path, float pixelSize) {
+	Font& FontLibrary::LoadFont(OpenGLRenderer& renderer, const std::string& path, f32 pixelSize) {
 		std::string key = fontPrefix + path + "::" + std::to_string(pixelSize);
 		auto existingFont = fontMap.find(key);
 		if (existingFont != fontMap.end()) {
@@ -32,7 +32,7 @@ namespace smeg {
 		return fontMap.count(key) > 0;
 	}
 
-	void FontLibrary::Cache(OpenGLRenderer& renderer, const std::string& key, const std::string& path, float pixelSize) {
+	void FontLibrary::Cache(OpenGLRenderer& renderer, const std::string& key, const std::string& path, f32 pixelSize) {
 		FileData fileData = File::Load(path.c_str());
 
 		const int startCharacter = 32; // Space 

@@ -16,6 +16,6 @@ namespace smeg {
 	struct Font {
 		std::string textureFontId;
 		std::unordered_map<char, Character> characters;
-		float pixelSize;
+		f32 pixelSize;
 	};
 }

@@ -18,7 +18,7 @@ namespace smeg {
 		public:
 			App() = default;
 			~App();
-			void Init(const char* title = "SMEG", int windowWidth = 512, int windowHeight = 512);
+			void Init(const char* title = "SMEG", i32 windowWidth = 512, i32 windowHeight = 512);
 			void Start();
 			Screen& CreateScreen();
 

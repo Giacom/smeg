@@ -18,7 +18,7 @@ namespace smeg {
 		SDL_DestroyWindow(window);
 	}
 
-	void App::Init(const char* title, int windowWidth, int windowHeight) {
+	void App::Init(const char* title, i32 windowWidth, i32 windowHeight) {
 		SDL_Log("Initialising App");
 		if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Error initialising SDL: %s", SDL_GetError());
@@ -55,22 +55,22 @@ namespace smeg {
 			screen->Initialise();
 		}
 
-		double startTime = (double)SDL_GetTicks();
+		f64 startTime = (f64)SDL_GetTicks();
 		time.lastFrame = startTime - (1.0 / time.targetFrameRate);
 
 		u64 msInterval = 1000 / time.targetFrameRate;
 
-		double fps_frames[60];
+		f64 fps_frames[60];
 		u64 fps_frames_size = sizeof(fps_frames) / sizeof(fps_frames[0]);
 		i64 fps_index = 0;
 
 		{
-			double average_fps = 0;
+			f64 average_fps = 0;
 			for (size_t i = 0; i < fps_frames_size; i++) {
-				fps_frames[i] = (double)time.targetFrameRate;
+				fps_frames[i] = (f64)time.targetFrameRate;
 				average_fps += fps_frames[i];
 			}
-			time.fps = average_fps / (double)fps_frames_size;
+			time.fps = average_fps / (f64)fps_frames_size;
 			//SDL_Log("average: %f", time.fps);
 		}
 
@@ -80,9 +80,9 @@ namespace smeg {
 
 			// Input
 			time.ticks++;
-			time.current = (double)SDL_GetTicks();
+			time.current = (f64)SDL_GetTicks();
 
-			double msDeltaTme = time.current - time.lastFrame;
+			f64 msDeltaTme = time.current - time.lastFrame;
 			time.delta = msDeltaTme * Time::MS_TO_SEC;
 			time.lastFrame = time.current;
 
@@ -90,11 +90,11 @@ namespace smeg {
 				fps_frames[fps_index++ % 60] = 1.0 / time.delta;
 			}
 
-			double average_fps = 0;
+			f64 average_fps = 0;
 			for (size_t i = 0; i < fps_frames_size; i++) {
 				average_fps += fps_frames[i];
 			}
-			time.fps = average_fps / (double)fps_frames_size;
+			time.fps = average_fps / (f64)fps_frames_size;
 
 			quit = ProcessEvents();
 			Update();
@@ -122,8 +122,8 @@ namespace smeg {
 					return true;
 				case SDL_WINDOWEVENT:
 					if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
-						int x = event.window.data1;
-						int y = event.window.data2;
+						i32 x = event.window.data1;
+						i32 y = event.window.data2;
 						renderer.SetViewport(x, y);
 						serviceContainer.Get<Viewport>().UpdateViewport(x, y);
 					}

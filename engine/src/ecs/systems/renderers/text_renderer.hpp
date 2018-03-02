@@ -9,11 +9,11 @@
 namespace smeg {
 
 	struct TextRenderer: public System {
-		unsigned int vbo;
-		unsigned int vao;
-		unsigned int ebo;
+		u32 vbo;
+		u32 vao;
+		u32 ebo;
 
-		unsigned int shaderProgram;
+		u32 shaderProgram;
 
 		std::string vertexShaderFilePath;
 		std::string fragmentShaderFilePath;
