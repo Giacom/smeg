@@ -12,7 +12,7 @@ namespace smeg {
 	                                const unsigned int indiceCount, const unsigned int shaderProgram, const unsigned int vbo, const unsigned int vao, const unsigned int ebo) {
 		SpriteBatch spriteBatch = { texture, size, position, indiceCount, shaderProgram, vbo, vao, ebo };
 
-		if (spriteBatch.texture.transparent) {
+		if (spriteBatch.texture.flags & TEXTURE_FLAG_TRANSPARENT) {
 			// Sort the order if the texture is transparent
 			transparentBatches.push_back(spriteBatch);
 			

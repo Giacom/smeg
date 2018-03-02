@@ -1,6 +1,7 @@
 #include "fps_display.hpp"
 
 #include <sstream>
+#include <iomanip>
 
 #include "service/time.hpp"
 #include "ecs/components/debug/fps.hpp"
@@ -17,7 +18,10 @@ namespace smeg {
 		Time &time = serviceContainer->Get<Time>();
 		Text &text = entity.GetComponent<Text>();
 		std::stringstream label;
-		label << "FPS: " << time.fps << " - Delta: " << time.delta << " - Ticks: " << time.ticks;
+
+		label << "FPS: " << std::fixed << std::setprecision(3) << time.fps
+			  << " - Delta: " << std::fixed << std::setprecision(3) << time.delta
+			  << " - Ticks: " << time.ticks;
 
 		text.SetText(label.str());
 	}

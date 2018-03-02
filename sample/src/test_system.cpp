@@ -33,15 +33,15 @@ void TestSystem::Process(smeg::Entity &entity) {
 	smeg::Sprite &sprite = entity.GetComponent<smeg::Sprite>();
 	TestComponent& testComponent = entity.GetComponent<TestComponent>();
 
-	transform.position.x += time.delta * 100.0f;
+	transform.position.x += (float)time.delta * 100.0f;
 
 	transform.position.x = (fmod(transform.position.x * 2, 1024) - transform.position.x); 
-	transform.position.y = (sin(transform.position.x * 0.01f + (float)(time.ticks) * 0.01f) * 50);
+	transform.position.y = (sin(transform.position.x * 0.01f + (float)(time.current) * 0.001f) * 50);
 	transform.position.z = transform.position.x;
 
-	float size = (4.0f + sin((float)time.ticks * 0.01f)) * 16.0f;
+	float size = (4.0f + sin((float)time.current * 0.001f)) * 16.0f;
 
-	if (time.ticks % 100 == 0) {	
+	if (time.ticks == 250) {	
 		testComponent.duckShown = (testComponent.duckShown + 1) % 3;
 
 		switch (testComponent.duckShown) {

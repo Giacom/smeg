@@ -2,6 +2,7 @@
 #include <typeindex>
 #include <algorithm>
 
+#include "common.hpp"
 #include "screen.hpp"
 #include "ecs/system.hpp"
 #include "ecs/entity.hpp"
@@ -40,7 +41,7 @@ namespace smeg {
 
 		for (auto &system : systems) {
 
-			int requiredComponents = system->types.size();
+			i64 requiredComponents = system->types.size();
 
 			int matchingComponents = 0;
 

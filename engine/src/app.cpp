@@ -3,6 +3,7 @@
 #include <memory>
 #include <algorithm>
 
+#include "common.hpp"
 #include "app.hpp"
 #include "screen.hpp"
 #include "service/texture_library.hpp"
@@ -54,12 +55,24 @@ namespace smeg {
 			screen->Initialise();
 		}
 
-		auto startTime = SDL_GetTicks();
-		time.lastFrame = startTime;
+		double startTime = (double)SDL_GetTicks();
+		time.lastFrame = startTime - (1.0 / time.targetFrameRate);
 
-		auto interval = 1000 / time.targetFrameRate;
-		auto calculatedFps = 0;
-		auto lastSecond = startTime;
+		u64 msInterval = 1000 / time.targetFrameRate;
+
+		double fps_frames[60];
+		u64 fps_frames_size = sizeof(fps_frames) / sizeof(fps_frames[0]);
+		i64 fps_index = 0;
+
+		{
+			double average_fps = 0;
+			for (size_t i = 0; i < fps_frames_size; i++) {
+				fps_frames[i] = (double)time.targetFrameRate;
+				average_fps += fps_frames[i];
+			}
+			time.fps = average_fps / (double)fps_frames_size;
+			//SDL_Log("average: %f", time.fps);
+		}
 
 		SDL_Log("Starting app loop.");
 
@@ -67,24 +80,21 @@ namespace smeg {
 
 			// Input
 			time.ticks++;
-			time.current = SDL_GetTicks();
+			time.current = (double)SDL_GetTicks();
 
-			auto dt = time.current - time.lastFrame;
-			time.delta = (double)dt * Time::MS_TO_SEC;
-
-			if (dt < interval) {
-				SDL_Delay(interval - dt);
-				continue;
-			}
-			
+			double msDeltaTme = time.current - time.lastFrame;
+			time.delta = msDeltaTme * Time::MS_TO_SEC;
 			time.lastFrame = time.current;
-			calculatedFps += 1;
 
-			if (time.current - lastSecond > 1000) {
-				time.fps = calculatedFps;
-				lastSecond = time.current;
-				calculatedFps = 0;
+			if (time.delta > 0) {
+				fps_frames[fps_index++ % 60] = 1.0 / time.delta;
 			}
+
+			double average_fps = 0;
+			for (size_t i = 0; i < fps_frames_size; i++) {
+				average_fps += fps_frames[i];
+			}
+			time.fps = average_fps / (double)fps_frames_size;
 
 			quit = ProcessEvents();
 			Update();

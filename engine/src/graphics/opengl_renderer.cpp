@@ -132,9 +132,9 @@ namespace smeg {
 
 		texture.width = image->w;
 		texture.height = image->h;
-		texture.transparent = transparent; // Is transparent if there is alpha information
+		texture.flags |= (transparent ? TEXTURE_FLAG_TRANSPARENT : TEXTURE_FLAG_NONE); // Is transparent if there is alpha information
 		SDL_Log("Generating texture: [id: %u, w: %u, h: %u, transparent: %s]",
-		        texture.id, texture.width, texture.height, texture.transparent ? "true" : "false");
+		        texture.id, texture.width, texture.height, (texture.flags & TEXTURE_FLAG_TRANSPARENT) ? "true" : "false");
         return texture;
     }
     
