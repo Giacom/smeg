@@ -1,7 +1,5 @@
 #pragma once
 
-#include "graphics/sprite_batch_renderer.hpp"
-
 #include <string>
 
 #include "graphics/opengl_renderer.hpp"
@@ -21,13 +19,13 @@ namespace smeg {
 
 			SpriteRenderer(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
 
-			void Initialise(OpenGLRenderer &renderer);
-			void Register(OpenGLRenderer &renderer, Entity &entity);
-			void Deregister(OpenGLRenderer &renderer, Entity &entity);
+			void Initialise();
+			void Register(Entity &entity);
+			void Deregister(Entity &entity);
 			void Process(Entity &entity);
-			void Render(OpenGLRenderer& renderer, SpriteBatchRenderer& batcher, Entity &entity);
+			void Render(Entity &entity);
 
 		private:
-			void UpdateRenderData(OpenGLRenderer &renderer, Sprite& sprite);
+			void UpdateRenderData(Sprite& sprite);
 	};
 }

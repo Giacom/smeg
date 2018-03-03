@@ -6,20 +6,19 @@
 
 #include "ecs/system.hpp"
 #include "ecs/entity.hpp"
+#include "graphics/render_pipeline.hpp"
 #include "service/service_container.hpp"
 
 namespace smeg {
 	class Screen {
 		public:
-			Screen(ServiceContainer* serviceContainer, OpenGLRenderer* renderer) : serviceContainer(serviceContainer), renderer(renderer) {}
+			Screen(ServiceContainer* serviceContainer, RenderPipeline* pipeline) : serviceContainer(serviceContainer), pipeline(pipeline) {}
 
 			std::vector<std::unique_ptr<System>> systems;
 			std::vector<std::unique_ptr<Entity>> entities;
 
 			ServiceContainer* serviceContainer;
-			OpenGLRenderer* renderer;
-
-			SpriteBatchRenderer batcher;
+			RenderPipeline* pipeline;
 
 			void Initialise();
 			void Update();

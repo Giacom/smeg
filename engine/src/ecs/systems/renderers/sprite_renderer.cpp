@@ -7,7 +7,6 @@
 #include "ecs/entity.hpp"
 #include "ecs/components/sprite.hpp"
 #include "ecs/components/transform.hpp"
-#include "service/texture_library.hpp"
 #include "service/time.hpp"
 #include "service/viewport.hpp"
 #include "io/file.hpp"
@@ -21,23 +20,24 @@ namespace smeg {
 		executionOrder = System::LATE;
 	}
 
-    void SpriteRenderer::Initialise(OpenGLRenderer &renderer) {
+    void SpriteRenderer::Initialise() {
 		std::string vertexShaderSource = File::LoadText(vertexShaderFilePath.c_str());
 		std::string fragmentShaderSource = File::LoadText(fragmentShaderFilePath.c_str());
 
-		shaderProgram = renderer.GenerateShaderProgram(vertexShaderSource.c_str(), fragmentShaderSource.c_str());
+		//shaderProgram = renderer.GenerateShaderProgram(vertexShaderSource.c_str(), fragmentShaderSource.c_str());
     }
 
-	void SpriteRenderer::Register(OpenGLRenderer &renderer, Entity &entity) {
+	void SpriteRenderer::Register(Entity &entity) {
 		Sprite& sprite = entity.GetComponent<Sprite>();
-		UpdateRenderData(renderer, sprite);
+		UpdateRenderData(sprite);
 	}	
 	
-	void SpriteRenderer::Deregister(OpenGLRenderer &renderer, Entity &entity) {}
+	void SpriteRenderer::Deregister(Entity &entity) {}
 
 	void SpriteRenderer::Process(Entity &entity) {	}
 
-	void SpriteRenderer::Render(OpenGLRenderer& renderer, SpriteBatchRenderer &batcher, Entity &entity) {
+	void SpriteRenderer::Render(Entity &entity) {
+		/*
 		Sprite& sprite = entity.GetComponent<Sprite>();
 		Transform& transform = entity.GetComponent<Transform>();
 		TextureLibrary& textureLibrary = serviceContainer->Get<TextureLibrary>();
@@ -46,12 +46,14 @@ namespace smeg {
 
 		auto texture = textureLibrary.LoadFile(renderer, sprite.GetTexturePath());
 		batcher.Batch(texture, sprite.size, transform.position, sprite.indices.size(), shaderProgram, sprite.vbo, sprite.vao, sprite.ebo);
+		*/
 	}
 
-	void SpriteRenderer::UpdateRenderData(OpenGLRenderer &renderer, Sprite &sprite) {
+	void SpriteRenderer::UpdateRenderData(Sprite &sprite) {
 		if (!sprite.IsDirty()) {
 			return;
 		}
+		/*
 
 		TextureLibrary& textureLibrary = serviceContainer->Get<TextureLibrary>();
 		
@@ -89,5 +91,6 @@ namespace smeg {
 		if (!sprite.ebo) {
 			sprite.ebo = renderer.GenerateElementBufferObject(sprite.indices);
 		}
+		*/
 	}
 }

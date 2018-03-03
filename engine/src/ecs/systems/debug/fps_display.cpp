@@ -27,8 +27,8 @@ namespace smeg {
 	}
 
 
-	void FpsDisplay::Initialise(OpenGLRenderer &renderer) {}
-	void FpsDisplay::Register(OpenGLRenderer &renderer, Entity &entity) {}
-	void FpsDisplay::Deregister(OpenGLRenderer &renderer, Entity &entity) {}
-	void FpsDisplay::Render(OpenGLRenderer& renderer, SpriteBatchRenderer& batcher, Entity &entity) {}
+	void FpsDisplay::Initialise() {}
+	void FpsDisplay::Register(Entity &entity) {}
+	void FpsDisplay::Deregister(Entity &entity) {}
+	void FpsDisplay::Render(Entity &entity) {}
 }

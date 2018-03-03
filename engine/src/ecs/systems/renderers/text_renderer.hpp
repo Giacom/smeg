@@ -19,12 +19,12 @@ namespace smeg {
 		std::string fragmentShaderFilePath;
 
 		TextRenderer(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
-		void Initialise(OpenGLRenderer &renderer);
-		void Register(OpenGLRenderer &renderer, Entity &entity);
-		void Deregister(OpenGLRenderer &renderer, Entity &entity);
+		void Initialise();
+		void Register(Entity &entity);
+		void Deregister(Entity &entity);
 		void Process(Entity &entity);
-		void Render(OpenGLRenderer& renderer, SpriteBatchRenderer& batcher, Entity &entity);
+		void Render(Entity &entity);
 
-		void UpdateTextMesh(OpenGLRenderer& renderer, Text &text);
+		void UpdateTextMesh(Text &text);
 	};
 }

@@ -2,16 +2,21 @@
 
 #include "common.hpp"
 
-const u32 TEXTURE_FLAG_NONE = 0;
-const u32 TEXTURE_FLAG_TRANSPARENT = 1 << 0;
-const u32 TEXTURE_FLAG_UNUSED = 1 << 1;
-
 namespace smeg {
+
+	using TextureFlags = u32;
+	namespace TextureFlag {
+		enum {
+			None = 0,
+			Transparent = 1 << 0,
+			Unused = 1 << 1
+		};
+	}
 
 	struct Texture {
 		u32 id;
 		u32 width;
 		u32 height;
-		u32 flags;
+		TextureFlags flags;
 	};
 }

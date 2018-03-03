@@ -8,7 +8,7 @@
 
 #include "entity.hpp"
 #include "service/service_container.hpp"
-#include "graphics/sprite_batch_renderer.hpp"
+#include "graphics/render_pipeline.hpp"
 
 namespace smeg {
 
@@ -20,14 +20,16 @@ namespace smeg {
 
 		std::vector<std::type_index> types;
 		ServiceContainer* serviceContainer;
+		RenderPipeline* pipeline;
+
 		int executionOrder = NORMAL;
 
-        virtual void Initialise(OpenGLRenderer& renderer) = 0;
+        virtual void Initialise() = 0;
 		
-		virtual void Register(OpenGLRenderer& renderer, Entity &entity) = 0;
-		virtual void Deregister(OpenGLRenderer& renderer, Entity &entity) = 0;
+		virtual void Register(Entity &entity) = 0;
+		virtual void Deregister(Entity &entity) = 0;
 
 		virtual void Process(Entity &entity) = 0;
-		virtual void Render(OpenGLRenderer& renderer, SpriteBatchRenderer& batcher, Entity &entity) = 0;
+		virtual void Render(Entity &entity) = 0;
 	};
 }

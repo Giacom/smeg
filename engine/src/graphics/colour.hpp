@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common.hpp"
+
 namespace smeg {
 	struct Colour {
 		f32 r = 1;

@@ -4,8 +4,6 @@
 #include "text_renderer.hpp"
 #include "math/rect.hpp"
 #include "ecs/components/transform.hpp"
-#include "service/texture_library.hpp"
-#include "service/font_library.hpp"
 #include "io/file.hpp"
 
 namespace smeg {
@@ -17,23 +15,24 @@ namespace smeg {
 		executionOrder = System::LATE;
 	}
 
-    void TextRenderer::Initialise(OpenGLRenderer &renderer) {
+    void TextRenderer::Initialise() {
 		std::string vertexShaderSource = File::LoadText(vertexShaderFilePath.c_str());
 		std::string fragmentShaderSource = File::LoadText(fragmentShaderFilePath.c_str());
 
-		shaderProgram = renderer.GenerateShaderProgram(vertexShaderSource.c_str(), fragmentShaderSource.c_str());
+		//shaderProgram = renderer.GenerateShaderProgram(vertexShaderSource.c_str(), fragmentShaderSource.c_str());
 	}
 
-	void TextRenderer::Register(OpenGLRenderer &renderer, Entity &entity) {
+	void TextRenderer::Register(Entity &entity) {
 		Text& text = entity.GetComponent<Text>();
-		UpdateTextMesh(renderer, text);
+		//UpdateTextMesh(renderer, text);
 	}	
 	
-	void TextRenderer::Deregister(OpenGLRenderer &renderer, Entity &entity) {}
+	void TextRenderer::Deregister(Entity &entity) {}
 
 	void TextRenderer::Process(Entity &entity) {}
 
-	void TextRenderer::Render(OpenGLRenderer& renderer, SpriteBatchRenderer &batcher, Entity &entity) {
+	void TextRenderer::Render(Entity &entity) {
+		/*
 		Text& text = entity.GetComponent<Text>();
 		Transform& transform = entity.GetComponent<Transform>();
 
@@ -49,9 +48,11 @@ namespace smeg {
 		auto& texture = textureLibrary.LoadFile(renderer, font.textureFontId);
 
 		batcher.Batch(texture, text.size, transform.position, text.indices.size(), shaderProgram, text.vbo, text.vao, text.ebo);
+		*/
 	}
 
-	void TextRenderer::UpdateTextMesh(OpenGLRenderer& renderer, Text &text) {
+	void TextRenderer::UpdateTextMesh(Text &text) {
+		/*
 		std::vector<f32> vertices;
 		std::vector<unsigned short> indices;
 
@@ -95,13 +96,16 @@ namespace smeg {
 			f32 normalisedOffsetTop = y + -character.offset.y;
 			f32 normalisedOffsetBottom = y + -character.offset.y + -character.boundingBox.size.y;
 
+			*/
+
 			// Top left
-			vertices.insert(vertices.end(), { normalisedAdvanceLeft, normalisedOffsetTop, 1.0f, /* */ 1.0f, 1.0f, 1.0f, /* */ topLeft.x, topLeft.y });
-			vertices.insert(vertices.end(), { normalisedAdvanceLeft, normalisedOffsetBottom, 1.0f, /* */ 1.0f, 1.0f, 1.0f, /* */ bottomLeft.x, bottomLeft.y });
+			//vertices.insert(vertices.end(), { normalisedAdvanceLeft, normalisedOffsetTop, 1.0f, /* */ 1.0f, 1.0f, 1.0f, /* */ topLeft.x, topLeft.y });
+			//vertices.insert(vertices.end(), { normalisedAdvanceLeft, normalisedOffsetBottom, 1.0f, /* */ 1.0f, 1.0f, 1.0f, /* */ bottomLeft.x, bottomLeft.y });
 
-			vertices.insert(vertices.end(), { normalisedAdvanceRight, normalisedOffsetBottom, 1.0f, /* */ 1.0f, 1.0f, 1.0f, /* */ bottomRight.x, bottomRight.y });
-			vertices.insert(vertices.end(), { normalisedAdvanceRight, normalisedOffsetTop, 1.0f, /* */ 1.0f, 1.0f, 1.0f, /* */ topRight.x, topRight.y });
+			//vertices.insert(vertices.end(), { normalisedAdvanceRight, normalisedOffsetBottom, 1.0f, /* */ 1.0f, 1.0f, 1.0f, /* */ bottomRight.x, bottomRight.y });
+			//vertices.insert(vertices.end(), { normalisedAdvanceRight, normalisedOffsetTop, 1.0f, /* */ 1.0f, 1.0f, 1.0f, /* */ topRight.x, topRight.y });
 
+		/*
 			x += character.advance;
 		}
 
@@ -123,5 +127,6 @@ namespace smeg {
 		} else {
 			renderer.BindElementBufferObject(text.ebo, text.indices);
 		}
+		*/
 	}
 }

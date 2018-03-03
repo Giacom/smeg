@@ -6,8 +6,6 @@
 #include "common.hpp"
 #include "app.hpp"
 #include "screen.hpp"
-#include "service/texture_library.hpp"
-#include "service/font_library.hpp"
 #include "service/time.hpp"
 #include "service/viewport.hpp"
 
@@ -34,11 +32,11 @@ namespace smeg {
 		std::unique_ptr<Service> time = std::make_unique<Time>();
 		serviceContainer.Provide<Time>(time);
 
-		std::unique_ptr<Service> textureLibrary = std::make_unique<TextureLibrary>();
-		serviceContainer.Provide<TextureLibrary>(textureLibrary);
+		//std::unique_ptr<Service> textureLibrary = std::make_unique<TextureLibrary>();
+		//serviceContainer.Provide<TextureLibrary>(textureLibrary);
 
-		std::unique_ptr<Service> fontLibrary = std::make_unique<FontLibrary>();
-		serviceContainer.Provide<FontLibrary>(fontLibrary);
+		//std::unique_ptr<Service> fontLibrary = std::make_unique<FontLibrary>();
+		//serviceContainer.Provide<FontLibrary>(fontLibrary);
 
 		std::unique_ptr<Service> viewport = std::make_unique<Viewport>(windowWidth, windowHeight);
 		serviceContainer.Provide<Viewport>(viewport);        
@@ -61,8 +59,8 @@ namespace smeg {
 		u64 msInterval = 1000 / time.targetFrameRate;
 
 		f64 fps_frames[60];
-		u64 fps_frames_size = sizeof(fps_frames) / sizeof(fps_frames[0]);
-		i64 fps_index = 0;
+		isize fps_frames_size = sizeof(fps_frames) / sizeof(fps_frames[0]);
+		isize fps_index = 0;
 
 		{
 			f64 average_fps = 0;
@@ -105,7 +103,7 @@ namespace smeg {
 	}
 
 	Screen& App::CreateScreen() {
-		screens.emplace_back(std::make_unique<Screen>(&serviceContainer, &renderer));
+		screens.emplace_back(std::make_unique<Screen>(&serviceContainer, &pipeline));
 		return *(screens.at(screens.size() - 1).get());
 	}
 

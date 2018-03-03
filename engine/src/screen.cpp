@@ -13,6 +13,7 @@ namespace smeg {
 
 	void Screen::AddSystem(std::unique_ptr<System> &system) {
 		system->serviceContainer = serviceContainer;
+		system->pipeline = pipeline;
 
 		int requiredComponents = system->types.size();
 
@@ -27,7 +28,7 @@ namespace smeg {
 				}
 
 				if (matchingComponents >= requiredComponents) {
-					system->Register(*renderer, *entity);
+					system->Register(*entity);
 					break;
 				}
 			}
@@ -41,7 +42,7 @@ namespace smeg {
 
 		for (auto &system : systems) {
 
-			i64 requiredComponents = system->types.size();
+			isize requiredComponents = system->types.size();
 
 			int matchingComponents = 0;
 
@@ -52,7 +53,7 @@ namespace smeg {
 				}
 
 				if (matchingComponents >= requiredComponents) {
-					system->Register(*renderer, *entity);
+					system->Register(*entity);
 					break;
 				}
 			}
@@ -63,7 +64,7 @@ namespace smeg {
 
 	void Screen::Initialise() {
 		for (auto &system : systems) {
-			system->Initialise(*renderer);
+			system->Initialise();
 		}
 	}
 
@@ -92,7 +93,6 @@ namespace smeg {
 	}
 
 	void Screen::Render() {
-		batcher.Start();
 		for (auto &system :systems) {
 
 			int requiredComponents = system->types.size();
@@ -108,7 +108,7 @@ namespace smeg {
 					}
 
 					if (matchingComponents >= requiredComponents) {
-						system->Render(*renderer, batcher, *entity);
+						system->Render(*entity);
 						break;
 					}
 				}
@@ -117,7 +117,7 @@ namespace smeg {
 
 		Matrix4 view = Matrix4::Identity();	
 		Matrix4 perspective = serviceContainer->Get<Viewport>().GetPerspectiveMatrix();
-		batcher.Render(*renderer, view, perspective);
+		//batcher.Render(*renderer, view, perspective);
 	}
 
 	bool Screen::SortSystem(std::unique_ptr<System> &systemLeft, std::unique_ptr<System> &systemRight) {

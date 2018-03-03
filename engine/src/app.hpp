@@ -4,6 +4,8 @@
 #include <vector>
 
 #include "screen.hpp"
+#include "graphics/opengl_renderer.hpp"
+#include "graphics/render_pipeline.hpp"
 #include "service/service_container.hpp"
 
 namespace smeg {
@@ -14,6 +16,7 @@ namespace smeg {
 
 			ServiceContainer serviceContainer;
             OpenGLRenderer renderer;
+			RenderPipeline pipeline;
 
 		public:
 			App() = default;

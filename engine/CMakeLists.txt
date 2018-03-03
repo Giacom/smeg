@@ -8,7 +8,7 @@ set(BUILD_SHARED_LIBS false)
 
 # TODO: Replace with non-recursive
 file(GLOB_RECURSE SMEG_SOURCES "src/*.cpp")
-#file(GLOB_RECURSE SMEG_HEADERS "src/*.hpp")
+file(GLOB_RECURSE SMEG_HEADERS "src/*.hpp")
 add_library(SMEG ${SMEG_SOURCES} ${SMEG_HEADERS})
 
 if(NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")

@@ -15,15 +15,15 @@ TestSystem::TestSystem() {
 	types.push_back(std::type_index(typeid(smeg::Sprite)));
 }
 
-void TestSystem::Initialise(smeg::OpenGLRenderer&) {
+void TestSystem::Initialise() {
 	SDL_Log("Test system initialised");
 }
 
-void TestSystem::Register(smeg::OpenGLRenderer&, smeg::Entity& entity) {
+void TestSystem::Register(smeg::Entity& entity) {
 	SDL_Log("Test system registered for entity %p.", (void*) &entity);
 }
 
-void TestSystem::Deregister(smeg::OpenGLRenderer&, smeg::Entity& entity) {
+void TestSystem::Deregister(smeg::Entity& entity) {
 	SDL_Log("Test system deregistered for entity %p.", (void*) &entity);
 }
 
@@ -66,5 +66,5 @@ void TestSystem::Process(smeg::Entity &entity) {
 	sprite.size = smeg::Vector2::New(size, size);
 };
 
-void TestSystem::Render(smeg::OpenGLRenderer&, smeg::SpriteBatchRenderer&, smeg::Entity&) {
+void TestSystem::Render(smeg::Entity&) {
 }
