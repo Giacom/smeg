@@ -28,20 +28,15 @@ namespace smeg {
 		renderer.ClearColour(0.2058f, 0.3066f, 0.4877f);
 		renderer.SetViewport(windowWidth, windowHeight);
 
+
 		// Services
 		std::unique_ptr<Service> time = std::make_unique<Time>();
 		serviceContainer.Provide<Time>(time);
 
-		//std::unique_ptr<Service> textureLibrary = std::make_unique<TextureLibrary>();
-		//serviceContainer.Provide<TextureLibrary>(textureLibrary);
-
-		//std::unique_ptr<Service> fontLibrary = std::make_unique<FontLibrary>();
-		//serviceContainer.Provide<FontLibrary>(fontLibrary);
-
 		std::unique_ptr<Service> viewport = std::make_unique<Viewport>(windowWidth, windowHeight);
 		serviceContainer.Provide<Viewport>(viewport);        
 
-//		serviceContainer.Get<FontLibrary>().LoadFont(renderer, "res/arial.ttf", 32);
+		graphics.Initialise(&renderer, &serviceContainer.Get<Viewport>());
 	}
 
 	void App::Start() {
@@ -59,8 +54,8 @@ namespace smeg {
 		u64 msInterval = 1000 / time.targetFrameRate;
 
 		f64 fps_frames[60];
-		isize fps_frames_size = sizeof(fps_frames) / sizeof(fps_frames[0]);
-		isize fps_index = 0;
+		usize fps_frames_size = sizeof(fps_frames) / sizeof(fps_frames[0]);
+		usize fps_index = 0;
 
 		{
 			f64 average_fps = 0;
@@ -102,9 +97,10 @@ namespace smeg {
 		}
 	}
 
-	Screen& App::CreateScreen() {
-		screens.emplace_back(std::make_unique<Screen>(&serviceContainer, &pipeline));
-		return *(screens.at(screens.size() - 1).get());
+	void App::AddScreen(ScreenPtr& screen) {
+		screen->serviceContainer = &serviceContainer;
+		screen->graphics = &graphics;
+		screens.emplace_back(std::move(screen));
 	}
 
 	bool App::ProcessEvents() {
@@ -132,7 +128,7 @@ namespace smeg {
 	}
 
 	void App::Update() {
-		for(auto &screen : screens) {
+		for (auto &screen : screens) {
 			screen->Update();
 		}
 	}

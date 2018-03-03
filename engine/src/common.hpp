@@ -4,7 +4,7 @@
 
 // Explicit data types
 
-using isize = size_t;
+using usize = size_t;
 
 using u8 = uint8_t;
 using u16 = uint16_t;
@@ -21,3 +21,14 @@ using f64 = double;
 
 static_assert((sizeof(f32) * 8) == 32, "f32 is not of 32 bit width");
 static_assert((sizeof(f64) * 8) == 64, "f64 is not of 64 bit width");
+
+// Graphics Related
+
+using ProgramID = u32;
+using UniformID = i32;
+
+using VaoID = u32;
+using VboID = u32;
+using EboID = u32;
+
+#define ARRAY_LENGTH(x)  (sizeof(x) / sizeof((x)[0]))

@@ -5,25 +5,25 @@
 
 #include "screen.hpp"
 #include "graphics/opengl_renderer.hpp"
-#include "graphics/render_pipeline.hpp"
 #include "service/service_container.hpp"
 
 namespace smeg {
+	using ScreenPtr = std::unique_ptr<Screen>;
 	class App {
-		private:
-			SDL_Window* window;
-			std::vector<std::unique_ptr<Screen>> screens;
-
+		public:
 			ServiceContainer serviceContainer;
             OpenGLRenderer renderer;
-			RenderPipeline pipeline;
+
+		private:
+			SDL_Window* window;
+			Graphics graphics;
+			std::vector<ScreenPtr> screens;
 
 		public:
-			App() = default;
 			~App();
 			void Init(const char* title = "SMEG", i32 windowWidth = 512, i32 windowHeight = 512);
 			void Start();
-			Screen& CreateScreen();
+			void AddScreen(ScreenPtr& screen);
 
 		private:
 			bool ProcessEvents();

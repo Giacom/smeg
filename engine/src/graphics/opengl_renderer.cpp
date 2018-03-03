@@ -61,7 +61,7 @@ namespace smeg {
         SDL_GL_SwapWindow(window);
     }
 
-	void OpenGLRenderer::DrawTexture(const Texture& texture, const u32 indiceCount, const GLuint program, const GLuint vbo, const GLuint vao, const GLuint ebo,
+	void OpenGLRenderer::DrawTexture(const Texture& texture, const u32 indiceCount, const ProgramID program, const VboID vbo, const VaoID vao, const EboID ebo,
 	                                 const Matrix4& model, const Matrix4& view, const Matrix4& perspective) {
 		if (!texture.id) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "DrawTexture: Invalid texture id (NULL)");
@@ -74,8 +74,8 @@ namespace smeg {
 		glBindTexture(GL_TEXTURE_2D, texture.id);		
 
 		glUniform1i(GetUniformLocation(program, "ourTexture"), 0);
-		glUniformMatrix4fv(GetUniformLocation(program, "model"), 1, GL_FALSE, (GLfloat*)&model.entries); 
-		glUniformMatrix4fv(GetUniformLocation(program, "view"), 1, GL_FALSE, (GLfloat*)&view.entries); 
+		//glUniformMatrix4fv(GetUniformLocation(program, "model"), 1, GL_FALSE, (GLfloat*)&model.entries); 
+		//glUniformMatrix4fv(GetUniformLocation(program, "view"), 1, GL_FALSE, (GLfloat*)&view.entries); 
 		glUniformMatrix4fv(GetUniformLocation(program, "perspective"), 1, GL_FALSE, (GLfloat*)&perspective.entries); 
 
 		glBindVertexArray(vao);
@@ -143,23 +143,23 @@ namespace smeg {
         glDeleteTextures(1, &texture.id);
     }
 
-	u32 OpenGLRenderer::GenerateVertexBufferObject(const std::vector<GLfloat>& vertices) {
+	VboID OpenGLRenderer::GenerateVertexBufferObject(const GLfloat* vertices, const usize verticesLength) {
 		GLuint VBO;
 		glGenBuffers(1, &VBO);
-		BindVertexBufferObject(VBO, vertices);
+		BindVertexBufferObject(VBO, vertices, verticesLength);
 		SDL_Log("Generating vertex buffer: %u", VBO);
 		return VBO;
 	}
 
-	void OpenGLRenderer::BindVertexBufferObject(const GLuint VBO, const std::vector<GLfloat>& vertices) {
+	void OpenGLRenderer::BindVertexBufferObject(const VboID VBO, const GLfloat* vertices, const usize verticesLength) {
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		{
-			glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * verticesLength, vertices, GL_STREAM_DRAW);
 		}
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	u32 OpenGLRenderer::GenerateVertexArrayObject(const GLuint VBO) {
+	VboID OpenGLRenderer::GenerateVertexArrayObject(const VboID VBO) {
 		GLuint VAO;
 		glGenVertexArrays(1, &VAO);
 
@@ -169,7 +169,7 @@ namespace smeg {
 		return VAO;
 	}
 
-	void OpenGLRenderer::BindVertexArrayObject(const GLuint VAO, const GLuint VBO) {
+	void OpenGLRenderer::BindVertexArrayObject(const VaoID VAO, const VboID VBO) {
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		glBindVertexArray(VAO);
 		{
@@ -194,23 +194,23 @@ namespace smeg {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	u32 OpenGLRenderer::GenerateElementBufferObject(const std::vector<GLushort>& indices) {
+	EboID OpenGLRenderer::GenerateElementBufferObject(const GLushort* indices, const usize indicesLength) {
 		GLuint EBO;
 		glGenBuffers(1, &EBO);
-		BindElementBufferObject(EBO, indices);
+		BindElementBufferObject(EBO, indices, indicesLength);
 		SDL_Log("Generating element buffer: %u", EBO);
 		return EBO;
 	}
 
-	void OpenGLRenderer::BindElementBufferObject(const GLuint EBO, const std::vector<GLushort>& indices) {
+	void OpenGLRenderer::BindElementBufferObject(const EboID EBO, const GLushort* indices, usize indicesLength) {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 		{
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort) * indices.size(), indices.data(), GL_STATIC_DRAW);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort) * indicesLength, indices, GL_STREAM_DRAW);
 		}
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 	
-	u32 OpenGLRenderer::GenerateShaderProgram(const char* vertexShaderSource, const char* fragmentShaderSource) {
+	ProgramID OpenGLRenderer::GenerateShaderProgram(const char* vertexShaderSource, const char* fragmentShaderSource) {
 		GLint success;
 		const u32 logBufferSize = 512;
 		GLchar logBuffer[logBufferSize];
@@ -268,8 +268,8 @@ namespace smeg {
 		}
 	}
 
-	GLint OpenGLRenderer::GetUniformLocation(const GLuint program, const char* name) {
-		GLint location = glGetUniformLocation(program, name);
+	UniformID OpenGLRenderer::GetUniformLocation(const ProgramID program, const char* name) {
+		UniformID location = glGetUniformLocation(program, name);
 		if (location == -1) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Could not find shader's (%u) uniform location for: %s", program, name);
 			throw;

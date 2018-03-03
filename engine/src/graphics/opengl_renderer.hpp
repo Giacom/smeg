@@ -26,25 +26,25 @@ namespace smeg {
 			void Clear();
 
 			void SwapBuffer(SDL_Window* window);
-			void DrawTexture(const Texture& texture, const u32 indiceCount, const GLuint program, const GLuint VBO, const GLuint VAO, const GLuint EBO,
+			void DrawTexture(const Texture& texture, const u32 indiceCount, const ProgramID program, const VboID VBO, const VaoID VAO, const EboID EBO,
 							 const Matrix4& model, const Matrix4& view, const Matrix4& perspective);
 			
 			Texture GenerateTexture(const SDL_Surface* surface);
 			void DeleteTexture(Texture& texture);
 
-			u32 GenerateVertexBufferObject(const std::vector<GLfloat>& vertices);
-			void BindVertexBufferObject(const GLuint VBO, const std::vector<GLfloat>& vertices);
+			VboID GenerateVertexBufferObject(const GLfloat* vertices, const usize verticesLength);
+			void BindVertexBufferObject(const VboID VBO, const GLfloat* vertices, const usize verticesLength);
 
-			u32 GenerateVertexArrayObject(const GLuint VBO);
-			void BindVertexArrayObject(const GLuint VAO, const GLuint VBO);
+			VaoID GenerateVertexArrayObject(const VboID VBO);
+			void BindVertexArrayObject(const VaoID VAO, const VboID VBO);
 
-			u32 GenerateElementBufferObject(const std::vector<GLushort>& indices);
-			void BindElementBufferObject(const GLuint EBO, const std::vector<GLushort>& indices);
+			EboID GenerateElementBufferObject(const GLushort* indices, usize indicesLength);
+			void BindElementBufferObject(const EboID EBO, const GLushort* indices, usize indicesLength);
 
 
-			u32 GenerateShaderProgram(const char* vertexShaderSource, const char* fragmentShaderSource);
+			ProgramID GenerateShaderProgram(const char* vertexShaderSource, const char* fragmentShaderSource);
 
 			void CheckErrors();
-			GLint GetUniformLocation(const GLuint program, const char* name);
+			UniformID GetUniformLocation(const ProgramID program, const char* name);
 	};
 }

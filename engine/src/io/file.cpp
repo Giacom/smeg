@@ -17,7 +17,7 @@ namespace smeg {
 			throw;
 		}
 
-		isize res_size = SDL_RWsize(fileOp);
+		usize res_size = SDL_RWsize(fileOp);
 		if (res_size <= 0) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Loading file (%s) failed: Unable to get file size.", filePath);
 			throw;
@@ -25,7 +25,7 @@ namespace smeg {
 
 		std::unique_ptr<unsigned char[]> res = std::make_unique<unsigned char[]>(res_size);
 
-		isize nb_read_total = 0, nb_read = 1;
+		usize nb_read_total = 0, nb_read = 1;
 		unsigned char* buf = res.get();
 		while (nb_read_total < res_size && nb_read != 0) {
 			nb_read = SDL_RWread(fileOp, buf, 1, (res_size - nb_read_total));
@@ -54,7 +54,7 @@ namespace smeg {
 			throw;
 		}
 
-		isize res_size = SDL_RWsize(fileOp);
+		usize res_size = SDL_RWsize(fileOp);
 		if (res_size <= 0) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Loading text file (%s) failed: Unable to get file size.", filePath);
 			throw;
@@ -62,7 +62,7 @@ namespace smeg {
 
 		std::unique_ptr<char[]> res = std::make_unique<char[]>(res_size + 1);
 
-		isize nb_read_total = 0, nb_read = 1;
+		usize nb_read_total = 0, nb_read = 1;
 		char* buf = res.get();
 		while (nb_read_total < res_size && nb_read != 0) {
 			nb_read = SDL_RWread(fileOp, buf, 1, (res_size - nb_read_total));
